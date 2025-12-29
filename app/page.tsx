@@ -3,14 +3,14 @@
 import { Canvas } from "./Components/Canvas";
 import { Container } from "./Components/Container";
 import { SideBar } from "./Components/SideBar";
-import { TreeNode } from "./Components/TreeNode";
+import { FolderNode } from "./Components/FolderNode";
 
 const Home = () => {
   return (
     <>
       <Container>
         <SideBar>
-          <TreeNode label="Test" onClick={() => {}} />
+          <FolderNode label="Test" />
         </SideBar>
         <Canvas />
       </Container>
