@@ -1,0 +1,10 @@
+@import "@/app/Constants/colors.module";
+
+.sidebar {
+  background-color: $lighterBackground;
+  width: 250px;
+  height: 100%;
+  border: 2px solid $lighterTrim;
+  display: flex;
+  flex-direction: column;
+}

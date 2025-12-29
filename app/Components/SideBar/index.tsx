@@ -1,8 +1,5 @@
-/** @jsxImportSource @emotion/react */
+import styles from "./styles.module.scss";
 
-import { css } from "@emotion/react";
-import { SideBarStyling } from "./styles";
-
-export const SideBar = () => {
-  return <div css={css(SideBarStyling)}></div>;
+export const SideBar = ({ children }: { children?: React.ReactNode }) => {
+  return <div className={styles.sidebar}>{children}</div>;
 };

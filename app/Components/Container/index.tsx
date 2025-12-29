@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
+"use client";
 
-import { css } from "@emotion/react";
-import { Styles } from "./styles";
+import styes from './styles.module.scss'
 
 export const Container = ({ children }: { children: React.ReactNode }) => {
-  return <div css={css(Styles)}>{children}</div>;
+  return <div className={styes.button}>{children}</div>;
 };

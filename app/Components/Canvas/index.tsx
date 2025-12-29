@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
+"use client";
 
-import { css } from "@emotion/react";
-import { CanvasStyles } from "./styles";
+import styles from "./styles.module.scss";
 
 export const Canvas = () => {
-  return <div css={css(CanvasStyles)}></div>;
+  return <div className={styles.canvas}></div>;
 };
