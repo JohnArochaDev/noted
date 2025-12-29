@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "parent_id": null,
+    "name": "Coding Notes",
+    "type": "folder",
+    "subfolders": [
+      {
+        "id": 2,
+        "parent_id": 1,
+        "name": "Python",
+        "type": "folder",
+        "subfolders": [
+          {
+            "id": 3,
+            "parent_id": 2,
+            "name": "Basics",
+            "type": "folder",
+            "subfolders": [],
+            "nodes": [
+              {
+                "id": 101,
+                "parent_id": 3,
+                "data": "Variables: Use snake_case for names.",
+                "type": "node"
+              },
+              {
+                "id": 102,
+                "parent_id": 3,
+                "data": "Functions: def my_func(): pass",
+                "type": "node"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "parent_id": 2,
+            "name": "Advanced",
+            "type": "folder",
+            "subfolders": [],
+            "nodes": [
+              {
+                "id": 103,
+                "parent_id": 4,
+                "data": "Decorators: @my_decorator",
+                "type": "node"
+              }
+            ]
+          }
+        ],
+        "nodes": [
+          {
+            "id": 104,
+            "parent_id": 2,
+            "data": "Overview: Dynamic typing language.",
+            "type": "node"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "parent_id": 1,
+        "name": "JavaScript",
+        "type": "folder",
+        "subfolders": [
+          {
+            "id": 6,
+            "parent_id": 5,
+            "name": "ES6+",
+            "type": "folder",
+            "subfolders": [],
+            "nodes": [
+              {
+                "id": 105,
+                "parent_id": 6,
+                "data": "Arrow functions: () => {}",
+                "type": "node"
+              },
+              {
+                "id": 106,
+                "parent_id": 6,
+                "data": "Promises: new Promise((resolve, reject) => {})",
+                "type": "node"
+              }
+            ]
+          }
+        ],
+        "nodes": [
+          {
+            "id": 107,
+            "parent_id": 5,
+            "data": "Variables: let, const, var",
+            "type": "node"
+          }
+        ]
+      }
+    ],
+    "nodes": [
+      {
+        "id": 108,
+        "parent_id": 1,
+        "data": "General tips: Practice daily.",
+        "type": "node"
+      }
+    ]
+  }
+]

@@ -1,17 +1,17 @@
 "use client";
 import styles from "./styles.module.scss";
 
-type ButtonType = {
+type TreeNodeType = {
   label: string;
   onClick: () => void;
 };
 
-export const Button = (props: ButtonType) => {
+export const TreeNode = (props: TreeNodeType) => {
   const { label, onClick } = props;
 
   return (
     <button
-      className={styles.button}
+      className={styles.tree}
       aria-label={label}
       onClick={onClick}
     >
