@@ -19,9 +19,17 @@
 
 .selected {
   position: absolute;
-  left: calc(1% - 10px);
+  left: calc(1% - 10px); // hardcoded for now
   width: 2px;
   height: 15px;
   align-self: center;
   background-color: $highlight;
+}
+
+.open {
+  position: absolute;
+  left: calc(1% - 5px); // hardcoded for now
+  width: 2px;
+  height: 15px;
+  align-self: center;
 }

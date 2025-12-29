@@ -11,6 +11,7 @@ const Home = () => {
       <Container>
         <SideBar>
           <FolderNode label="Test" />
+          <FolderNode label="Test2" />
         </SideBar>
         <Canvas />
       </Container>
