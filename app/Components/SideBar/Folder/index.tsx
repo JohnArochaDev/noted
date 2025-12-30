@@ -2,11 +2,11 @@
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
-type FolderType = {
+type TreeFolderType = {
   label: string;
 };
 
-export const Folder = (props: FolderType) => {
+export const TreeFolder = (props: TreeFolderType) => {
   const { label } = props;
 
   const [selected, setSelected] = useState<boolean>(false);

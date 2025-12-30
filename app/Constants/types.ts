@@ -1,10 +1,10 @@
 export type Folder = {
   id: number;
-  parent_id: number;
+  parent_id: number | null;
   name: string;
   type: NodeType;
-  subFolders: Folder;
-  nodes: Node;
+  subfolders: Folder[];
+  nodes: Node[];
 };
 
 export type Node = {
@@ -12,6 +12,7 @@ export type Node = {
   parent_id: number;
   name: string;
   data: string;
+  type: NodeType;
 };
 
 export type NodeType = "folder" | "node";

@@ -22,12 +22,14 @@
                 "id": 101,
                 "parent_id": 3,
                 "data": "Variables: Use snake_case for names.",
+                "name": "Variables: Use snake_case for names.",
                 "type": "node"
               },
               {
                 "id": 102,
                 "parent_id": 3,
                 "data": "Functions: def my_func(): pass",
+                "name": "Functions: def my_func(): pass",
                 "type": "node"
               }
             ]
@@ -43,6 +45,7 @@
                 "id": 103,
                 "parent_id": 4,
                 "data": "Decorators: @my_decorator",
+                "name": "Decorators: @my_decorator",
                 "type": "node"
               }
             ]
@@ -53,6 +56,7 @@
             "id": 104,
             "parent_id": 2,
             "data": "Overview: Dynamic typing language.",
+            "name": "Overview: Dynamic typing language.",
             "type": "node"
           }
         ]
@@ -74,12 +78,14 @@
                 "id": 105,
                 "parent_id": 6,
                 "data": "Arrow functions: () => {}",
+                "name": "Arrow functions: () => {}",
                 "type": "node"
               },
               {
                 "id": 106,
                 "parent_id": 6,
                 "data": "Promises: new Promise((resolve, reject) => {})",
+                "name": "Promises: new Promise((resolve, reject) => {})",
                 "type": "node"
               }
             ]
@@ -89,6 +95,7 @@
           {
             "id": 107,
             "parent_id": 5,
+            "name": "Coding Vars",
             "data": "Variables: let, const, var",
             "type": "node"
           }
@@ -99,6 +106,7 @@
       {
         "id": 108,
         "parent_id": 1,
+        "name": "Coding Tips",
         "data": "General tips: Practice daily.",
         "type": "node"
       }

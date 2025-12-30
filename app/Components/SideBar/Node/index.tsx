@@ -2,11 +2,11 @@
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
-type NodeType = {
+type TreeNodeType = {
   label: string;
 };
 
-export const Node = (props: NodeType) => {
+export const TreeNode = (props: TreeNodeType) => {
   const { label } = props;
 
   const [selected, setSelected] = useState<boolean>(false);
