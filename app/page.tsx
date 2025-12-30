@@ -3,9 +3,9 @@
 import { Canvas } from "./Components/Canvas";
 import { Container } from "./Components/Container";
 import { SideBar } from "./Components/SideBar";
-import { Folder } from "./Components/Folder";
-import { Node } from "./Components/Node";
-import { NodeRow } from "./Components/NodeRow";
+import { Folder } from "./Components/SideBar/Folder";
+import { Node } from "./Components/SideBar/Node";
+import { NodeRow } from "./Components/SideBar/NodeRow";
 
 const Home = () => {
   return (
