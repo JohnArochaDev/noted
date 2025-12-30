@@ -43,7 +43,6 @@ export const TreeBuilder = (props: TreeBuilderType) => {
       <>
         {data.map((node) => (
           <NodeRow key={node.id}>
-            {/* render the spacer here once we have that value */}
             <Spacer indentation={indentation} />
             <TreeNode label={node.name} />
           </NodeRow>
@@ -54,3 +53,10 @@ export const TreeBuilder = (props: TreeBuilderType) => {
 
   return renderFolder(data[0]);
 };
+
+
+/// new approach, if I render a folder, and put the render folder logic inside of the folder itself, 
+// each folder xan be responsible for its own children, including state where I can then open and close 
+// each folder and show corresponding children accordigly, while being compartmentolized inside 
+// of the given folder. A folder will render other folders with the same abilities, and nodes will ONLY 
+// have logic to render themselves and then change the canvas when something is selected
