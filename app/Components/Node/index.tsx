@@ -2,11 +2,11 @@
 import { useState } from "react";
 import styles from "./styles.module.scss";
 
-type FolderNodeType = {
+type NodeType = {
   label: string;
 };
 
-export const FolderNode = (props: FolderNodeType) => {
+export const Node = (props: NodeType) => {
   const { label } = props;
 
   const [selected, setSelected] = useState<boolean>(false);
@@ -21,13 +21,12 @@ export const FolderNode = (props: FolderNodeType) => {
 
   return (
     <div
-      className={styles.folder}
+      className={styles.node}
       aria-label={label}
       onClick={onClick}
-      tabIndex={0}    
+      tabIndex={0}
       onBlur={() => setSelected(false)}
     >
-      <div className={styles.open}>{open ? "▼" : "►"}</div>
       {selected && <div className={styles.selected}></div>}
       {label}
     </div>

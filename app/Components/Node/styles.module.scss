@@ -1,0 +1,28 @@
+@import "@/app/Constants/colors.module";
+
+.node {
+  background-color: $trim;
+  width: 90%;
+  max-width: 750px;
+  height: 30px;
+  border-radius: 4px;
+  align-self: center;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.node:hover {
+  background-color: $lightestTrim;
+}
+
+.selected {
+  position: absolute;
+  left: calc(1% - 10px); // hardcoded for now
+  width: 2px;
+  height: 15px;
+  align-self: center;
+  background-color: $highlight;
+}

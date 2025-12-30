@@ -3,15 +3,17 @@
 import { Canvas } from "./Components/Canvas";
 import { Container } from "./Components/Container";
 import { SideBar } from "./Components/SideBar";
-import { FolderNode } from "./Components/FolderNode";
+import { Folder } from "./Components/Folder";
+import { Node } from "./Components/Node";
 
 const Home = () => {
   return (
     <>
       <Container>
         <SideBar>
-          <FolderNode label="Test" />
-          <FolderNode label="Test2" />
+          <Folder label="Test" />
+          <Folder label="Test2" />
+          <Node label="Test Node" />
         </SideBar>
         <Canvas />
       </Container>
