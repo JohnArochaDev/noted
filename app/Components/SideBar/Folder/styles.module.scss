@@ -2,15 +2,16 @@
 
 .folder {
   background-color: $trim;
-  width: 90%;
-  max-width: 750px;
   height: 30px;
   border-radius: 4px;
   margin-top: 15px;
+  margin-right: 10px;
+  margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
+  flex: 1 1 auto;
 }
 
 .folder:hover {

@@ -6,6 +6,7 @@ import { SideBar } from "./Components/SideBar";
 import { Folder } from "./Components/SideBar/Folder";
 import { Node } from "./Components/SideBar/Node";
 import { NodeRow } from "./Components/SideBar/NodeRow";
+import { Spacer } from "./Components/SideBar/Spacer";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Container>
         <SideBar>
           <NodeRow>
+            <Spacer indentation={0} />
             <Folder label="Test" />
           </NodeRow>
           <NodeRow>
