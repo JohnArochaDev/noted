@@ -20,15 +20,15 @@ export const Node = (props: NodeType) => {
   };
 
   return (
-      <div
-        className={styles.node}
-        aria-label={label}
-        onClick={onClick}
-        tabIndex={0}
-        onBlur={() => setSelected(false)}
-      >
-        {selected && <div className={styles.selected}></div>}
-        {label}
-      </div>
+    <div
+      className={styles.node}
+      aria-label={label}
+      onClick={onClick}
+      tabIndex={0}
+      onBlur={() => setSelected(false)}
+    >
+      {selected && <div className={styles.selected}></div>}
+      {label}
+    </div>
   );
 };
