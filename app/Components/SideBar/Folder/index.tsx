@@ -40,37 +40,32 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   const renderFolder = (data: Folder[], indent: number): React.ReactNode => {
     return data.map((folder) => (
-      <>
-        <TreeFolder key={folder.id} folderData={folder} indentation={indent} />
-      </>
+      <TreeFolder key={folder.id} folderData={folder} indentation={indent} />
     ));
   };
 
   return (
     <>
-      <div
-        className={styles.folder}
-        aria-label={folderData.name}
-        onClick={onClick}
-        tabIndex={0}
-        onBlur={() => setSelected(false)}
-      >
-        <div className={styles.open}>{open ? "▼" : "►"}</div>
+      <NodeRow>
+        <Spacer indentation={indentation} />
+        <div
+          className={styles.folder}
+          aria-label={folderData.name}
+          onClick={onClick}
+          tabIndex={0}
+          onBlur={() => setSelected(false)}
+        >
+          <div className={styles.open}>{open ? "▼" : "►"}</div>
 
-        {selected && <div className={styles.selected}></div>}
+          {selected && <div className={styles.selected}></div>}
 
-        {folderData.name}
-      </div>
-
-      {/* make a div here for children, then pass children but with indentation already added */}
-
-      {/* folder children*/}
+          {folderData.name}
+        </div>
+      </NodeRow>
 
       {folderData.subfolders &&
         open &&
         renderFolder(folderData.subfolders, indentation + 1)}
-
-      {/* node children */}
 
       {folderData.nodes &&
         open &&
