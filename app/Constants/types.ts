@@ -1,3 +1,8 @@
+export type RootFolder = {
+  id: number; // use ID number
+  folders: Folder[];
+};
+
 export type Folder = {
   id: number;
   parent_id: number | null;

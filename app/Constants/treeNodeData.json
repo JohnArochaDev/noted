@@ -1,51 +1,105 @@
 [
   {
-    "id": 1,
-    "parent_id": null,
-    "name": "Coding Notes",
-    "type": "folder",
-    "subfolders": [
+    "id": 12345,
+    "folders": [
       {
-        "id": 2,
-        "parent_id": 1,
-        "name": "Python",
+        "id": 1,
+        "parent_id": null,
+        "name": "Coding Notes",
         "type": "folder",
         "subfolders": [
           {
-            "id": 3,
-            "parent_id": 2,
-            "name": "Basics",
+            "id": 2,
+            "parent_id": 1,
+            "name": "Python",
             "type": "folder",
-            "subfolders": [],
-            "nodes": [
+            "subfolders": [
               {
-                "id": 101,
-                "parent_id": 3,
-                "data": "Variables: Use snake_case for names.",
-                "name": "Variables: Use snake_case for names.",
-                "type": "node"
+                "id": 3,
+                "parent_id": 2,
+                "name": "Basics",
+                "type": "folder",
+                "subfolders": [],
+                "nodes": [
+                  {
+                    "id": 101,
+                    "parent_id": 3,
+                    "data": "Variables: Use snake_case for names.",
+                    "name": "Variables: Use snake_case for names.",
+                    "type": "node"
+                  },
+                  {
+                    "id": 102,
+                    "parent_id": 3,
+                    "data": "Functions: def my_func(): pass",
+                    "name": "Functions: def my_func(): pass",
+                    "type": "node"
+                  }
+                ]
               },
               {
-                "id": 102,
-                "parent_id": 3,
-                "data": "Functions: def my_func(): pass",
-                "name": "Functions: def my_func(): pass",
+                "id": 4,
+                "parent_id": 2,
+                "name": "Advanced",
+                "type": "folder",
+                "subfolders": [],
+                "nodes": [
+                  {
+                    "id": 103,
+                    "parent_id": 4,
+                    "data": "Decorators: @my_decorator",
+                    "name": "Decorators: @my_decorator",
+                    "type": "node"
+                  }
+                ]
+              }
+            ],
+            "nodes": [
+              {
+                "id": 104,
+                "parent_id": 2,
+                "data": "Overview: Dynamic typing language.",
+                "name": "Overview: Dynamic typing language.",
                 "type": "node"
               }
             ]
           },
           {
-            "id": 4,
-            "parent_id": 2,
-            "name": "Advanced",
+            "id": 5,
+            "parent_id": 1,
+            "name": "JavaScript",
             "type": "folder",
-            "subfolders": [],
+            "subfolders": [
+              {
+                "id": 6,
+                "parent_id": 5,
+                "name": "ES6+",
+                "type": "folder",
+                "subfolders": [],
+                "nodes": [
+                  {
+                    "id": 105,
+                    "parent_id": 6,
+                    "data": "Arrow functions: () => {}",
+                    "name": "Arrow functions: () => {}",
+                    "type": "node"
+                  },
+                  {
+                    "id": 106,
+                    "parent_id": 6,
+                    "data": "Promises: new Promise((resolve, reject) => {})",
+                    "name": "Promises: new Promise((resolve, reject) => {})",
+                    "type": "node"
+                  }
+                ]
+              }
+            ],
             "nodes": [
               {
-                "id": 103,
-                "parent_id": 4,
-                "data": "Decorators: @my_decorator",
-                "name": "Decorators: @my_decorator",
+                "id": 107,
+                "parent_id": 5,
+                "name": "Coding Vars",
+                "data": "Variables: let, const, var",
                 "type": "node"
               }
             ]
@@ -53,10 +107,10 @@
         ],
         "nodes": [
           {
-            "id": 104,
-            "parent_id": 2,
-            "data": "Overview: Dynamic typing language.",
-            "name": "Overview: Dynamic typing language.",
+            "id": 108,
+            "parent_id": 1,
+            "name": "Coding Tips",
+            "data": "General tips: Practice daily.",
             "type": "node"
           }
         ]
@@ -100,15 +154,6 @@
             "type": "node"
           }
         ]
-      }
-    ],
-    "nodes": [
-      {
-        "id": 108,
-        "parent_id": 1,
-        "name": "Coding Tips",
-        "data": "General tips: Practice daily.",
-        "type": "node"
       }
     ]
   }

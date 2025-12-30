@@ -3,17 +3,17 @@
 import { Canvas } from "./Components/Canvas";
 import { Container } from "./Components/Container";
 import { SideBar } from "./Components/SideBar";
-import { TreeFolder } from "./Components/SideBar/Folder";
-import { Folder } from "./Constants/types";
+import { RootFolder } from "./Constants/types";
 
 import data from "./Constants/treeNodeData.json";
+import { TreeBuilder } from "./Components/SideBar/TreeBuilder";
 
 const Home = () => {
   return (
     <>
       <Container>
         <SideBar>
-          <TreeFolder folderData={data[0] as Folder} />
+          <TreeBuilder  data={data as RootFolder[]} />
         </SideBar>
         <Canvas />
       </Container>
