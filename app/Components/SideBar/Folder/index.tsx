@@ -9,10 +9,11 @@ import { Spacer } from "../Spacer";
 
 type TreeFolderType = {
   folderData: Folder;
+  indentation?: number;
 };
 
 export const TreeFolder = (props: TreeFolderType) => {
-  const { folderData } = props;
+  const { folderData, indentation = 0 } = props;
 
   const [selected, setSelected] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -24,12 +25,12 @@ export const TreeFolder = (props: TreeFolderType) => {
     setOpen(!open);
   };
 
-  const renderNodes = (data: Node[]): React.ReactNode => {
+  const renderNodes = (data: Node[], indent: number): React.ReactNode => {
     return (
       <>
         {data.map((node) => (
           <NodeRow key={node.id}>
-            <Spacer indentation={1} /> {/* if this works make the indentation in the component */}
+            <Spacer indentation={indent} />
             <TreeNode label={node.name} />
           </NodeRow>
         ))}
@@ -37,32 +38,13 @@ export const TreeFolder = (props: TreeFolderType) => {
     );
   };
 
-  // const renderFolder = (data: Folder, indentation = 0): React.ReactNode => {
-  //   const folders = data.subfolders;
-  //   const nodes = data.nodes;
-
-  //   let nodesToRender: React.ReactNode = [];
-
-  //   if (folders.length) {
-  //     folders.forEach((folder) => {
-  //       renderFolder(folder, indentation + 1);
-  //     });
-  //   }
-
-  //   if (nodes.length) {
-  //     nodesToRender = renderNodes(data.nodes, indentation);
-  //   }
-
-  //   return (
-  //     <>
-  //       <NodeRow>
-  //         <Spacer indentation={indentation} />
-  //         <TreeFolder label={data.name} />
-  //       </NodeRow>
-  //       {nodes && nodesToRender}
-  //     </>
-  //   );
-  // };
+  const renderFolder = (data: Folder[], indent: number): React.ReactNode => {
+    return data.map((folder) => (
+      <>
+        <TreeFolder key={folder.id} folderData={folder} indentation={indent} />
+      </>
+    ));
+  };
 
   return (
     <>
@@ -84,9 +66,15 @@ export const TreeFolder = (props: TreeFolderType) => {
 
       {/* folder children*/}
 
+      {folderData.subfolders &&
+        open &&
+        renderFolder(folderData.subfolders, indentation + 1)}
+
       {/* node children */}
 
-      {folderData.nodes && open && renderNodes(folderData.nodes)}
+      {folderData.nodes &&
+        open &&
+        renderNodes(folderData.nodes, indentation + 1)}
     </>
   );
 };

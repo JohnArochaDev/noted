@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   user-select: none;
-  // flex: 1 1 auto; this may be needed later
+  flex: 1 1 auto; // Uncomment/add this to make the folder take up available space after spacer
   position: relative;
 }
 
