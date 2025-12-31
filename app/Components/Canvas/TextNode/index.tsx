@@ -1,16 +1,9 @@
-import {
-  Handle,
-  Position,
-  NodeProps,
-  Node,
-  NodeResizer,
-  ResizeParams,
-} from "@xyflow/react";
+import { NodeProps, Node, NodeResizer, ResizeParams } from "@xyflow/react";
 import { D3DragEvent, SubjectPosition } from "d3-drag";
 
 import styles from "./styles.module.scss";
 
-type CustomTextNode = Node<{ title: string; text: string }, "text">;
+type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
 export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
   const handleResizeEnd = (
@@ -24,15 +17,26 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
   };
 
   return (
-    <div className={styles.textNode} style={{ width: "100%", height: "100%" }}>
+    <div
+      className={styles.textNode}
+      style={{
+        width: "100%",
+        height: "100%",
+        boxShadow: selected ? "" : "2px 2px #464342",
+      }}
+    >
       <NodeResizer
         minWidth={100}
         minHeight={100}
         isVisible={selected}
         onResizeEnd={handleResizeEnd}
+        color="#9e968e"
+        handleStyle={{
+          background: "#9e968e",
+          width: "5px",
+          height: "5px",
+        }}
       />
-      <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Bottom} />
 
       <p className={styles.title}>{data.title}</p>
       <hr className={styles.seperator} />
