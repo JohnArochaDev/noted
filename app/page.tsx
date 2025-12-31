@@ -8,10 +8,11 @@ import { RootFolder } from "./Constants/types";
 import data from "./Constants/treeNodeData.json";
 import { TreeBuilder } from "./Components/SideBar/TreeBuilder";
 import { HotBar } from "./Components/HotBar";
+import styles from "./styles.module.scss";
 
 const Home = () => {
   return (
-    <>
+    <div className={styles.pageWrapper}>
       <HotBar />
       <Container>
         <SideBar>
@@ -19,7 +20,8 @@ const Home = () => {
         </SideBar>
         <Canvas />
       </Container>
-    </>
+    </div>
   );
 };
+
 export default Home;
