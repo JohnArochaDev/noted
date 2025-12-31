@@ -8,7 +8,7 @@ type SquareButtonPropType = {
   customStyles?: object;
 };
 
-type SquareButtonType = "undo" | "redo" | "save" | "focus";
+type SquareButtonType = "undo" | "redo" | "save" | "focus" | 'edit';
 
 export const SquareButton = (props: SquareButtonPropType) => {
   const { type, onClick, customStyles } = props;

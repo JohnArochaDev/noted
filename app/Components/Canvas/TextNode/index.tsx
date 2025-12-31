@@ -2,6 +2,7 @@ import { NodeProps, Node, NodeResizer, ResizeParams } from "@xyflow/react";
 import { D3DragEvent, SubjectPosition } from "d3-drag";
 
 import styles from "./styles.module.scss";
+import { SquareButton } from "../../SquareButton";
 
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
@@ -13,7 +14,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
     console.log(
       `Node ${id} new dimensions: width=${params.width}, height=${params.height}`
     );
-    // Or perform other actions, like saving to external state
+    // save to external context
   };
 
   return (
@@ -25,6 +26,19 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
         boxShadow: selected ? "" : "2px 2px #464342",
       }}
     >
+      {selected && (
+        <SquareButton
+          type="edit"
+          onClick={() => {}}
+          customStyles={{
+            width: "25px",
+            height: "25px",
+            position: "absolute",
+            top: "-30px",
+            right: "-55px",
+          }}
+        />
+      )}{" "}
       <NodeResizer
         minWidth={100}
         minHeight={100}
@@ -37,7 +51,6 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
           height: "5px",
         }}
       />
-
       <p className={styles.title}>{data.title}</p>
       <hr className={styles.seperator} />
       <p className={styles.text}>{data.text}</p>
