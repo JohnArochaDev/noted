@@ -10,21 +10,26 @@ import { useEffect, useState } from "react";
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
 export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
-  const [maxWidth, setMaxWidth] = useState<number>(data.width);
-  const [maxHeight, setMaxHeight] = useState<number>(data.height);
+
   const [isEditing, setIsEditing] = useState(false);
+
+  const [text, setText] = useState<string>(data.text)
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
     params: ResizeParams
   ) => {
-    setMaxWidth(params.width);
-    setMaxHeight(params.height);
     console.log(
       `Node ${id} new dimensions: width=${params.width}, height=${params.height}`
     );
-    // save to external context
+    // save to external context in future
   };
+
+  useEffect(() => {
+    if (!selected) {
+      setIsEditing(false);
+    }
+  }, [selected]);
 
   return (
     <div
@@ -68,6 +73,8 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
         {isEditing ? (
           <textarea
             className={styles.text}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             style={{
               border: "none",
               background: "transparent",
@@ -82,7 +89,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
             className={styles.text}
             style={{ height: "100%", overflow: "auto" }}
           >
-            <ReactMarkdown>{data.text}</ReactMarkdown>
+            <ReactMarkdown>{text}</ReactMarkdown>
           </div>
         )}
       </div>
