@@ -13,6 +13,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
   const [isEditing, setIsEditing] = useState(false);
 
   const [text, setText] = useState<string>(data.text);
+  const [title, setTitle] = useState<string>(data.title);
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
@@ -66,8 +67,44 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
           height: "5px",
         }}
       />
-      <p className={styles.title}>{data.title}</p>
+      {isEditing ? (
+        <textarea
+          className={styles.title}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          style={{
+            border: "none",
+            background: "transparent",
+            resize: "none",
+            overflow: "auto",
+            textAlign: "center",
+            paddingTop: "10px",
+          }}
+        />
+      ) : (
+        <div
+          className={styles.title}
+          style={{
+            border: "none",
+            background: "transparent",
+            overflow: "auto",
+            textAlign: "center",
+            paddingBottom: "13px",
+            paddingTop: "10px",
+          }}
+        >
+          <ReactMarkdown
+            components={{
+              p: (props) => <p style={{ margin: 0 }} {...props} />,
+            }}
+          >
+            {title}
+          </ReactMarkdown>
+        </div>
+      )}
+      
       <hr className={styles.seperator} />
+
       <div style={{ flex: 1, overflow: "hidden" }}>
         {isEditing ? (
           <textarea
@@ -82,6 +119,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               height: "100%",
               overflow: "auto",
               textAlign: "center",
+              fontSize: "15px",
             }}
           ></textarea>
         ) : (
@@ -91,9 +129,17 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               height: "100%",
               overflow: "auto",
               textAlign: "center",
+              fontSize: "15px",
+              paddingTop: "2px",
             }}
           >
-            <ReactMarkdown>{text}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                p: (props) => <p style={{ margin: 0 }} {...props} />,
+              }}
+            >
+              {text}
+            </ReactMarkdown>
           </div>
         )}
       </div>

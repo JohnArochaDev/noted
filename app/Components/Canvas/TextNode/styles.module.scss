@@ -9,8 +9,17 @@
 }
 
 .title {
+  font-family: "Rainbow100", sans-serif;
   color: #9e968e;
   font-size: small;
+  padding: 0 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.title:focus {
+  outline: none;
+  border: none;
 }
 
 .seperator {
@@ -18,6 +27,7 @@
   height: 2px;
   background-color: #343335;
   border: none;
+  margin: 0;
 }
 
 .text {
