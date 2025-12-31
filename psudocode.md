@@ -1,4 +1,4 @@
-1. Prepare Your Project Dependencies
+1. Prepare Your Project Dependencies [DONE]
 
 Install the necessary libraries via npm or yarn for dragging, resizing (optional), Markdown rendering, and panning/zooming.
 For draggable nodes: Install react-draggable (docs: https://www.npmjs.com/package/react-draggable).
@@ -92,3 +92,6 @@ Run the app and add nodes at various positions on the large board.
 Pan around to view off-screen areas, drag nodes, save/reload—verify positions are identical across sessions/devices.
 If the board feels too large (e.g., perf lag on low-end devices), reduce to 3000x3000px or dynamically expand only as needed (but stick to fixed for consistency).
 Debug in dev tools: Inspect the inner <div> to confirm its fixed size and node positions.
+
+
+Use https://reactflow.dev/learn/concepts/the-viewport
