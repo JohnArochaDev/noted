@@ -8,7 +8,7 @@ For panning and zooming the oversized board: Install react-zoom-pan-pinch (docs:
 
 Run the install commands in your terminal (e.g., npm install react-draggable react-rnd react-markdown react-zoom-pan-pinch).
 
-2. Set Up the Canvas Container
+2. Set Up the Canvas Container [DONE]
 
 In your Canvas component, create an outer wrapper <div> that fills the available screen space (e.g., 100% width/height of its parent <Container>), with overflow hidden to clip the view.
 Inside that, wrap an inner content <div> with your fixed board size (e.g., width: 5000px; height: 5000px; position: relative;).

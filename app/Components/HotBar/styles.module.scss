@@ -3,7 +3,6 @@
 .hotBar {
   display: flex;
   justify-content: space-between;
-  align-items: stretch; /* Changed to stretch so child sections fill full height vertically */
   height: 60px;
   flex-shrink: 0;
   border: 2px solid $trim;
