@@ -1,6 +1,10 @@
 import { NodeProps, Node, NodeResizer, ResizeParams } from "@xyflow/react";
 import { D3DragEvent, SubjectPosition } from "d3-drag";
 
+// import { useState } from "react";
+
+import ReactMarkdown from "react-markdown";
+
 import styles from "./styles.module.scss";
 import { SquareButton } from "../../SquareButton";
 
@@ -53,7 +57,9 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       />
       <p className={styles.title}>{data.title}</p>
       <hr className={styles.seperator} />
-      <p className={styles.text}>{data.text}</p>
+      <div className={styles.text}>
+        <ReactMarkdown>{data.text}</ReactMarkdown>
+      </div>
     </div>
   );
 }
