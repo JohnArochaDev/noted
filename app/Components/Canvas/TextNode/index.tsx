@@ -1,23 +1,18 @@
-import Draggable from "react-draggable";
-import { NodePlate } from "@/app/Constants/types";
-import { useRef } from "react";
+import { Handle, Position, NodeProps, Node } from "@xyflow/react";
+
 import styles from "./styles.module.scss";
-import { Panel } from "@xyflow/react";
 
-export const TextNode = (props: NodePlate) => {
-  const { id, type, title, data, coordinates } = props;
+type CustomTextNode = Node<{ title: string; text: string }, 'text'>;
 
-  const nodeRef = useRef(null);
-
+export function TextNode({ data }: NodeProps<CustomTextNode>) {
   return (
-    <Panel>
-      <Draggable nodeRef={nodeRef}>
-        <div ref={nodeRef} className={styles.textNode}>
-          <p className={styles.title}>{title}</p>
-          <hr className={styles.seperator} />
-          <p>{data}</p>
-        </div>
-      </Draggable>
-    </Panel>
+    <div className={styles.textNode}>
+      <Handle type="target" position={Position.Top} />
+      <Handle type="source" position={Position.Bottom} />
+
+      <p className={styles.title}>{data.title}</p>
+      <hr className={styles.seperator} />
+      <p>{data.text}</p>
+    </div>
   );
 };
