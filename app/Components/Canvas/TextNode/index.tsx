@@ -102,9 +102,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
           </ReactMarkdown>
         </div>
       )}
-      
       <hr className={styles.seperator} />
-
       <div style={{ flex: 1, overflow: "hidden" }}>
         {isEditing ? (
           <textarea
@@ -120,6 +118,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               overflow: "auto",
               textAlign: "center",
               fontSize: "15px",
+              paddingTop: "10px",
             }}
           ></textarea>
         ) : (
@@ -130,7 +129,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               overflow: "auto",
               textAlign: "center",
               fontSize: "15px",
-              paddingTop: "2px",
+              paddingTop: "10px",
             }}
           >
             <ReactMarkdown
