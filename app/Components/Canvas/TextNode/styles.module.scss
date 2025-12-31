@@ -1,0 +1,21 @@
+@import "@/app/Constants/colors.module";
+
+.textNode {
+  width: 500px;
+  height: 400px;
+  background-color: $sidebarBackground;
+  border: 1px solid #9e968e;
+  box-shadow: 2px 2px #464342;
+  text-align: center;
+}
+
+.title {
+  color: #9E968E;
+}
+
+.seperator {
+  width: 80%;
+  height: 2px;
+  background-color: #343335;
+  border: none;
+}

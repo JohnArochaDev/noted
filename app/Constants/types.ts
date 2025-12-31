@@ -21,3 +21,15 @@ export type Node = {
 };
 
 export type NodeType = "folder" | "node";
+
+export type NodePlate = {
+  id: number;
+  data: string;
+  title: string;
+  type: NodePlateType;
+  coordinates: Coordinates;
+};
+
+export type Coordinates = [number, number];
+
+export type NodePlateType = "list" | "text" | "image" | "title" | "chart";
