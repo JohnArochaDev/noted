@@ -5,14 +5,21 @@ import { D3DragEvent, SubjectPosition } from "d3-drag";
 
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
+import { useEffect, useState } from "react";
 
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
 export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
+  const [maxWidth, setMaxWidth] = useState<number>(data.width);
+  const [maxHeight, setMaxHeight] = useState<number>(data.height);
+  const [isEditing, setIsEditing] = useState(false);
+
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
     params: ResizeParams
   ) => {
+    setMaxWidth(params.width);
+    setMaxHeight(params.height);
     console.log(
       `Node ${id} new dimensions: width=${params.width}, height=${params.height}`
     );
@@ -26,12 +33,14 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
         width: "100%",
         height: "100%",
         boxShadow: selected ? "" : "2px 2px #464342",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {selected && (
         <SquareButton
           type="edit"
-          onClick={() => {}}
+          onClick={() => setIsEditing(!isEditing)}
           customStyles={{
             width: "25px",
             height: "25px",
@@ -55,8 +64,27 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       />
       <p className={styles.title}>{data.title}</p>
       <hr className={styles.seperator} />
-      <div className={styles.text}>
-        <ReactMarkdown>{data.text}</ReactMarkdown>
+      <div style={{ flex: 1, overflow: "hidden" }}>
+        {isEditing ? (
+          <textarea
+            className={styles.text}
+            style={{
+              border: "none",
+              background: "transparent",
+              resize: "none",
+              width: "100%",
+              height: "100%",
+              overflow: "auto",
+            }}
+          ></textarea>
+        ) : (
+          <div
+            className={styles.text}
+            style={{ height: "100%", overflow: "auto" }}
+          >
+            <ReactMarkdown>{data.text}</ReactMarkdown>
+          </div>
+        )}
       </div>
     </div>
   );

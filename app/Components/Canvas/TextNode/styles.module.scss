@@ -9,7 +9,7 @@
 }
 
 .title {
-  color: #9E968E;
+  color: #9e968e;
   font-size: small;
 }
 
@@ -22,4 +22,22 @@
 
 .text {
   font-size: xx-small;
+  font-family: "Rainbow100", sans-serif;
+  color: #9e968e;
+  box-sizing: border-box;
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.text:focus {
+  outline: none;
+  border: none;
+}
+
+.text::-webkit-scrollbar {
+  display: none;
 }
