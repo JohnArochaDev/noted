@@ -1,8 +1,6 @@
 @import "@/app/Constants/colors.module";
 
 .textNode {
-  width: 500px;
-  height: 400px;
   background-color: $sidebarBackground;
   border: 1px solid #9e968e;
   box-shadow: 2px 2px #464342;
@@ -11,6 +9,7 @@
 
 .title {
   color: #9E968E;
+  font-size: small;
 }
 
 .seperator {
@@ -18,4 +17,8 @@
   height: 2px;
   background-color: #343335;
   border: none;
+}
+
+.text {
+  font-size: xx-small;
 }
