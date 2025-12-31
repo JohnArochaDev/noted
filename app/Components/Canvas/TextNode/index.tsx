@@ -1,12 +1,10 @@
-import { NodeProps, Node, NodeResizer, ResizeParams } from "@xyflow/react";
-import { D3DragEvent, SubjectPosition } from "d3-drag";
-
-// import { useState } from "react";
-
 import ReactMarkdown from "react-markdown";
 
-import styles from "./styles.module.scss";
+import { Node, NodeProps, NodeResizer, ResizeParams } from "@xyflow/react";
+import { D3DragEvent, SubjectPosition } from "d3-drag";
+
 import { SquareButton } from "../../SquareButton";
+import styles from "./styles.module.scss";
 
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 

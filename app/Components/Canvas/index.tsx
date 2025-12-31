@@ -1,25 +1,24 @@
 "use client";
-import "@xyflow/react/dist/style.css";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  ReactFlow,
+  applyNodeChanges,
   Background,
   BackgroundVariant,
-  ReactFlowProvider,
-  Panel,
-  useNodesState,
-  applyNodeChanges,
   Node,
-  PanOnScrollMode,
   OnNodesChange,
+  Panel,
+  PanOnScrollMode,
+  ReactFlow,
+  ReactFlowProvider,
+  useNodesState,
   useReactFlow,
   useViewport,
 } from "@xyflow/react";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import "@xyflow/react/dist/style.css";
 
 import { RecenterButton } from "./RecenterCanvasButton";
-
 import styles from "./styles.module.scss";
 import { TextNode } from "./TextNode";
 

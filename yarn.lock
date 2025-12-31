@@ -164,9 +164,9 @@
     tslib "^2.4.0"
 
 "@eslint-community/eslint-utils@^4.7.0", "@eslint-community/eslint-utils@^4.8.0":
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.9.0.tgz#7308df158e064f0dd8b8fdb58aa14fa2a7f913b3"
-  integrity sha512-ayVFHdtZ+hsq1t2Dy24wCmGXGe4q9Gu3smhLYALJrr473ZH27MsnSL+LKUlimp4BWJqMDMLmPpx/Q9R3OAlL4g==
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.9.1.tgz#4e90af67bc51ddee6cdef5284edf572ec376b595"
+  integrity sha512-phrYmNiYppR7znFEdqgfWHXR6NCkZEK7hwWDHZUjit/2/U0r6XvkDl0SYnoM51Hq7FhCGdLDT6zxCCOY1hexsQ==
   dependencies:
     eslint-visitor-keys "^3.4.3"
 
@@ -1203,9 +1203,9 @@ callsites@^3.0.0:
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
 caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001759:
-  version "1.0.30001761"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001761.tgz#4ca4c6e3792b24e8e2214baa568fc0e43de28191"
-  integrity sha512-JF9ptu1vP2coz98+5051jZ4PwQgd2ni8A+gYSN7EA7dPKIMf0pDlSUxhdmVOaV3/fYK5uWBkgSXJaRLr4+3A6g==
+  version "1.0.30001762"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001762.tgz#e4dbfeda63d33258cdde93e53af2023a13ba27d4"
+  integrity sha512-PxZwGNvH7Ak8WX5iXzoK1KPZttBXNPuaOvI2ZYU7NrlM+d9Ov+TUvlLOBNGzVXAntMSMMlJPd+jY6ovrVjSmUw==
 
 ccount@^2.0.0:
   version "2.0.1"
@@ -1754,6 +1754,11 @@ eslint-plugin-react@^7.37.0:
     string.prototype.matchall "^4.0.12"
     string.prototype.repeat "^1.0.0"
 
+eslint-plugin-simple-import-sort@^12.1.1:
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-12.1.1.tgz#e64bfdaf91c5b98a298619aa634a9f7aa43b709e"
+  integrity sha512-6nuzu4xwQtE3332Uz0to+TxDQYRLTKRESSc2hefVT48Zc8JthmN23Gx9lnYhu0FtkRSL1oxny3kJ2aveVhmOVA==
+
 eslint-scope@^8.4.0:
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-8.4.0.tgz#88e646a207fad61436ffa39eb505147200655c82"
@@ -1822,9 +1827,9 @@ espree@^10.0.1, espree@^10.4.0:
     eslint-visitor-keys "^4.2.1"
 
 esquery@^1.5.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.6.0.tgz#91419234f804d852a82dceec3e16cdc22cf9dae7"
-  integrity sha512-ca9pw9fomFcKPvFLXhBKUK90ZvGibiGOvRJNbjljY7s7uq/5YO4BOzcYtJqExdx99rF6aAcnRxHmcUHcz6sQsg==
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.7.0.tgz#08d048f261f0ddedb5bae95f46809463d9c9496d"
+  integrity sha512-Ap6G0WQwcU/LHsvLwON1fAQX9Zp0A2Y6Y/cJBl9r/JbW90Zyg4/zbG6zzKa2OTALELarYHmKu0GhpM5EO+7T0g==
   dependencies:
     estraverse "^5.1.0"
 
@@ -3904,9 +3909,9 @@ yocto-queue@^0.1.0:
   integrity sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==
 
 "zod@^3.25.0 || ^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-4.2.1.tgz#07f0388c7edbfd5f5a2466181cb4adf5b5dbd57b"
-  integrity sha512-0wZ1IRqGGhMP76gLqz8EyfBXKk0J2qo2+H3fi4mcUP/KtTocoX08nmIAHl1Z2kJIZbZee8KOpBCSNPRgauucjw==
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-4.3.3.tgz#a02e714117de366303f69e64d14f792a72d5063d"
+  integrity sha512-bQ7Rxwfn04DCrTjjRfD9SavY2vWdmf3REjs/mkc1LdwI1KkcHClBRJmnvmA/6epGeqlHePtIRF1J4SrMMlW7IA==
 
 zustand@^4.4.0:
   version "4.5.7"
