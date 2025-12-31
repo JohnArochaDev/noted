@@ -2,9 +2,8 @@
 
 .hotBar {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
+  justify-content: space-between;
+  align-items: stretch; /* Changed to stretch so child sections fill full height vertically */
   height: 60px;
   flex-shrink: 0;
   border: 2px solid $trim;
@@ -12,9 +11,20 @@
   padding-left: 29px;
 }
 
+.leftSection {
+  display: flex;
+  align-items: center;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+}
+
 .verticalDivider {
   width: 2px;
   height: 60%;
   background-color: #343335;
-  margin-left: 104px;
+  margin-left: 99px;
+  z-index: 1000;
 }
