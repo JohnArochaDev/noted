@@ -1,7 +1,7 @@
 @import "@/app/Constants/colors.module";
 
 .folder {
-  background-color: $trim;
+  background-color: $button;
   height: 30px;
   border-radius: 4px;
   margin-top: 15px;
@@ -19,7 +19,7 @@
 }
 
 .folder:hover {
-  background-color: $lightestTrim;
+  background-color: $hover;
 }
 
 .selected {
@@ -28,7 +28,7 @@
   top: calc(50% - 7.5px);
   width: 2px;
   height: 15px;
-  background-color: $highlight;
+  background-color: $selected;
 }
 
 .open {
