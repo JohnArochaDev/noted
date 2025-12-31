@@ -9,10 +9,20 @@
   margin-left: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   user-select: none;
   flex: 1 1 auto;
   position: relative;
+  overflow: hidden;
+  text-align: left;
+  padding-left: 40px;
+}
+
+.nodeText {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .node:hover {

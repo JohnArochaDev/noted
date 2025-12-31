@@ -38,7 +38,7 @@ export const TreeNode = (props: TreeNodeType) => {
         />
       </div>
       {selected && <div className={styles.selected}></div>}
-      {label}
+      <span className={styles.nodeText}>{`${label.toLowerCase().trim()}.node`}</span>
     </div>
   );
 };

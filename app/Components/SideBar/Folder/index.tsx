@@ -68,16 +68,14 @@ export const TreeFolder = (props: TreeFolderType) => {
             ) : (
               <Image
                 src="/assets/closedFolder.png"
-                alt="Open Folder Icon"
+                alt="Closed Folder Icon" // Fixed alt text for accuracy
                 width={20}
                 height={20}
               />
             )}
           </div>
-
           {selected && <div className={styles.selected}></div>}
-
-          {folderData.name}
+          <span className={styles.folderText}>{folderData.name.toUpperCase()}</span>
         </div>
       </NodeRow>
 
