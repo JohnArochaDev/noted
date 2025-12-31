@@ -6,9 +6,9 @@ export const HotBar = () => {
     <div className={styles.hotBar}>
       <h2 style={{ fontWeight: 100, marginLeft: "70px" }}>noted.exe</h2>
       <div className={styles.verticalDivider} />
-      <Button label="New Folder" />
-      <Button label="New File" />
-      <Button label="New Node" />
+      <Button label="New Folder" type="newFolder" />
+      <Button label="New File" type="newFile"  />
+      <Button label="New Node" type="newNode2"  />
     </div>
   );
 };

@@ -1,11 +1,17 @@
 .button {
   height: 33px;
-  width: 105px;
+  width: 120px;
   align-self: center;
   background-color: #343335;
   border: 0px;
   box-shadow: 2px 2px #464342;
   margin-left: 3cap;
+  color: #9e968e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
 }
 
 .button:hover {
