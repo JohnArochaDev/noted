@@ -1,0 +1,8 @@
+@import "@/app/Constants/colors.module";
+
+.hotBar {
+  width: 100vw;
+  height: 70px;
+  border: 2px solid $trim;
+  background-color: $sidebarBackground;
+}
