@@ -10,10 +10,9 @@ import { useEffect, useState } from "react";
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
 export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
-
   const [isEditing, setIsEditing] = useState(false);
 
-  const [text, setText] = useState<string>(data.text)
+  const [text, setText] = useState<string>(data.text);
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
@@ -82,12 +81,17 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               width: "100%",
               height: "100%",
               overflow: "auto",
+              textAlign: "center",
             }}
           ></textarea>
         ) : (
           <div
             className={styles.text}
-            style={{ height: "100%", overflow: "auto" }}
+            style={{
+              height: "100%",
+              overflow: "auto",
+              textAlign: "center",
+            }}
           >
             <ReactMarkdown>{text}</ReactMarkdown>
           </div>
