@@ -7,6 +7,8 @@ import styles from "./styles.module.scss";
 import { NodeRow } from "../NodeRow";
 import { Spacer } from "../Spacer";
 
+import Image from "next/image";
+
 type TreeFolderType = {
   folderData: Folder;
   indentation?: number;
@@ -55,7 +57,23 @@ export const TreeFolder = (props: TreeFolderType) => {
           tabIndex={0}
           onBlur={() => setSelected(false)}
         >
-          <div className={styles.open}>{open ? "▼" : "►"}</div>
+          <div className={styles.open}>
+            {open ? (
+              <Image
+                src="/assets/openFolder.png"
+                alt="Open Folder Icon"
+                width={20}
+                height={20}
+              />
+            ) : (
+              <Image
+                src="/assets/closedFolder.png"
+                alt="Open Folder Icon"
+                width={20}
+                height={20}
+              />
+            )}
+          </div>
 
           {selected && <div className={styles.selected}></div>}
 

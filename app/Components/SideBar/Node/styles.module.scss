@@ -27,3 +27,12 @@
   height: 15px;
   background-color: $selected;
 }
+
+.file {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  height: auto;
+}
