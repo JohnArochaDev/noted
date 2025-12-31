@@ -1,5 +1,14 @@
-import styles from './styles.module.scss'
+import { Button } from "../Button";
+import styles from "./styles.module.scss";
 
 export const HotBar = () => {
-  return <div className={styles.hotBar} ></div>;
+  return (
+    <div className={styles.hotBar}>
+      <h2 style={{ fontWeight: 100, marginLeft: "70px" }}>noted.exe</h2>
+      <div className={styles.verticalDivider} />
+      <Button label="New Folder" />
+      <Button label="New File" />
+      <Button label="New Node" />
+    </div>
+  );
 };
