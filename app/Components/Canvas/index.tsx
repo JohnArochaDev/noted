@@ -77,6 +77,8 @@ export const Canvas = () => {
       id: "1",
       type: "textNode",
       position: { x: 2500, y: 2500 },
+      width: 300,
+      height: 200,
       data: { title: "My Title", text: "Centered content here" },
     },
   ];
