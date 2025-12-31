@@ -121,6 +121,7 @@ export const Canvas = () => {
             nodeTypes={nodeTypes}
             nodes={nodes}
             onNodesChange={onNodesChange}
+            snapToGrid
             snapGrid={[20, 20]} // change this to match the dots
             panOnDrag
             zoomOnScroll
