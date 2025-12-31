@@ -8,4 +8,10 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
