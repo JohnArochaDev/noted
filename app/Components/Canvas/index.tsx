@@ -24,7 +24,7 @@ import { TextNode } from "./TextNode";
 
 type TextNodeData = { title: string; text: string };
 
-type CustomTextNode = Node<TextNodeData, "textNode">;
+export type CustomTextNode = Node<TextNodeData, "textNode">;
 
 const ViewportClamper = ({
   viewportSize,
