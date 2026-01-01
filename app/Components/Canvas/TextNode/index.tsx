@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import {
   Node,
@@ -10,6 +9,7 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 import { D3DragEvent, SubjectPosition } from "d3-drag";
+import remarkGfm from "remark-gfm";
 
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
@@ -37,6 +37,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
 
   useEffect(() => {
     if (!selected) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsEditing(false);
     }
   }, [selected]);
@@ -54,7 +55,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       textRef.current.focus();
       textRef.current.setSelectionRange(text.length, text.length);
     }
-  }, [isEditing]);
+  }, [isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div
