@@ -5,15 +5,16 @@ import styles from "./styles.module.scss";
 type ButtonPropType = {
   label: string;
   type?: ButtonType;
+  onClick: () => void;
 };
 
 type ButtonType = "newFile" | "newFolder" | "newNode2";
 
 export const Button = (props: ButtonPropType) => {
-  const { label, type } = props;
+  const { label, type, onClick } = props;
   return (
     <div>
-      <button className={styles.button}>
+      <button className={styles.button} onClick={onClick}>
         {type && (
           <Image
             src={`/assets/${type}.png`}

@@ -33,7 +33,6 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
     params: ResizeParams
   ) => {
-
     setCurrentPageNodes(
       currentPageNodes.map((node) =>
         node.id === id
@@ -41,6 +40,10 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
           : node
       )
     );
+  };
+
+  const deleteNode = () => {
+    setCurrentPageNodes(currentPageNodes.filter((node) => node.id !== id));
   };
 
   useEffect(() => {
@@ -85,17 +88,30 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
       }}
     >
       {selected && (
-        <SquareButton
-          type="edit"
-          onClick={() => setIsEditing(!isEditing)}
-          customStyles={{
-            width: "25px",
-            height: "25px",
-            position: "absolute",
-            top: "-30px",
-            right: "-55px",
-          }}
-        />
+        <>
+          <SquareButton
+            type="edit"
+            onClick={() => setIsEditing(!isEditing)}
+            customStyles={{
+              width: "25px",
+              height: "25px",
+              position: "absolute",
+              top: "-30px",
+              right: "-55px",
+            }}
+          />
+          <SquareButton
+            type="trash"
+            onClick={() => deleteNode()}
+            customStyles={{
+              width: "25px",
+              height: "25px",
+              position: "absolute",
+              top: "-30px",
+              left: "-32px",
+            }}
+          />
+        </>
       )}{" "}
       <NodeResizer
         minWidth={100}
