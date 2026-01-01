@@ -8,6 +8,7 @@ import { Folder, Node } from "../../../Constants/types";
 import { TreeNode } from "../Node";
 import { NodeRow } from "../NodeRow";
 import { Spacer } from "../Spacer";
+import { ThreeDots } from "../ThreeDots";
 import styles from "./styles.module.scss";
 
 type TreeFolderType = {
@@ -82,15 +83,7 @@ export const TreeFolder = (props: TreeFolderType) => {
           <span className={styles.folderText}>
             {folderData.name.toUpperCase()}
           </span>
-
-          {isHovered && (
-            <Image
-              src="/assets/threeDots.png"
-              alt="Closed Folder Icon"
-              width={22}
-              height={22}
-            />
-          )}
+          <ThreeDots isHovered={isHovered} />
         </div>
       </NodeRow>
 

@@ -1,0 +1,7 @@
+.threeDots {
+  border-radius: 4px;
+}
+
+.threeDots::selection {
+  background-color: red;
+}

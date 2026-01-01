@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 
+import { ThreeDots } from "../ThreeDots";
 import styles from "./styles.module.scss";
 
 type TreeNodeType = {
@@ -11,6 +12,10 @@ type TreeNodeType = {
 
 export const TreeNode = (props: TreeNodeType) => {
   const { label } = props;
+
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [selected, setSelected] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   let formattedLabel = label.toLowerCase().trim();
 
@@ -29,9 +34,6 @@ export const TreeNode = (props: TreeNodeType) => {
     }
   }
 
-  const [selected, setSelected] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
-
   const onClick = () => {
     if (!selected) {
       setSelected(true);
@@ -46,6 +48,8 @@ export const TreeNode = (props: TreeNodeType) => {
       onClick={onClick}
       tabIndex={0}
       onBlur={() => setSelected(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className={styles.file}>
         <Image
@@ -57,6 +61,7 @@ export const TreeNode = (props: TreeNodeType) => {
       </div>
       {selected && <div className={styles.selected}></div>}
       <span className={styles.nodeText}>{`${formattedLabel}.node`}</span>
+      <ThreeDots isHovered={isHovered} />
     </div>
   );
 };
