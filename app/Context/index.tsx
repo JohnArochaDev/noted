@@ -9,8 +9,10 @@ import { TextNodeType } from "../Constants/types";
 type NodesContextType = {
   userId: number;
   setUserId: (userId: number) => void;
-  folders: RootFolder[];
-  setFolders: (folders: RootFolder[]) => void;
+  savedFolders: RootFolder[];
+  setSavedFolders: (savedFolders: RootFolder[]) => void;
+  currentFolders: RootFolder[];
+  setCurrentFolders: (currentFolders: RootFolder[]) => void;
   savedPageNodes: TextNodeType[];
   setSavedPageNodes: (pageNodes: TextNodeType[]) => void;
   currentPageNodes: CustomTextNode[];
@@ -24,21 +26,24 @@ const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [userId, setUserId] = useState<number>(0); // logged in user
-  const [folders, setFolders] = useState<RootFolder[]>(
+
+  const [savedFolders, setSavedFolders] = useState<RootFolder[]>(
     folderData as RootFolder[]
-  ); // all folders and .node files
+  ); // all folders and .node files that are saved to the db
+  const [currentFolders, setCurrentFolders] = useState<RootFolder[]>(
+    folderData as RootFolder[]
+  ); // all folders and .node files that are current
+
   // active saved page nodes selected from hierarchy tree. these will be found via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
   const [savedPageNodes, setSavedPageNodes] = useState<TextNodeType[]>(
-    nodeDate as TextNodeType[] // before seiding to DB, make the ID here a number. It needs to be a string to matchthe node requirement from the library.
+    nodeDate as TextNodeType[]
   );
-
   // these nodes are the unsaved page nodes. When a save happens, these will be formatted to meet the format expected by the DB, send to the DB, and then a call will pull them back from the DB to keep everythiing synced up
   const [currentPageNodes, setCurrentPageNodes] = useState<CustomTextNode[]>(
     nodeDate as CustomTextNode[]
   );
 
-  const [currentPageId, setCurrentPageId] = useState<number>(7); // will be used when creating new nodes, will set the parent ID to this. 
-
+  const [currentPageId, setCurrentPageId] = useState<number>(7); // will be used when creating new nodes, will set the parent ID to this.
   // when the server is up these will come from my db
 
   return (
@@ -46,8 +51,10 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         userId,
         setUserId,
-        folders,
-        setFolders,
+        savedFolders,
+        setSavedFolders,
+        currentFolders,
+        setCurrentFolders,
         savedPageNodes,
         setSavedPageNodes,
         currentPageNodes,

@@ -36,7 +36,7 @@ export const TreeFolder = (props: TreeFolderType) => {
         {data.map((node) => (
           <NodeRow key={node.id}>
             <Spacer indentation={indent} />
-            <TreeNode label={node.name} />
+            <TreeNode label={node.name} id={node.id} />
           </NodeRow>
         ))}
       </>

@@ -3,15 +3,20 @@ import { useState } from "react";
 
 import Image from "next/image";
 
+import { useNodes } from "@/app/Context";
+
 import { ThreeDots } from "../ThreeDots";
 import styles from "./styles.module.scss";
 
 type TreeNodeType = {
   label: string;
+  id: number;
 };
 
 export const TreeNode = (props: TreeNodeType) => {
-  const { label } = props;
+  const { label, id } = props;
+
+  const { setCurrentPageId } = useNodes()
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [selected, setSelected] = useState<boolean>(false);
@@ -35,6 +40,8 @@ export const TreeNode = (props: TreeNodeType) => {
   }
 
   const onClick = () => {
+    setCurrentPageId(id)
+
     if (!selected) {
       setSelected(true);
     }
