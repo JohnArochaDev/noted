@@ -1,18 +1,24 @@
 [
   {
     "id": "1",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2500, "y": 2500 },
+    "position": {
+      "x": 2360,
+      "y": 2280
+    },
     "width": 300,
     "height": 200,
-    "data": { "text": "Centered content here" }
+    "data": {
+      "text": "Centered content here"
+    }
   },
   {
     "id": "2",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2800, "y": 2500 },
+    "position": {
+      "x": 2760,
+      "y": 2340
+    },
     "width": 250,
     "height": 150,
     "data": {
@@ -21,9 +27,11 @@
   },
   {
     "id": "3",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2500, "y": 2700 },
+    "position": {
+      "x": 2480,
+      "y": 2680
+    },
     "width": 400,
     "height": 300,
     "data": {
@@ -32,9 +40,11 @@
   },
   {
     "id": "4",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2900, "y": 2700 },
+    "position": {
+      "x": 3120,
+      "y": 2860
+    },
     "width": 350,
     "height": 250,
     "data": {
@@ -43,18 +53,24 @@
   },
   {
     "id": "5",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2200, "y": 2500 },
+    "position": {
+      "x": 2040,
+      "y": 2560
+    },
     "width": 200,
     "height": 100,
-    "data": { "text": "Simple text.\n\n`Code snippet`" }
+    "data": {
+      "text": "Simple text.\n\n`Code snippet`"
+    }
   },
   {
     "id": "6",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2200, "y": 2800 },
+    "position": {
+      "x": 2060,
+      "y": 3100
+    },
     "width": 450,
     "height": 350,
     "data": {
@@ -63,9 +79,11 @@
   },
   {
     "id": "7",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 3000, "y": 2500 },
+    "position": {
+      "x": 3080,
+      "y": 2460
+    },
     "width": 320,
     "height": 220,
     "data": {
@@ -74,11 +92,15 @@
   },
   {
     "id": "8",
-    "pageId": 144,
     "type": "textNode",
-    "position": { "x": 2500, "y": 3000 },
+    "position": {
+      "x": 2800,
+      "y": 3260
+    },
     "width": 280,
     "height": 180,
-    "data": { "text": "Horizontal rule:\n\n---\n\nEnd of content." }
+    "data": {
+      "text": "Horizontal rule:\n\n---\n\nEnd of content."
+    }
   }
 ]
