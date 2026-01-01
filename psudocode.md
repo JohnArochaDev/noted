@@ -17,7 +17,7 @@ Style the inner content <div> with your grid background using CSS linear gradien
 This setup ensures the board is always 5000x5000px (or whatever fixed size you choose), nodes position absolutely within it, and panning lets users drag to explore without changing coordinates.
 For panning/zooming configuration details, refer to the library docs linked in Step 1.
 
-3. Manage Nodes with React State
+3. Manage Nodes with React State [DONE]
 
 In the Canvas component, use React's useState hook to store an array of node objects.
 Each node object should include properties like: id (unique), x/y coordinates (for position), width/height (for size), content (Markdown string), and type (e.g., note, list, image).
@@ -25,7 +25,7 @@ Use useEffect to load initial nodes from your DB on component mount (see Step 8 
 When updating state (e.g., after dragging), use the setter function to create a new array with updated node positions.
 For state management basics, refer to React hooks docs: https://react.dev/reference/react/useState and https://react.dev/reference/react/useEffect.
 
-4. Create the Node Component
+4. Create the Node Component [DONE]
 
 Make a new Node component (e.g., in /Components/Node.tsx).
 This component receives a single node's data as props (e.g., id, x, y, content).
@@ -38,14 +38,14 @@ Style the node with your retro theme: pixelated borders, shadows, dark backgroun
 Add event handlers for editing content (e.g., make text editable on click).
 For Markdown specifics, check the library's usage guide linked in Step 1.
 
-5. Render Nodes in the Canvas
+5. Render Nodes in the Canvas [DONE]
 
 In the Canvas component, map over your state array to render each <Node> component.
 Pass the node's data as props to each instance.
 Ensure the canvas <div> wraps all these rendered nodes.
 This creates the visual board—nodes will appear at their saved positions.
 
-6. Add Draggability (and Optional Resizability)
+6. Add Draggability (and Optional Resizability) [DONE]
 
 Wrap each node's content <div> in the dragging library's component (e.g., <Draggable> from react-draggable).
 Configure it to:
@@ -58,14 +58,14 @@ For touch/mobile support, the libraries handle it out of the box—test on devic
 Refer to the libraries' props and examples in their docs (linked in Step 1) for configuration options.
 Use the panning library's context to convert screen coordinates to board ("world") coordinates in the drag callback, ensuring positions are saved absolutely relative to the 5000x5000 board (docs for context/transform access: https://bettertyped.github.io/react-zoom-pan-pinch/?path=/story/docs-hooks--page).
 
-7. Handle Adding New Nodes
+7. Handle Adding New Nodes and new Folders / Files [TO-DO]
 
 From your hotbar or sidebar (e.g., on button click in <HotBar> or <SideBar>), trigger a function to add a new node to the canvas state.
 Generate a unique ID (e.g., using crypto.randomUUID() or a library like uuid—install if needed: https://www.npmjs.com/package/uuid).
 Set default position (e.g., center of board: x=2500, y=2500) or based on current viewport (query the panning library's transform state for offsets—see its docs).
 Pass the add function as a prop from Canvas to parent components if needed, or use context for global state (React context docs: https://react.dev/reference/react/createContext).
 
-8. Integrate Saving and Loading with Your Database
+8. Integrate Saving and Loading with Your Database [HALF-DONE]
 
 For loading: In useEffect of Canvas, make a fetch request to your API endpoint to get nodes for the current page (use a page ID from URL params or state).
 Parse the JSON response and set it to your nodes state—the absolute x/y pixels will place nodes correctly on the board, even off-screen.

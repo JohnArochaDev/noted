@@ -25,6 +25,10 @@ export const HotBar = () => {
     saveAs(blob, "pageNode.json");
   };
 
+  // when saving a new folder or a new file, I need to both create it by updating the context, 
+  // AND create it in the UI. if the call fails i delete the new file / folder and add a toast error.
+  // I need to be careful to keep the UI and DB synced perfectly, and be careful with my data.
+
   return (
     <div className={styles.hotBar}>
       <div className={styles.leftSection}>
