@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import {
   Node,
@@ -113,7 +114,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
             textAlign: "center",
             paddingTop: "10px",
             paddingBottom: "14px",
-            paddingLeft: "18px"
+            paddingLeft: "18px",
           }}
         />
       ) : (
@@ -168,8 +169,34 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
             }}
           >
             <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
               components={{
                 p: (props) => <p style={{ margin: 0 }} {...props} />,
+                table: (props) => (
+                  <table style={{ margin: "0 auto" }} {...props} />
+                ),
+                ul: (props) => (
+                  <ul
+                    style={{
+                      textAlign: "left",
+                      maxWidth: "fit-content",
+                      margin: "0 auto",
+                      paddingLeft: "20px",
+                    }}
+                    {...props}
+                  />
+                ),
+                ol: (props) => (
+                  <ol
+                    style={{
+                      textAlign: "left",
+                      maxWidth: "fit-content",
+                      margin: "0 auto",
+                      paddingLeft: "20px",
+                    }}
+                    {...props}
+                  />
+                ),
               }}
             >
               {text}
