@@ -14,7 +14,8 @@ type NodesContextType = {
   savedPageNodes: TextNodeType[];
   setSavedPageNodes: (pageNodes: TextNodeType[]) => void;
   currentPageNodes: CustomTextNode[];
-  setCurrentPageNodes: (currentPageNodes: CustomTextNode[]) => void;
+  // eslint-disable-next-line
+  setCurrentPageNodes: (currentPageNodes: any) => void;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);

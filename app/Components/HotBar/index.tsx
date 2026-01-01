@@ -1,3 +1,5 @@
+import { saveAs } from "file-saver";
+
 import { useNodes } from "@/app/Context";
 
 import { Button } from "../Button";
@@ -7,13 +9,28 @@ import styles from "./styles.module.scss";
 export const HotBar = () => {
   const {
     savedPageNodes,
-    setSavedPageNodes,
+    // setSavedPageNodes,
     currentPageNodes,
-    setCurrentPageNodes,
+    // setCurrentPageNodes,
   } = useNodes();
 
   const saveNodes = () => {
     console.log("current nodes (need to be formatted)", currentPageNodes);
+    console.log("saved nodes (alreadyformatted)", savedPageNodes);
+
+    const dataToBeSaved = currentPageNodes.map((node) => ({
+      id: node.id,
+      type: node.type,
+      position: node.position,
+      width: node.width,
+      height: node.height,
+      data: node.data,
+    }));
+
+    const blob = new Blob([JSON.stringify(dataToBeSaved, null, 2)], {
+      type: "application/json;charset=utf-8",
+    });
+    saveAs(blob, "pageNode.json");
   };
 
   return (

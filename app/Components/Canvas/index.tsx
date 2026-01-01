@@ -11,16 +11,12 @@ import {
   PanOnScrollMode,
   ReactFlow,
   ReactFlowProvider,
-  useNodesState,
-  useReactFlow,
-  useViewport,
 } from "@xyflow/react";
-
-import { ViewportClamper } from "./helpers";
 
 import "@xyflow/react/dist/style.css";
 import { useNodes } from "@/app/Context";
 
+import { ViewportClamper } from "./helpers";
 import { RecenterButton } from "./RecenterCanvasButton";
 import styles from "./styles.module.scss";
 import { TextNode } from "./TextNode";
@@ -30,9 +26,8 @@ export type CustomTextNode = Node<TextNodeData, "textNode">;
 type TextNodeData = { text: string };
 
 export const Canvas = () => {
-  const { savedPageNodes, setSavedPageNodes } = useNodes();
+  const { currentPageNodes, setCurrentPageNodes } = useNodes();
 
-  const [nodes, setNodes] = useNodesState<CustomTextNode>(savedPageNodes);
   const [minZoomVal, setMinZoomVal] = useState(0.1);
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
 
@@ -49,8 +44,9 @@ export const Canvas = () => {
   // to update the data.
 
   const onNodesChange: OnNodesChange<CustomTextNode> = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes]
+    // eslint-disable-next-line
+    (changes) => setCurrentPageNodes((nds: any) => applyNodeChanges(changes, nds)),
+    [setCurrentPageNodes]
   );
 
   useEffect(() => {
@@ -79,7 +75,7 @@ export const Canvas = () => {
           <ReactFlow
             fitView
             nodeTypes={nodeTypes}
-            nodes={nodes}
+            nodes={currentPageNodes}
             onNodesChange={onNodesChange}
             snapToGrid
             snapGrid={[20, 20]}
