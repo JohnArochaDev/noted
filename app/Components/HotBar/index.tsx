@@ -1,5 +1,6 @@
 import { saveAs } from "file-saver";
 
+import { Folder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -8,7 +9,14 @@ import { SquareButton } from "../SquareButton";
 import styles from "./styles.module.scss";
 
 export const HotBar = () => {
-  const { currentPageNodes, currentPageId, setCurrentPageNodes } = useNodes();
+  const {
+    currentPageNodes,
+    currentPageId,
+    setCurrentPageNodes,
+    currentFolders,
+    setCurrentFolders,
+    userId,
+  } = useNodes();
 
   const saveNodes = () => {
     const dataToBeSaved = currentPageNodes.map((node) => ({
@@ -45,6 +53,27 @@ export const HotBar = () => {
     setCurrentPageNodes([...currentPageNodes, newNode]);
   };
 
+  const createNewFolder = () => {
+    console.log("current format", currentFolders[0].folders);
+    const previousFolders = currentFolders[0].folders;
+
+    const newFolder: Folder = {
+      id: generateUUID(),
+      parent_id: userId,
+      name: "Folder",
+      type: "folder",
+      subfolders: [],
+      nodes: [],
+    };
+
+    setCurrentFolders([
+      {
+        id: previousFolders[0].id,
+        folders: [newFolder, ...previousFolders]
+      },
+    ]);
+  }; // right now a node has to have a folder as a parent. we'll leave this for now, so nodes cant just take up space unorganized. need to hide the button if no folders are found!!
+
   // when saving a new folder or a new file, I need to both create it by updating the context,
   // AND create it in the UI. if the call fails i delete the new file / folder and add a toast error.
   // I need to be careful to keep the UI and DB synced perfectly, and be careful with my data.
@@ -54,7 +83,11 @@ export const HotBar = () => {
       <div className={styles.leftSection}>
         <h2 style={{ fontWeight: 100, marginLeft: "60px" }}>noted.exe</h2>
         <div className={styles.verticalDivider} />
-        <Button label="New Folder" type="newFolder" onClick={() => {}} />
+        <Button
+          label="New Folder"
+          type="newFolder"
+          onClick={() => createNewFolder()}
+        />
         <Button label="New File" type="newFile" onClick={() => {}} />
         <Button
           label="New Node"

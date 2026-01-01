@@ -1,11 +1,11 @@
 export type RootFolder = {
-  id: number; // use ID number
+  id: string;
   folders: Folder[];
 };
 
 export type Folder = {
-  id: number;
-  parent_id: number | null;
+  id: string;
+  parent_id: string | null;
   name: string;
   type: NodeType;
   subfolders: Folder[];
@@ -13,8 +13,8 @@ export type Folder = {
 };
 
 export type Node = {
-  id: number;
-  parent_id: number;
+  id: string;
+  parent_id: string;
   name: string;
   data: string;
   type: NodeType;

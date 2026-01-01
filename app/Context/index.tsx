@@ -7,8 +7,8 @@ import { RootFolder } from "../Constants/types";
 import { TextNodeType } from "../Constants/types";
 
 type NodesContextType = {
-  userId: number;
-  setUserId: (userId: number) => void;
+  userId: string;
+  setUserId: (userId: string) => void;
   savedFolders: RootFolder[];
   setSavedFolders: (savedFolders: RootFolder[]) => void;
   currentFolders: RootFolder[];
@@ -18,14 +18,14 @@ type NodesContextType = {
   currentPageNodes: CustomTextNode[];
   // eslint-disable-next-line
   setCurrentPageNodes: (currentPageNodes: any) => void;
-  currentPageId: number;
-  setCurrentPageId: (currentPageId: number) => void;
+  currentPageId: string;
+  setCurrentPageId: (currentPageId: string) => void;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [userId, setUserId] = useState<number>(0); // logged in user
+  const [userId, setUserId] = useState<string>("12345"); // logged in user
 
   const [savedFolders, setSavedFolders] = useState<RootFolder[]>(
     folderData as RootFolder[]
@@ -43,7 +43,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     nodeDate as CustomTextNode[]
   );
 
-  const [currentPageId, setCurrentPageId] = useState<number>(7); // will be used when creating new nodes, will set the parent ID to this.
+  const [currentPageId, setCurrentPageId] = useState<string>("7"); // will be used when creating new nodes, will set the parent ID to this.
   // when the server is up these will come from my db
 
   return (

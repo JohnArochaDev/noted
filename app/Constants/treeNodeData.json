@@ -1,36 +1,36 @@
 [
   {
-    "id": 12345,
+    "id": "12345",
     "folders": [
       {
-        "id": 1,
+        "id": "1",
         "parent_id": null,
         "name": "Coding Notes",
         "type": "folder",
         "subfolders": [
           {
-            "id": 2,
-            "parent_id": 1,
+            "id": "2",
+            "parent_id": "1",
             "name": "Python",
             "type": "folder",
             "subfolders": [
               {
-                "id": 3,
-                "parent_id": 2,
+                "id": "3",
+                "parent_id": "2",
                 "name": "Basics",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 101,
-                    "parent_id": 3,
+                    "id": "101",
+                    "parent_id": "3",
                     "data": "...",
                     "name": "Variables in Python",
                     "type": "node"
                   },
                   {
-                    "id": 102,
-                    "parent_id": 3,
+                    "id": "102",
+                    "parent_id": "3",
                     "data": "...",
                     "name": "Functions in Python",
                     "type": "node"
@@ -38,15 +38,15 @@
                 ]
               },
               {
-                "id": 4,
-                "parent_id": 2,
+                "id": "4",
+                "parent_id": "2",
                 "name": "Advanced",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 103,
-                    "parent_id": 4,
+                    "id": "103",
+                    "parent_id": "4",
                     "data": "...",
                     "name": "Decorators in Python",
                     "type": "node"
@@ -56,8 +56,8 @@
             ],
             "nodes": [
               {
-                "id": 104,
-                "parent_id": 2,
+                "id": "104",
+                "parent_id": "2",
                 "data": "...",
                 "name": "Python Overview",
                 "type": "node"
@@ -65,28 +65,28 @@
             ]
           },
           {
-            "id": 5,
-            "parent_id": 1,
+            "id": "5",
+            "parent_id": "1",
             "name": "JavaScript",
             "type": "folder",
             "subfolders": [
               {
-                "id": 6,
-                "parent_id": 5,
+                "id": "6",
+                "parent_id": "5",
                 "name": "ES6+",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 105,
-                    "parent_id": 6,
+                    "id": "105",
+                    "parent_id": "6",
                     "data": "...",
                     "name": "Arrow Functions in JS",
                     "type": "node"
                   },
                   {
-                    "id": 106,
-                    "parent_id": 6,
+                    "id": "106",
+                    "parent_id": "6",
                     "data": "...",
                     "name": "Promises in JS",
                     "type": "node"
@@ -96,8 +96,8 @@
             ],
             "nodes": [
               {
-                "id": 107,
-                "parent_id": 5,
+                "id": "107",
+                "parent_id": "5",
                 "data": "...",
                 "name": "Variables in JS",
                 "type": "node"
@@ -107,8 +107,8 @@
         ],
         "nodes": [
           {
-            "id": 108,
-            "parent_id": 1,
+            "id": "108",
+            "parent_id": "1",
             "data": "...",
             "name": "General Coding Tips",
             "type": "node"
@@ -116,34 +116,34 @@
         ]
       },
       {
-        "id": 7,
+        "id": "7",
         "parent_id": null,
         "name": "History Notes",
         "type": "folder",
         "subfolders": [
           {
-            "id": 8,
-            "parent_id": 7,
+            "id": "8",
+            "parent_id": "7",
             "name": "Ancient Civilizations",
             "type": "folder",
             "subfolders": [
               {
-                "id": 9,
-                "parent_id": 8,
+                "id": "9",
+                "parent_id": "8",
                 "name": "Egypt",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 201,
-                    "parent_id": 9,
+                    "id": "201",
+                    "parent_id": "9",
                     "data": "...",
                     "name": "Pyramids of Giza",
                     "type": "node"
                   },
                   {
-                    "id": 202,
-                    "parent_id": 9,
+                    "id": "202",
+                    "parent_id": "9",
                     "data": "...",
                     "name": "Pharaohs and Dynasties",
                     "type": "node"
@@ -151,15 +151,15 @@
                 ]
               },
               {
-                "id": 10,
-                "parent_id": 8,
+                "id": "10",
+                "parent_id": "8",
                 "name": "Greece",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 203,
-                    "parent_id": 10,
+                    "id": "203",
+                    "parent_id": "10",
                     "data": "...",
                     "name": "Sparta vs Athens",
                     "type": "node"
@@ -169,8 +169,8 @@
             ],
             "nodes": [
               {
-                "id": 204,
-                "parent_id": 8,
+                "id": "204",
+                "parent_id": "8",
                 "data": "...",
                 "name": "Overview of Ancient Times",
                 "type": "node"
@@ -178,28 +178,28 @@
             ]
           },
           {
-            "id": 11,
-            "parent_id": 7,
+            "id": "11",
+            "parent_id": "7",
             "name": "World Wars",
             "type": "folder",
             "subfolders": [
               {
-                "id": 12,
-                "parent_id": 11,
+                "id": "12",
+                "parent_id": "11",
                 "name": "WWII",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 205,
-                    "parent_id": 12,
+                    "id": "205",
+                    "parent_id": "12",
                     "data": "...",
                     "name": "Pearl Harbor",
                     "type": "node"
                   },
                   {
-                    "id": 206,
-                    "parent_id": 12,
+                    "id": "206",
+                    "parent_id": "12",
                     "data": "...",
                     "name": "D-Day Invasion",
                     "type": "node"
@@ -209,8 +209,8 @@
             ],
             "nodes": [
               {
-                "id": 207,
-                "parent_id": 11,
+                "id": "207",
+                "parent_id": "11",
                 "data": "...",
                 "name": "Causes of World Wars",
                 "type": "node"
@@ -220,8 +220,8 @@
         ],
         "nodes": [
           {
-            "id": 208,
-            "parent_id": 7,
+            "id": "208",
+            "parent_id": "7",
             "data": "...",
             "name": "Key Historical Events",
             "type": "node"
@@ -229,34 +229,34 @@
         ]
       },
       {
-        "id": 13,
+        "id": "13",
         "parent_id": null,
         "name": "Science Notes",
         "type": "folder",
         "subfolders": [
           {
-            "id": 14,
-            "parent_id": 13,
+            "id": "14",
+            "parent_id": "13",
             "name": "Physics",
             "type": "folder",
             "subfolders": [
               {
-                "id": 15,
-                "parent_id": 14,
+                "id": "15",
+                "parent_id": "14",
                 "name": "Mechanics",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 301,
-                    "parent_id": 15,
+                    "id": "301",
+                    "parent_id": "15",
                     "data": "...",
                     "name": "Newton's Laws",
                     "type": "node"
                   },
                   {
-                    "id": 302,
-                    "parent_id": 15,
+                    "id": "302",
+                    "parent_id": "15",
                     "data": "...",
                     "name": "Kinematics Equations",
                     "type": "node"
@@ -264,15 +264,15 @@
                 ]
               },
               {
-                "id": 16,
-                "parent_id": 14,
+                "id": "16",
+                "parent_id": "14",
                 "name": "Quantum",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 303,
-                    "parent_id": 16,
+                    "id": "303",
+                    "parent_id": "16",
                     "data": "...",
                     "name": "Schrodinger's Equation",
                     "type": "node"
@@ -282,8 +282,8 @@
             ],
             "nodes": [
               {
-                "id": 304,
-                "parent_id": 14,
+                "id": "304",
+                "parent_id": "14",
                 "data": "...",
                 "name": "Physics Fundamentals",
                 "type": "node"
@@ -291,28 +291,28 @@
             ]
           },
           {
-            "id": 17,
-            "parent_id": 13,
+            "id": "17",
+            "parent_id": "13",
             "name": "Biology",
             "type": "folder",
             "subfolders": [
               {
-                "id": 18,
-                "parent_id": 17,
+                "id": "18",
+                "parent_id": "17",
                 "name": "Genetics",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 305,
-                    "parent_id": 18,
+                    "id": "305",
+                    "parent_id": "18",
                     "data": "...",
                     "name": "DNA Structure",
                     "type": "node"
                   },
                   {
-                    "id": 306,
-                    "parent_id": 18,
+                    "id": "306",
+                    "parent_id": "18",
                     "data": "...",
                     "name": "Mendel's Laws",
                     "type": "node"
@@ -322,8 +322,8 @@
             ],
             "nodes": [
               {
-                "id": 307,
-                "parent_id": 17,
+                "id": "307",
+                "parent_id": "17",
                 "data": "...",
                 "name": "Cell Biology Basics",
                 "type": "node"
@@ -333,8 +333,8 @@
         ],
         "nodes": [
           {
-            "id": 308,
-            "parent_id": 13,
+            "id": "308",
+            "parent_id": "13",
             "data": "...",
             "name": "Scientific Method",
             "type": "node"
@@ -342,34 +342,34 @@
         ]
       },
       {
-        "id": 19,
+        "id": "19",
         "parent_id": null,
         "name": "Sports Notes",
         "type": "folder",
         "subfolders": [
           {
-            "id": 20,
-            "parent_id": 19,
+            "id": "20",
+            "parent_id": "19",
             "name": "Football",
             "type": "folder",
             "subfolders": [
               {
-                "id": 21,
-                "parent_id": 20,
+                "id": "21",
+                "parent_id": "20",
                 "name": "Rules",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 401,
-                    "parent_id": 21,
+                    "id": "401",
+                    "parent_id": "21",
                     "data": "...",
                     "name": "Offside Rule",
                     "type": "node"
                   },
                   {
-                    "id": 402,
-                    "parent_id": 21,
+                    "id": "402",
+                    "parent_id": "21",
                     "data": "...",
                     "name": "Penalty Kicks",
                     "type": "node"
@@ -377,15 +377,15 @@
                 ]
               },
               {
-                "id": 22,
-                "parent_id": 20,
+                "id": "22",
+                "parent_id": "20",
                 "name": "Famous Players",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 403,
-                    "parent_id": 22,
+                    "id": "403",
+                    "parent_id": "22",
                     "data": "...",
                     "name": "Lionel Messi",
                     "type": "node"
@@ -395,8 +395,8 @@
             ],
             "nodes": [
               {
-                "id": 404,
-                "parent_id": 20,
+                "id": "404",
+                "parent_id": "20",
                 "data": "...",
                 "name": "Football History",
                 "type": "node"
@@ -404,28 +404,28 @@
             ]
           },
           {
-            "id": 23,
-            "parent_id": 19,
+            "id": "23",
+            "parent_id": "19",
             "name": "Basketball",
             "type": "folder",
             "subfolders": [
               {
-                "id": 24,
-                "parent_id": 23,
+                "id": "24",
+                "parent_id": "23",
                 "name": "Techniques",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 405,
-                    "parent_id": 24,
+                    "id": "405",
+                    "parent_id": "24",
                     "data": "...",
                     "name": "Dribbling Skills",
                     "type": "node"
                   },
                   {
-                    "id": 406,
-                    "parent_id": 24,
+                    "id": "406",
+                    "parent_id": "24",
                     "data": "...",
                     "name": "Shooting Forms",
                     "type": "node"
@@ -435,8 +435,8 @@
             ],
             "nodes": [
               {
-                "id": 407,
-                "parent_id": 23,
+                "id": "407",
+                "parent_id": "23",
                 "data": "...",
                 "name": "NBA Overview",
                 "type": "node"
@@ -446,8 +446,8 @@
         ],
         "nodes": [
           {
-            "id": 408,
-            "parent_id": 19,
+            "id": "408",
+            "parent_id": "19",
             "data": "...",
             "name": "Sports Nutrition",
             "type": "node"
@@ -455,34 +455,34 @@
         ]
       },
       {
-        "id": 25,
+        "id": "25",
         "parent_id": null,
         "name": "Cooking Recipes",
         "type": "folder",
         "subfolders": [
           {
-            "id": 26,
-            "parent_id": 25,
+            "id": "26",
+            "parent_id": "25",
             "name": "Italian Cuisine",
             "type": "folder",
             "subfolders": [
               {
-                "id": 27,
-                "parent_id": 26,
+                "id": "27",
+                "parent_id": "26",
                 "name": "Pasta",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 501,
-                    "parent_id": 27,
+                    "id": "501",
+                    "parent_id": "27",
                     "data": "...",
                     "name": "Spaghetti Carbonara",
                     "type": "node"
                   },
                   {
-                    "id": 502,
-                    "parent_id": 27,
+                    "id": "502",
+                    "parent_id": "27",
                     "data": "...",
                     "name": "Lasagna Recipe",
                     "type": "node"
@@ -490,15 +490,15 @@
                 ]
               },
               {
-                "id": 28,
-                "parent_id": 26,
+                "id": "28",
+                "parent_id": "26",
                 "name": "Pizza",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 503,
-                    "parent_id": 28,
+                    "id": "503",
+                    "parent_id": "28",
                     "data": "...",
                     "name": "Margherita Pizza",
                     "type": "node"
@@ -508,8 +508,8 @@
             ],
             "nodes": [
               {
-                "id": 504,
-                "parent_id": 26,
+                "id": "504",
+                "parent_id": "26",
                 "data": "...",
                 "name": "Italian Herbs Guide",
                 "type": "node"
@@ -517,28 +517,28 @@
             ]
           },
           {
-            "id": 29,
-            "parent_id": 25,
+            "id": "29",
+            "parent_id": "25",
             "name": "Asian Cuisine",
             "type": "folder",
             "subfolders": [
               {
-                "id": 30,
-                "parent_id": 29,
+                "id": "30",
+                "parent_id": "29",
                 "name": "Sushi",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 505,
-                    "parent_id": 30,
+                    "id": "505",
+                    "parent_id": "30",
                     "data": "...",
                     "name": "California Roll",
                     "type": "node"
                   },
                   {
-                    "id": 506,
-                    "parent_id": 30,
+                    "id": "506",
+                    "parent_id": "30",
                     "data": "...",
                     "name": "Nigiri Preparation",
                     "type": "node"
@@ -548,8 +548,8 @@
             ],
             "nodes": [
               {
-                "id": 507,
-                "parent_id": 29,
+                "id": "507",
+                "parent_id": "29",
                 "data": "...",
                 "name": "Stir-Fry Basics",
                 "type": "node"
@@ -559,8 +559,8 @@
         ],
         "nodes": [
           {
-            "id": 508,
-            "parent_id": 25,
+            "id": "508",
+            "parent_id": "25",
             "data": "...",
             "name": "Kitchen Safety Tips",
             "type": "node"
@@ -568,34 +568,34 @@
         ]
       },
       {
-        "id": 31,
+        "id": "31",
         "parent_id": null,
         "name": "Travel Guides",
         "type": "folder",
         "subfolders": [
           {
-            "id": 32,
-            "parent_id": 31,
+            "id": "32",
+            "parent_id": "31",
             "name": "Europe",
             "type": "folder",
             "subfolders": [
               {
-                "id": 33,
-                "parent_id": 32,
+                "id": "33",
+                "parent_id": "32",
                 "name": "France",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 601,
-                    "parent_id": 33,
+                    "id": "601",
+                    "parent_id": "33",
                     "data": "...",
                     "name": "Paris Landmarks",
                     "type": "node"
                   },
                   {
-                    "id": 602,
-                    "parent_id": 33,
+                    "id": "602",
+                    "parent_id": "33",
                     "data": "...",
                     "name": "French Riviera",
                     "type": "node"
@@ -603,15 +603,15 @@
                 ]
               },
               {
-                "id": 34,
-                "parent_id": 32,
+                "id": "34",
+                "parent_id": "32",
                 "name": "Italy",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 603,
-                    "parent_id": 34,
+                    "id": "603",
+                    "parent_id": "34",
                     "data": "...",
                     "name": "Rome Colosseum",
                     "type": "node"
@@ -621,8 +621,8 @@
             ],
             "nodes": [
               {
-                "id": 604,
-                "parent_id": 32,
+                "id": "604",
+                "parent_id": "32",
                 "data": "...",
                 "name": "European Train Travel",
                 "type": "node"
@@ -630,28 +630,28 @@
             ]
           },
           {
-            "id": 35,
-            "parent_id": 31,
+            "id": "35",
+            "parent_id": "31",
             "name": "Asia",
             "type": "folder",
             "subfolders": [
               {
-                "id": 36,
-                "parent_id": 35,
+                "id": "36",
+                "parent_id": "35",
                 "name": "Japan",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 605,
-                    "parent_id": 36,
+                    "id": "605",
+                    "parent_id": "36",
                     "data": "...",
                     "name": "Tokyo Attractions",
                     "type": "node"
                   },
                   {
-                    "id": 606,
-                    "parent_id": 36,
+                    "id": "606",
+                    "parent_id": "36",
                     "data": "...",
                     "name": "Kyoto Temples",
                     "type": "node"
@@ -661,8 +661,8 @@
             ],
             "nodes": [
               {
-                "id": 607,
-                "parent_id": 35,
+                "id": "607",
+                "parent_id": "35",
                 "data": "...",
                 "name": "Asian Street Food",
                 "type": "node"
@@ -672,8 +672,8 @@
         ],
         "nodes": [
           {
-            "id": 608,
-            "parent_id": 31,
+            "id": "608",
+            "parent_id": "31",
             "data": "...",
             "name": "Packing Tips",
             "type": "node"
@@ -681,34 +681,34 @@
         ]
       },
       {
-        "id": 37,
+        "id": "37",
         "parent_id": null,
         "name": "Music Theory",
         "type": "folder",
         "subfolders": [
           {
-            "id": 38,
-            "parent_id": 37,
+            "id": "38",
+            "parent_id": "37",
             "name": "Scales",
             "type": "folder",
             "subfolders": [
               {
-                "id": 39,
-                "parent_id": 38,
+                "id": "39",
+                "parent_id": "38",
                 "name": "Major Scales",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 701,
-                    "parent_id": 39,
+                    "id": "701",
+                    "parent_id": "39",
                     "data": "...",
                     "name": "C Major Scale",
                     "type": "node"
                   },
                   {
-                    "id": 702,
-                    "parent_id": 39,
+                    "id": "702",
+                    "parent_id": "39",
                     "data": "...",
                     "name": "G Major Scale",
                     "type": "node"
@@ -716,15 +716,15 @@
                 ]
               },
               {
-                "id": 40,
-                "parent_id": 38,
+                "id": "40",
+                "parent_id": "38",
                 "name": "Minor Scales",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 703,
-                    "parent_id": 40,
+                    "id": "703",
+                    "parent_id": "40",
                     "data": "...",
                     "name": "A Minor Scale",
                     "type": "node"
@@ -734,8 +734,8 @@
             ],
             "nodes": [
               {
-                "id": 704,
-                "parent_id": 38,
+                "id": "704",
+                "parent_id": "38",
                 "data": "...",
                 "name": "Scale Construction",
                 "type": "node"
@@ -743,28 +743,28 @@
             ]
           },
           {
-            "id": 41,
-            "parent_id": 37,
+            "id": "41",
+            "parent_id": "37",
             "name": "Chords",
             "type": "folder",
             "subfolders": [
               {
-                "id": 42,
-                "parent_id": 41,
+                "id": "42",
+                "parent_id": "41",
                 "name": "Triads",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 705,
-                    "parent_id": 42,
+                    "id": "705",
+                    "parent_id": "42",
                     "data": "...",
                     "name": "Major Triads",
                     "type": "node"
                   },
                   {
-                    "id": 706,
-                    "parent_id": 42,
+                    "id": "706",
+                    "parent_id": "42",
                     "data": "...",
                     "name": "Minor Triads",
                     "type": "node"
@@ -774,8 +774,8 @@
             ],
             "nodes": [
               {
-                "id": 707,
-                "parent_id": 41,
+                "id": "707",
+                "parent_id": "41",
                 "data": "...",
                 "name": "Chord Progressions",
                 "type": "node"
@@ -785,8 +785,8 @@
         ],
         "nodes": [
           {
-            "id": 708,
-            "parent_id": 37,
+            "id": "708",
+            "parent_id": "37",
             "data": "...",
             "name": "Rhythm Basics",
             "type": "node"
@@ -794,34 +794,34 @@
         ]
       },
       {
-        "id": 43,
+        "id": "43",
         "parent_id": null,
         "name": "Fitness Routines",
         "type": "folder",
         "subfolders": [
           {
-            "id": 44,
-            "parent_id": 43,
+            "id": "44",
+            "parent_id": "43",
             "name": "Strength Training",
             "type": "folder",
             "subfolders": [
               {
-                "id": 45,
-                "parent_id": 44,
+                "id": "45",
+                "parent_id": "44",
                 "name": "Upper Body",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 801,
-                    "parent_id": 45,
+                    "id": "801",
+                    "parent_id": "45",
                     "data": "...",
                     "name": "Bench Press",
                     "type": "node"
                   },
                   {
-                    "id": 802,
-                    "parent_id": 45,
+                    "id": "802",
+                    "parent_id": "45",
                     "data": "...",
                     "name": "Pull-Ups",
                     "type": "node"
@@ -829,15 +829,15 @@
                 ]
               },
               {
-                "id": 46,
-                "parent_id": 44,
+                "id": "46",
+                "parent_id": "44",
                 "name": "Lower Body",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 803,
-                    "parent_id": 46,
+                    "id": "803",
+                    "parent_id": "46",
                     "data": "...",
                     "name": "Squats",
                     "type": "node"
@@ -847,8 +847,8 @@
             ],
             "nodes": [
               {
-                "id": 804,
-                "parent_id": 44,
+                "id": "804",
+                "parent_id": "44",
                 "data": "...",
                 "name": "Weightlifting Principles",
                 "type": "node"
@@ -856,28 +856,28 @@
             ]
           },
           {
-            "id": 47,
-            "parent_id": 43,
+            "id": "47",
+            "parent_id": "43",
             "name": "Cardio",
             "type": "folder",
             "subfolders": [
               {
-                "id": 48,
-                "parent_id": 47,
+                "id": "48",
+                "parent_id": "47",
                 "name": "Running",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 805,
-                    "parent_id": 48,
+                    "id": "805",
+                    "parent_id": "48",
                     "data": "...",
                     "name": "Interval Training",
                     "type": "node"
                   },
                   {
-                    "id": 806,
-                    "parent_id": 48,
+                    "id": "806",
+                    "parent_id": "48",
                     "data": "...",
                     "name": "Marathon Prep",
                     "type": "node"
@@ -887,8 +887,8 @@
             ],
             "nodes": [
               {
-                "id": 807,
-                "parent_id": 47,
+                "id": "807",
+                "parent_id": "47",
                 "data": "...",
                 "name": "HIIT Workouts",
                 "type": "node"
@@ -898,8 +898,8 @@
         ],
         "nodes": [
           {
-            "id": 808,
-            "parent_id": 43,
+            "id": "808",
+            "parent_id": "43",
             "data": "...",
             "name": "Recovery Techniques",
             "type": "node"
@@ -907,34 +907,34 @@
         ]
       },
       {
-        "id": 49,
+        "id": "49",
         "parent_id": null,
         "name": "Literature Reviews",
         "type": "folder",
         "subfolders": [
           {
-            "id": 50,
-            "parent_id": 49,
+            "id": "50",
+            "parent_id": "49",
             "name": "Classics",
             "type": "folder",
             "subfolders": [
               {
-                "id": 51,
-                "parent_id": 50,
+                "id": "51",
+                "parent_id": "50",
                 "name": "Shakespeare",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 901,
-                    "parent_id": 51,
+                    "id": "901",
+                    "parent_id": "51",
                     "data": "...",
                     "name": "Hamlet Summary",
                     "type": "node"
                   },
                   {
-                    "id": 902,
-                    "parent_id": 51,
+                    "id": "902",
+                    "parent_id": "51",
                     "data": "...",
                     "name": "Romeo and Juliet",
                     "type": "node"
@@ -942,15 +942,15 @@
                 ]
               },
               {
-                "id": 52,
-                "parent_id": 50,
+                "id": "52",
+                "parent_id": "50",
                 "name": "Dickens",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 903,
-                    "parent_id": 52,
+                    "id": "903",
+                    "parent_id": "52",
                     "data": "...",
                     "name": "Great Expectations",
                     "type": "node"
@@ -960,8 +960,8 @@
             ],
             "nodes": [
               {
-                "id": 904,
-                "parent_id": 50,
+                "id": "904",
+                "parent_id": "50",
                 "data": "...",
                 "name": "Victorian Era Literature",
                 "type": "node"
@@ -969,28 +969,28 @@
             ]
           },
           {
-            "id": 53,
-            "parent_id": 49,
+            "id": "53",
+            "parent_id": "49",
             "name": "Modern Fiction",
             "type": "folder",
             "subfolders": [
               {
-                "id": 54,
-                "parent_id": 53,
+                "id": "54",
+                "parent_id": "53",
                 "name": "Sci-Fi",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 905,
-                    "parent_id": 54,
+                    "id": "905",
+                    "parent_id": "54",
                     "data": "...",
                     "name": "Dune by Frank Herbert",
                     "type": "node"
                   },
                   {
-                    "id": 906,
-                    "parent_id": 54,
+                    "id": "906",
+                    "parent_id": "54",
                     "data": "...",
                     "name": "Neuromancer",
                     "type": "node"
@@ -1000,8 +1000,8 @@
             ],
             "nodes": [
               {
-                "id": 907,
-                "parent_id": 53,
+                "id": "907",
+                "parent_id": "53",
                 "data": "...",
                 "name": "Contemporary Authors",
                 "type": "node"
@@ -1011,8 +1011,8 @@
         ],
         "nodes": [
           {
-            "id": 908,
-            "parent_id": 49,
+            "id": "908",
+            "parent_id": "49",
             "data": "...",
             "name": "Literary Analysis Tips",
             "type": "node"
@@ -1020,34 +1020,34 @@
         ]
       },
       {
-        "id": 55,
+        "id": "55",
         "parent_id": null,
         "name": "Business Strategies",
         "type": "folder",
         "subfolders": [
           {
-            "id": 56,
-            "parent_id": 55,
+            "id": "56",
+            "parent_id": "55",
             "name": "Marketing",
             "type": "folder",
             "subfolders": [
               {
-                "id": 57,
-                "parent_id": 56,
+                "id": "57",
+                "parent_id": "56",
                 "name": "Digital",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 1001,
-                    "parent_id": 57,
+                    "id": "1001",
+                    "parent_id": "57",
                     "data": "...",
                     "name": "SEO Best Practices",
                     "type": "node"
                   },
                   {
-                    "id": 1002,
-                    "parent_id": 57,
+                    "id": "1002",
+                    "parent_id": "57",
                     "data": "...",
                     "name": "Social Media Ads",
                     "type": "node"
@@ -1055,15 +1055,15 @@
                 ]
               },
               {
-                "id": 58,
-                "parent_id": 56,
+                "id": "58",
+                "parent_id": "56",
                 "name": "Traditional",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 1003,
-                    "parent_id": 58,
+                    "id": "1003",
+                    "parent_id": "58",
                     "data": "...",
                     "name": "Billboard Campaigns",
                     "type": "node"
@@ -1073,8 +1073,8 @@
             ],
             "nodes": [
               {
-                "id": 1004,
-                "parent_id": 56,
+                "id": "1004",
+                "parent_id": "56",
                 "data": "...",
                 "name": "Market Research Methods",
                 "type": "node"
@@ -1082,28 +1082,28 @@
             ]
           },
           {
-            "id": 59,
-            "parent_id": 55,
+            "id": "59",
+            "parent_id": "55",
             "name": "Finance",
             "type": "folder",
             "subfolders": [
               {
-                "id": 60,
-                "parent_id": 59,
+                "id": "60",
+                "parent_id": "59",
                 "name": "Investing",
                 "type": "folder",
                 "subfolders": [],
                 "nodes": [
                   {
-                    "id": 1005,
-                    "parent_id": 60,
+                    "id": "1005",
+                    "parent_id": "60",
                     "data": "...",
                     "name": "Stock Market Basics",
                     "type": "node"
                   },
                   {
-                    "id": 1006,
-                    "parent_id": 60,
+                    "id": "1006",
+                    "parent_id": "60",
                     "data": "...",
                     "name": "Diversification Strategies",
                     "type": "node"
@@ -1113,8 +1113,8 @@
             ],
             "nodes": [
               {
-                "id": 1007,
-                "parent_id": 59,
+                "id": "1007",
+                "parent_id": "59",
                 "data": "...",
                 "name": "Budgeting Tips",
                 "type": "node"
@@ -1124,8 +1124,8 @@
         ],
         "nodes": [
           {
-            "id": 1008,
-            "parent_id": 55,
+            "id": "1008",
+            "parent_id": "55",
             "data": "...",
             "name": "Entrepreneurship Guide",
             "type": "node"

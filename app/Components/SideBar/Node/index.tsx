@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 
 type TreeNodeType = {
   label: string;
-  id: number;
+  id: string;
 };
 
 export const TreeNode = (props: TreeNodeType) => {
