@@ -7,17 +7,9 @@ import { SquareButton } from "../SquareButton";
 import styles from "./styles.module.scss";
 
 export const HotBar = () => {
-  const {
-    savedPageNodes,
-    // setSavedPageNodes,
-    currentPageNodes,
-    // setCurrentPageNodes,
-  } = useNodes();
+  const { currentPageNodes } = useNodes();
 
   const saveNodes = () => {
-    console.log("current nodes (need to be formatted)", currentPageNodes);
-    console.log("saved nodes (alreadyformatted)", savedPageNodes);
-
     const dataToBeSaved = currentPageNodes.map((node) => ({
       id: node.id,
       type: node.type,

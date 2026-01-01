@@ -33,9 +33,6 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
     params: ResizeParams
   ) => {
-    console.log(
-      `Node ${id} new dimensions: width=${params.width}, height=${params.height}`
-    );
 
     setCurrentPageNodes(
       currentPageNodes.map((node) =>
@@ -66,8 +63,6 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
       textRef.current.focus();
       textRef.current.setSelectionRange(text.length, text.length);
     }
-
-    console.log("HITHITHITH");
 
     setTimeout(() => {
       setCurrentPageNodes(
