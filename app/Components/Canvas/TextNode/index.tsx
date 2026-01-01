@@ -11,7 +11,7 @@ import { D3DragEvent, SubjectPosition } from "d3-drag";
 
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
@@ -22,6 +22,9 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
   const [title, setTitle] = useState<string>(data.title);
 
   const rf = useReactFlow();
+
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
@@ -46,6 +49,13 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       )
     );
   }, [isEditing, id, rf]);
+
+  useEffect(() => {
+    if (isEditing && textRef.current) {
+      textRef.current.focus();
+      textRef.current.setSelectionRange(text.length, text.length);
+    }
+  }, [isEditing, text]);
 
   return (
     <div
@@ -84,11 +94,17 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
         }}
       />
       {isEditing ? (
-        <textarea
+        <input
+          ref={titleRef}
           className={`${styles.title} nopan`}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onPointerDown={(e) => e.stopPropagation()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
           style={{
             border: "none",
             background: "transparent",
@@ -96,6 +112,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
             overflow: "auto",
             textAlign: "center",
             paddingTop: "10px",
+            paddingBottom: "14px"
           }}
         />
       ) : (
@@ -103,9 +120,8 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
           className={styles.title}
           style={{
             border: "none",
-            overflow: "auto",
             textAlign: "center",
-            paddingBottom: "13px",
+            paddingBottom: "14px",
             paddingTop: "10px",
           }}
         >
@@ -122,6 +138,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       <div style={{ flex: 1, overflow: "hidden" }}>
         {isEditing ? (
           <textarea
+            ref={textRef}
             className={`${styles.text} nopan`}
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -137,7 +154,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               fontSize: "15px",
               paddingTop: "10px",
             }}
-          ></textarea>
+          />
         ) : (
           <div
             className={styles.text}

@@ -18,6 +18,9 @@
   resize: none;
   background: "transparent";
   text-align: "center";
+  font-size: 17px;
+  word-wrap: none;
+  overflow: none;
 }
 
 .title:focus {
@@ -30,7 +33,7 @@
   height: 2px;
   background-color: #343335;
   border: none;
-  margin: 0;
+  margin-top: -7px;
   align-self: center;
 }
 
