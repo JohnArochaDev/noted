@@ -27,7 +27,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   ); // all folders and .node files
   // active saved page nodes selected from hierarchy tree. these will be found via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
   const [savedPageNodes, setSavedPageNodes] = useState<TextNodeType[]>(
-    nodeDate as TextNodeType[]
+    nodeDate as TextNodeType[] // before seiding to DB, make the ID here a number. It needs to be a string to matchthe node requirement from the library.
   );
 
   // these nodes are the unsaved page nodes. When a save happens, these will be formatted to meet the format expected by the DB, send to the DB, and then a call will pull them back from the DB to keep everythiing synced up
