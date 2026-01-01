@@ -22,7 +22,7 @@ import { RecenterButton } from "./RecenterCanvasButton";
 import styles from "./styles.module.scss";
 import { TextNode } from "./TextNode";
 
-type TextNodeData = { title: string; text: string };
+type TextNodeData = { text: string };
 
 export type CustomTextNode = Node<TextNodeData, "textNode">;
 
@@ -78,7 +78,7 @@ export const Canvas = () => {
       position: { x: 2500, y: 2500 },
       width: 300,
       height: 200,
-      data: { title: "My Title", text: "Centered content here" },
+      data: { text: "Centered content here" },
     },
   ];
 

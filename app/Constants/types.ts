@@ -22,14 +22,17 @@ export type Node = {
 
 export type NodeType = "folder" | "node";
 
-export type NodePlate = {
-  id: number;
-  data: string;
-  title: string;
+export type TextNodeType = {
+  id: string;
   type: NodePlateType;
-  coordinates: Coordinates;
+  position: Coordinates;
+  width: number;
+  height: number
+  data: nodeData;
 };
 
-export type Coordinates = [number, number];
+export type Coordinates = {x: number, y: number};
 
-export type NodePlateType = "list" | "text" | "image" | "title" | "chart";
+export type nodeData = { text: string }
+
+export type NodePlateType = "textNode";

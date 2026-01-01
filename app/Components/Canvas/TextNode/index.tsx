@@ -14,7 +14,7 @@ import remarkGfm from "remark-gfm";
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
 
-type TextNodeType = Node<{ title: string; text: string }, "textNode">;
+type TextNodeType = Node<{ text: string }, "textNode">;
 
 export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
   const [isEditing, setIsEditing] = useState(false);

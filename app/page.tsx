@@ -7,18 +7,21 @@ import { SideBar } from "./Components/SideBar";
 import { TreeBuilder } from "./Components/SideBar/TreeBuilder";
 import data from "./Constants/treeNodeData.json";
 import { RootFolder } from "./Constants/types";
+import { NodeProvider } from "./Context";
 import styles from "./styles.module.scss";
 
 const Home = () => {
   return (
     <div className={styles.pageWrapper}>
-      <HotBar />
-      <Container>
-        <SideBar>
-          <TreeBuilder data={data as RootFolder[]} />
-        </SideBar>
-        <Canvas />
-      </Container>
+      <NodeProvider>
+        <HotBar />
+        <Container>
+          <SideBar>
+            <TreeBuilder data={data as RootFolder[]} />
+          </SideBar>
+          <Canvas />
+        </Container>
+      </NodeProvider>
     </div>
   );
 };
