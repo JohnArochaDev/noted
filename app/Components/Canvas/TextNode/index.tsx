@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import {
@@ -11,7 +12,6 @@ import { D3DragEvent, SubjectPosition } from "d3-drag";
 
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
-import { useEffect, useRef, useState } from "react";
 
 type CustomTextNode = Node<{ title: string; text: string }, "textNode">;
 
