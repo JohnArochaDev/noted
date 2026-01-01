@@ -56,7 +56,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       textRef.current.focus();
       textRef.current.setSelectionRange(text.length, text.length);
     }
-  }, [isEditing, text]);
+  }, [isEditing]);
 
   return (
     <div
@@ -94,49 +94,6 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
           height: "5px",
         }}
       />
-      {isEditing ? (
-        <input
-          ref={titleRef}
-          className={`${styles.title} nopan`}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onPointerDown={(e) => e.stopPropagation()}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-            }
-          }}
-          style={{
-            border: "none",
-            background: "transparent",
-            resize: "none",
-            overflow: "auto",
-            textAlign: "center",
-            paddingTop: "10px",
-            paddingBottom: "14px",
-            paddingLeft: "18px",
-          }}
-        />
-      ) : (
-        <div
-          className={styles.title}
-          style={{
-            border: "none",
-            textAlign: "center",
-            paddingBottom: "14px",
-            paddingTop: "10px",
-          }}
-        >
-          <ReactMarkdown
-            components={{
-              p: (props) => <p style={{ margin: 0 }} {...props} />,
-            }}
-          >
-            {title}
-          </ReactMarkdown>
-        </div>
-      )}
-      <hr className={styles.seperator} />
       <div style={{ flex: 1, overflow: "hidden" }}>
         {isEditing ? (
           <textarea
