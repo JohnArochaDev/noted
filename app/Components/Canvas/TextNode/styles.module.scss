@@ -8,35 +8,6 @@
   text-align: center;
 }
 
-.title {
-  font-family: "Rainbow100", sans-serif;
-  color: #9e968e;
-  font-size: small;
-  padding: 0 10px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  resize: none;
-  background: "transparent";
-  text-align: "center";
-  font-size: 17px;
-  word-wrap: none;
-  overflow: none;
-}
-
-.title:focus {
-  outline: none;
-  border: none;
-}
-
-.seperator {
-  width: 80%;
-  height: 2px;
-  background-color: #343335;
-  border: none;
-  margin-top: -7px;
-  align-self: center;
-}
-
 .text {
   font-family: "Rainbow100", sans-serif;
   color: #9e968e;
@@ -47,7 +18,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   resize: none;
-  text-align: "center";
+  text-align: center;
 }
 
 .text::-webkit-scrollbar {
@@ -57,4 +28,9 @@
 .text:focus {
   outline: none;
   border: none;
+}
+
+.text::selection {
+  color: #ffffff;
+  background: #9e968e;
 }

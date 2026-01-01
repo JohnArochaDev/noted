@@ -20,12 +20,10 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
   const [isEditing, setIsEditing] = useState(false);
 
   const [text, setText] = useState<string>(data.text);
-  const [title, setTitle] = useState<string>(data.title);
 
   const rf = useReactFlow();
 
   const textRef = useRef<HTMLTextAreaElement>(null);
-  const titleRef = useRef<HTMLInputElement>(null);
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
@@ -111,7 +109,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               overflow: "auto",
               textAlign: "center",
               fontSize: "15px",
-              paddingTop: "10px",
+              paddingTop: "20px",
             }}
           />
         ) : (
@@ -122,7 +120,7 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
               overflow: "auto",
               textAlign: "center",
               fontSize: "15px",
-              paddingTop: "10px",
+              paddingTop: "20px",
             }}
           >
             <ReactMarkdown
