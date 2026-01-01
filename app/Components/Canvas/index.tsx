@@ -35,17 +35,10 @@ export const Canvas = () => {
 
   const nodeTypes = { textNode: TextNode };
 
-  // ########## Saving and updating nodes with context ##########
-
-  // later, when I add the save button, the result of this will be saved to `pageNodes`. pageNodes
-  // will be the SAVED version of the node file, and the nodes will be the version used to track the
-  // nodes current (unsaved) locations and values. later, when saving, map through the `nodes`, and
-  // map the needed fields to the pageNodes, then save them with the setPageNodes and make the call
-  // to update the data.
-
   const onNodesChange: OnNodesChange<CustomTextNode> = useCallback(
-    // eslint-disable-next-line
-    (changes) => setCurrentPageNodes((nds: any) => applyNodeChanges(changes, nds)),
+    (changes) =>
+      // eslint-disable-next-line
+      setCurrentPageNodes((nds: any) => applyNodeChanges(changes, nds)),
     [setCurrentPageNodes]
   );
 
@@ -91,12 +84,12 @@ export const Canvas = () => {
             minZoom={minZoomVal}
             maxZoom={2}
             translateExtent={[
-              [0, 0], // top left boundary coordinates
-              [5000, 5000], // bottom right boundary coordinates
+              [0, 0],
+              [5000, 5000],
             ]}
             nodeExtent={[
-              [0, 0], // top left boundary coordinates
-              [5000, 5000], // bottom right boundary coordinates
+              [0, 0],
+              [5000, 5000],
             ]}
             panOnScrollMode={PanOnScrollMode.Free}
           >
