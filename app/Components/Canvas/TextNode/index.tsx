@@ -1,6 +1,12 @@
 import ReactMarkdown from "react-markdown";
 
-import { Node, NodeProps, NodeResizer, ResizeParams } from "@xyflow/react";
+import {
+  Node,
+  NodeProps,
+  NodeResizer,
+  ResizeParams,
+  useReactFlow,
+} from "@xyflow/react";
 import { D3DragEvent, SubjectPosition } from "d3-drag";
 
 import { SquareButton } from "../../SquareButton";
@@ -14,6 +20,8 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
 
   const [text, setText] = useState<string>(data.text);
   const [title, setTitle] = useState<string>(data.title);
+
+  const rf = useReactFlow();
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
@@ -30,6 +38,14 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       setIsEditing(false);
     }
   }, [selected]);
+
+  useEffect(() => {
+    rf.setNodes((nodes) =>
+      nodes.map((node) =>
+        node.id === id ? { ...node, draggable: !isEditing } : node
+      )
+    );
+  }, [isEditing, id, rf]);
 
   return (
     <div
@@ -69,9 +85,10 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       />
       {isEditing ? (
         <textarea
-          className={styles.title}
+          className={`${styles.title} nopan`}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          onPointerDown={(e) => e.stopPropagation()}
           style={{
             border: "none",
             background: "transparent",
@@ -86,7 +103,6 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
           className={styles.title}
           style={{
             border: "none",
-            background: "transparent",
             overflow: "auto",
             textAlign: "center",
             paddingBottom: "13px",
@@ -106,9 +122,10 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
       <div style={{ flex: 1, overflow: "hidden" }}>
         {isEditing ? (
           <textarea
-            className={styles.text}
+            className={`${styles.text} nopan`}
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onPointerDown={(e) => e.stopPropagation()}
             style={{
               border: "none",
               background: "transparent",
