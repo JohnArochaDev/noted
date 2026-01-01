@@ -19,6 +19,7 @@ export const TreeFolder = (props: TreeFolderType) => {
   const { folderData, indentation = 0 } = props;
 
   const [selected, setSelected] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   const onClick = () => {
@@ -52,6 +53,8 @@ export const TreeFolder = (props: TreeFolderType) => {
       <NodeRow>
         <Spacer indentation={indentation} />
         <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           className={styles.folder}
           aria-label={folderData.name}
           onClick={onClick}
@@ -69,14 +72,25 @@ export const TreeFolder = (props: TreeFolderType) => {
             ) : (
               <Image
                 src="/assets/closedFolder.png"
-                alt="Closed Folder Icon" // Fixed alt text for accuracy
+                alt="Closed Folder Icon"
                 width={20}
                 height={20}
               />
             )}
           </div>
           {selected && <div className={styles.selected}></div>}
-          <span className={styles.folderText}>{folderData.name.toUpperCase()}</span>
+          <span className={styles.folderText}>
+            {folderData.name.toUpperCase()}
+          </span>
+
+          {isHovered && (
+            <Image
+              src="/assets/threeDots.png"
+              alt="Closed Folder Icon"
+              width={22}
+              height={22}
+            />
+          )}
         </div>
       </NodeRow>
 
