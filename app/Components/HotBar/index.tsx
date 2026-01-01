@@ -16,6 +16,7 @@ export const HotBar = () => {
     currentFolders,
     setCurrentFolders,
     userId,
+    setSavedFolders,
   } = useNodes();
 
   const saveNodes = () => {
@@ -69,9 +70,19 @@ export const HotBar = () => {
     setCurrentFolders([
       {
         id: previousFolders[0].id,
-        folders: [newFolder, ...previousFolders]
+        folders: [newFolder, ...previousFolders],
       },
     ]);
+
+    // if db call works, then update the state, if not, toast message
+
+    setSavedFolders([
+      {
+        id: previousFolders[0].id,
+        folders: [newFolder, ...previousFolders],
+      },
+    ]);
+    
   }; // right now a node has to have a folder as a parent. we'll leave this for now, so nodes cant just take up space unorganized. need to hide the button if no folders are found!!
 
   // when saving a new folder or a new file, I need to both create it by updating the context,

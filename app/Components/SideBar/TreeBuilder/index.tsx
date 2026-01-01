@@ -1,17 +1,14 @@
-import { RootFolder } from "@/app/Constants/types";
+import { useNodes } from "@/app/Context";
 
 import { TreeFolder } from "../Folder";
 
-type TreeBuilderType = {
-  data: RootFolder[];
-};
+export const TreeBuilder = () => {
+  const { savedFolders } = useNodes()
 
-export const TreeBuilder = (props: TreeBuilderType) => {
-  const { data } = props;
 
   return (
     <>
-      {data[0].folders.map((folder) => (
+      {savedFolders[0].folders.map((folder) => (
         <TreeFolder folderData={folder} key={folder.id} />
       ))}
     </>
