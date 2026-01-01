@@ -66,6 +66,16 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
       textRef.current.focus();
       textRef.current.setSelectionRange(text.length, text.length);
     }
+
+    console.log("HITHITHITH");
+
+    setTimeout(() => {
+      setCurrentPageNodes(
+        currentPageNodes.map((node) =>
+          node.id === id ? { ...node, data: { text: text } } : node
+        )
+      );
+    }, 1000);
   }, [isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
