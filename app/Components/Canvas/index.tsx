@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { useNodes } from "@/app/Context";
+
 import {
   applyNodeChanges,
   Background,
@@ -69,20 +71,21 @@ const ViewportClamper = ({
 };
 
 export const Canvas = () => {
+
+  const { pageNodes, setPageNodes } = useNodes()
+
   const nodeTypes = { textNode: TextNode };
 
-  const initialNodes: CustomTextNode[] = [
-    {
-      id: "1",
-      type: "textNode",
-      position: { x: 2500, y: 2500 },
-      width: 300,
-      height: 200,
-      data: { text: "Centered content here" },
-    },
-  ];
+  const [nodes, setNodes] = useNodesState<CustomTextNode>(pageNodes);
 
-  const [nodes, setNodes] = useNodesState<CustomTextNode>(initialNodes);
+
+  // ########## Saving and updating nodes with context ##########
+
+  // later, when I add the save button, the result of this will be saved to `pageNodes`. pageNodes 
+  // will be the SAVED version of the node file, and the nodes will be the version used to track the 
+  // nodes current (unsaved) locations and values. later, when saving, map through the `nodes`, and 
+  // map the needed fields to the pageNodes, then save them with the setPageNodes and make the call 
+  // to update the data. 
 
   const onNodesChange: OnNodesChange<CustomTextNode> = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -123,7 +126,7 @@ export const Canvas = () => {
             nodes={nodes}
             onNodesChange={onNodesChange}
             snapToGrid
-            snapGrid={[20, 20]} // change this to match the dots
+            snapGrid={[20, 20]}
             panOnDrag
             zoomOnScroll
             zoomOnPinch

@@ -19,7 +19,9 @@ const NodesContext = createContext<NodesContextType | undefined>(undefined);
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [userId, setUserId] = useState<number>(0); // logged in user
   const [folders, setFolders] = useState<RootFolder[]>(folderData as RootFolder[]); // all folders and .node files
-  const [pageNodes, setPageNodes] = useState<TextNodeType[]>(nodeDate as TextNodeType[]); // active page selected from hierarchy tree
+  // active page selected from hierarchy tree. these will be send via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
+  const [pageNodes, setPageNodes] = useState<TextNodeType[]>(nodeDate as TextNodeType[]); 
+  
   // when the server is up these will come from my db
 
   return (

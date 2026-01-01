@@ -24,6 +24,7 @@ export type NodeType = "folder" | "node";
 
 export type TextNodeType = {
   id: string;
+  pageId: number;
   type: NodePlateType;
   position: Coordinates;
   width: number;
