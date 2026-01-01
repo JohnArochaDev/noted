@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
-import nodeDate from "../Constants/pageNode.json"
+import { CustomTextNode } from "../Components/Canvas";
+import nodeDate from "../Constants/pageNode.json";
 import folderData from "../Constants/treeNodeData.json";
 import { RootFolder } from "../Constants/types";
 import { TextNodeType } from "../Constants/types";
@@ -10,18 +11,29 @@ type NodesContextType = {
   setUserId: (userId: number) => void;
   folders: RootFolder[];
   setFolders: (folders: RootFolder[]) => void;
-  pageNodes: TextNodeType[];
-  setPageNodes: (pageNodes: TextNodeType[]) => void;
+  savedPageNodes: TextNodeType[];
+  setSavedPageNodes: (pageNodes: TextNodeType[]) => void;
+  currentPageNodes: CustomTextNode[];
+  setCurrentPageNodes: (currentPageNodes: CustomTextNode[]) => void;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [userId, setUserId] = useState<number>(0); // logged in user
-  const [folders, setFolders] = useState<RootFolder[]>(folderData as RootFolder[]); // all folders and .node files
-  // active page selected from hierarchy tree. these will be send via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
-  const [pageNodes, setPageNodes] = useState<TextNodeType[]>(nodeDate as TextNodeType[]); 
-  
+  const [folders, setFolders] = useState<RootFolder[]>(
+    folderData as RootFolder[]
+  ); // all folders and .node files
+  // active saved page nodes selected from hierarchy tree. these will be found via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
+  const [savedPageNodes, setSavedPageNodes] = useState<TextNodeType[]>(
+    nodeDate as TextNodeType[]
+  );
+
+  // these nodes are the unsaved page nodes. When a save happens, these will be formatted to meet the format expected by the DB, send to the DB, and then a call will pull them back from the DB to keep everythiing synced up
+  const [currentPageNodes, setCurrentPageNodes] = useState<CustomTextNode[]>(
+    nodeDate as CustomTextNode[]
+  );
+
   // when the server is up these will come from my db
 
   return (
@@ -31,8 +43,10 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setUserId,
         folders,
         setFolders,
-        pageNodes,
-        setPageNodes,
+        savedPageNodes,
+        setSavedPageNodes,
+        currentPageNodes,
+        setCurrentPageNodes,
       }}
     >
       {children}

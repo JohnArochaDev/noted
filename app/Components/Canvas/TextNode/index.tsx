@@ -11,12 +11,16 @@ import {
 import { D3DragEvent, SubjectPosition } from "d3-drag";
 import remarkGfm from "remark-gfm";
 
+import { useNodes } from "@/app/Context";
+
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
 
 type TextNodeType = Node<{ text: string }, "textNode">;
 
 export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
+  const { currentPageNodes, setCurrentPageNodes } = useNodes();
+
   const [isEditing, setIsEditing] = useState(false);
 
   const [text, setText] = useState<string>(data.text);
@@ -32,7 +36,14 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
     console.log(
       `Node ${id} new dimensions: width=${params.width}, height=${params.height}`
     );
-    // save to external context in future
+
+    setCurrentPageNodes(
+      currentPageNodes.map((node) =>
+        node.id === id
+          ? { ...node, width: params.width, height: params.height }
+          : node
+      )
+    );
   };
 
   useEffect(() => {
