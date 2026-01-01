@@ -112,7 +112,8 @@ export function TextNode({ data, selected, id }: NodeProps<CustomTextNode>) {
             overflow: "auto",
             textAlign: "center",
             paddingTop: "10px",
-            paddingBottom: "14px"
+            paddingBottom: "14px",
+            paddingLeft: "18px"
           }}
         />
       ) : (
