@@ -1,13 +1,14 @@
 "use client";
 
-import { Folder, Node } from "../../../Constants/types";
-import { TreeNode } from "../Node";
 import { useState } from "react";
-import styles from "./styles.module.scss";
-import { NodeRow } from "../NodeRow";
-import { Spacer } from "../Spacer";
 
 import Image from "next/image";
+
+import { Folder, Node } from "../../../Constants/types";
+import { TreeNode } from "../Node";
+import { NodeRow } from "../NodeRow";
+import { Spacer } from "../Spacer";
+import styles from "./styles.module.scss";
 
 type TreeFolderType = {
   folderData: Folder;

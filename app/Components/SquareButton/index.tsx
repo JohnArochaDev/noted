@@ -1,18 +1,24 @@
-import styles from "./styles.module.scss";
-
 import Image from "next/image";
+
+import styles from "./styles.module.scss";
 
 type SquareButtonPropType = {
   type?: SquareButtonType;
+  onClick: () => void;
+  customStyles?: object;
 };
 
-type SquareButtonType = "undo" | "redo" | "save";
+type SquareButtonType = "undo" | "redo" | "save" | "focus" | 'edit';
 
 export const SquareButton = (props: SquareButtonPropType) => {
-  const { type } = props;
+  const { type, onClick, customStyles } = props;
   return (
     <div>
-      <button className={styles.button}>
+      <button
+        style={customStyles ?? {}}
+        className={styles.button}
+        onClick={onClick}
+      >
         {type && (
           <Image
             src={`/assets/${type}.png`}

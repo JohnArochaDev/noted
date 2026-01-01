@@ -6,7 +6,7 @@ export const HotBar = () => {
   return (
     <div className={styles.hotBar}>
       <div className={styles.leftSection}>
-        <h2 style={{ fontWeight: 100, marginLeft: '75px' }}>noted.exe</h2>
+        <h2 style={{ fontWeight: 100, marginLeft: "60px" }}>noted.exe</h2>
         <div className={styles.verticalDivider} />
         <Button label="New Folder" type="newFolder" />
         <Button label="New File" type="newFile" />
@@ -14,9 +14,9 @@ export const HotBar = () => {
       </div>
 
       <div className={styles.rightSection}>
-        <SquareButton type="undo" />
-        <SquareButton type="redo" />
-        <SquareButton type="save" />
+        <SquareButton type="undo" onClick={() => {}} />
+        <SquareButton type="redo" onClick={() => {}} />
+        <SquareButton type="save" onClick={() => {}} />
       </div>
     </div>
   );
