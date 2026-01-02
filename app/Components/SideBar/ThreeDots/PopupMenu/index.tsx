@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { NodeType } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import styles from "./styles.module.scss";
@@ -10,11 +9,11 @@ type PopupMenuType = {
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
-  type: string
+  type: string;
 };
 
 export const PopupMenu = (props: PopupMenuType) => {
-  const { isHovered, setEditMode, id } = props;
+  const { isHovered, setEditMode, id, type } = props;
 
   const { currentFolders, setCurrentFolders, setSavedFolders, setNodeEdit } =
     useNodes();
@@ -22,9 +21,16 @@ export const PopupMenu = (props: PopupMenuType) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
   const editNodes = () => {
+    console.log("hit");
     setNodeEdit({
-      activeFolder: id,
-      activeNode: undefined,
+      activeFolder: type === "folder" ? id : undefined,
+      activeNode: type === "node" ? id : undefined,
+      editMode: true,
+    });
+
+    console.log("edit", {
+      activeFolder: type === "folder" ? id : undefined,
+      activeNode: type === "node" ? id : undefined,
       editMode: true,
     });
   };
