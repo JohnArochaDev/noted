@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { Folder, NodeType, RootFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import styles from "./styles.module.scss";
@@ -9,11 +10,12 @@ type PopupMenuType = {
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
-  type: string;
+  type: NodeType;
+  parentId?: string;
 };
 
 export const PopupMenu = (props: PopupMenuType) => {
-  const { isHovered, setEditMode, id, type } = props;
+  const { isHovered, setEditMode, id, type, parentId = "" } = props;
 
   const { currentFolders, setCurrentFolders, setSavedFolders, setNodeEdit } =
     useNodes();
@@ -35,24 +37,63 @@ export const PopupMenu = (props: PopupMenuType) => {
     });
   };
 
-  const deleteNodes = () => {
+  const deleteNodesAndFolders = () => {
+    // logic to delete folders cascading from parents
+
     const previousFolders = currentFolders[0].folders;
 
-    setCurrentFolders([
-      {
-        id: currentFolders[0].id,
-        folders: previousFolders.filter((folder) => folder.id !== id),
-      },
-    ]);
+    if (type === "folder") {
+      setCurrentFolders([
+        {
+          id: currentFolders[0].id,
+          folders: previousFolders.filter((folder) => folder.id !== id),
+        },
+      ]);
 
-    // if db call works, then update the state, if not, toast message
+      // if db call works, then update the state, if not, toast message
 
-    setSavedFolders([
-      {
-        id: currentFolders[0].id,
-        folders: previousFolders.filter((folder) => folder.id !== id),
-      },
-    ]);
+      setSavedFolders([
+        {
+          id: currentFolders[0].id,
+          folders: previousFolders.filter((folder) => folder.id !== id),
+        },
+      ]);
+    } else {
+      // logic to delete node files cascading from parents
+
+      const deleteNodes = (
+        data: RootFolder[],
+        id: string,
+        parent_id: string
+      ): RootFolder[] => {
+        const deleteNode = (folders: Folder[]): Folder[] => {
+          return folders.map((folder) => {
+            if (folder.id === parent_id) {
+              return {
+                ...folder,
+                nodes: folder.nodes.filter((node) => node.id !== id),
+              };
+            } else {
+              return {
+                ...folder,
+                subfolders: deleteNode(folder.subfolders),
+              };
+            }
+          });
+        };
+
+        return data.map((root) => ({
+          ...root,
+          folders: deleteNode(root.folders),
+        }));
+      };
+
+      setCurrentFolders(deleteNodes(currentFolders, id, parentId));
+
+      // save to the db, if it fails post a toast message
+
+      setSavedFolders(deleteNodes(currentFolders, id, parentId));
+    }
   };
 
   useEffect(() => {
@@ -72,7 +113,10 @@ export const PopupMenu = (props: PopupMenuType) => {
           <div className={styles.option} onClick={() => editNodes()}>
             Edit
           </div>
-          <div className={styles.option} onClick={() => deleteNodes()}>
+          <div
+            className={styles.option}
+            onClick={() => deleteNodesAndFolders()}
+          >
             Delete
           </div>
         </div>

@@ -10,10 +10,11 @@ type ThreeDotsType = {
   isHovered: boolean;
   id: string;
   type: NodeType;
+  parentId?: string;
 };
 
 export const ThreeDots = (props: ThreeDotsType) => {
-  const { isHovered, id, type } = props;
+  const { isHovered, id, type, parentId = "" } = props;
   const [imageSrc, setImageSrc] = useState("/assets/threeDots.png");
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -56,6 +57,7 @@ export const ThreeDots = (props: ThreeDotsType) => {
           editMode={editMode}
           id={id}
           type={type}
+          parentId={parentId}
         />
       )}
     </div>

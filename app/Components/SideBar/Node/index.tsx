@@ -167,7 +167,12 @@ export const TreeNode = (props: TreeNodeType) => {
         <span className={styles.nodeText}>{`${text}.node`}</span>
       )}
 
-      <ThreeDots isHovered={isHovered} id={id} type={node.type} />
+      <ThreeDots
+        isHovered={isHovered}
+        id={id}
+        type={node.type}
+        parentId={node.parent_id}
+      />
     </div>
   );
 };
