@@ -58,7 +58,7 @@ For touch/mobile support, the libraries handle it out of the box—test on devic
 Refer to the libraries' props and examples in their docs (linked in Step 1) for configuration options.
 Use the panning library's context to convert screen coordinates to board ("world") coordinates in the drag callback, ensuring positions are saved absolutely relative to the 5000x5000 board (docs for context/transform access: https://bettertyped.github.io/react-zoom-pan-pinch/?path=/story/docs-hooks--page).
 
-7. Handle Adding New Nodes and new Folders / Files [TO-DO]
+7. Handle Adding New Nodes and new Folders / Files [HALF-DONE] You can save nodes && folder, need t oadd ability to add files to a folder
 
 From your hotbar or sidebar (e.g., on button click in <HotBar> or <SideBar>), trigger a function to add a new node to the canvas state.
 Generate a unique ID (e.g., using crypto.randomUUID() or a library like uuid—install if needed: https://www.npmjs.com/package/uuid).
