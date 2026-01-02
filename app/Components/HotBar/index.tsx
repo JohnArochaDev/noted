@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 
-import { Folder } from "@/app/Constants/types";
+import { Folder, RootFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -55,9 +55,7 @@ export const HotBar = () => {
     setCurrentPageNodes([...currentPageNodes, newNode]);
   };
 
-  const createNewFolder = () => { // this needs to make new folders inside of other folders!!
-    const previousFolders = currentFolders[0].folders;
-
+  const createNewFolder = () => {
     const newFolder: Folder = {
       id: generateUUID(),
       parent_id: userId,
@@ -67,26 +65,37 @@ export const HotBar = () => {
       nodes: [],
     };
 
-    setCurrentFolders([
-      {
-        id: previousFolders[0].id,
-        folders: [newFolder, ...previousFolders],
-      },
-    ]);
+    const addNewFolder = (root: RootFolder[]): RootFolder[] => {
+      const addFolder = (folders: Folder[], parentId: string): Folder[] => {
+        return folders.map((folder) => {
+          if (folder.id === parentId) {
+            return {
+              ...folder,
+              subfolders: [newFolder, ...folder.subfolders],
+            };
+          } else {
+            return {
+              ...folder,
+              subfolders: addFolder(folder.subfolders, parentId),
+            };
+          }
+        });
+      };
+
+      return [
+        {
+          id: root[0].id,
+          folders: addFolder(root[0].folders, nodeEdit.activeFolder ?? ""),
+        },
+      ];
+    };
+
+    setCurrentFolders(addNewFolder(currentFolders));
 
     // if db call works, then update the state, if not, toast message
 
-    setSavedFolders([
-      {
-        id: previousFolders[0].id,
-        folders: [newFolder, ...previousFolders],
-      },
-    ]);
-  }; // right now a node has to have a folder as a parent. we'll leave this for now, so nodes cant just take up space unorganized. need to hide the button if no folders are found!!
-
-  // when saving a new folder or a new file, I need to both create it by updating the context,
-  // AND create it in the UI. if the call fails i delete the new file / folder and add a toast error.
-  // I need to be careful to keep the UI and DB synced perfectly, and be careful with my data.
+    setSavedFolders(addNewFolder(currentFolders));
+  };
 
   return (
     <div className={styles.hotBar}>
