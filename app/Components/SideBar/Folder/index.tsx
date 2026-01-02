@@ -83,7 +83,7 @@ export const TreeFolder = (props: TreeFolderType) => {
           <span className={styles.folderText}>
             {folderData.name.toUpperCase()}
           </span>
-          <ThreeDots isHovered={isHovered} />
+          <ThreeDots isHovered={isHovered} id={folderData.id} />
         </div>
       </NodeRow>
 

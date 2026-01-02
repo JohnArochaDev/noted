@@ -55,7 +55,6 @@ export const HotBar = () => {
   };
 
   const createNewFolder = () => {
-    console.log("current format", currentFolders[0].folders);
     const previousFolders = currentFolders[0].folders;
 
     const newFolder: Folder = {

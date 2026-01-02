@@ -6,10 +6,11 @@ import { PopupMenu } from "./PopupMenu";
 
 type ThreeDotsType = {
   isHovered: boolean;
+  id: string;
 };
 
 export const ThreeDots = (props: ThreeDotsType) => {
-  const { isHovered } = props;
+  const { isHovered, id } = props;
   const [imageSrc, setImageSrc] = useState("/assets/threeDots.png");
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -45,7 +46,14 @@ export const ThreeDots = (props: ThreeDotsType) => {
           />
         </div>
       )}
-      {editMode && <PopupMenu isHovered={isHovered} setEditMode={setEditMode} editMode={editMode} />}
+      {editMode && (
+        <PopupMenu
+          isHovered={isHovered}
+          setEditMode={setEditMode}
+          editMode={editMode}
+          id={id}
+        />
+      )}
     </div>
   );
 };

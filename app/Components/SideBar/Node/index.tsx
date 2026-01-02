@@ -68,7 +68,7 @@ export const TreeNode = (props: TreeNodeType) => {
       </div>
       {selected && <div className={styles.selected}></div>}
       <span className={styles.nodeText}>{`${formattedLabel}.node`}</span>
-      <ThreeDots isHovered={isHovered} />
+      <ThreeDots isHovered={isHovered} id={id} />
     </div>
   );
 };
