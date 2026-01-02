@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
+
+import { useNodes } from "@/app/Context";
 
 import { Folder, Node } from "../../../Constants/types";
 import { TreeNode } from "../Node";
@@ -19,10 +21,53 @@ type TreeFolderType = {
 export const TreeFolder = (props: TreeFolderType) => {
   const { folderData, indentation = 0 } = props;
 
+  const {
+    nodeEdit,
+    setNodeEdit,
+    currentFolders,
+    setCurrentFolders,
+    setSavedFolders,
+  } = useNodes();
+
   const [selected, setSelected] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [text, setText] = useState<string>(folderData.name);
   const [open, setOpen] = useState<boolean>(false);
+
+  const textRef = useRef<HTMLInputElement>(null);
+
+  const onKeyDown = (key: React.KeyboardEvent) => {
+    if (key.code === "Enter") {
+      setCurrentFolders([
+        {
+          id: currentFolders[0].id,
+          folders: currentFolders[0].folders.map((folder) =>
+            folder.id === nodeEdit.activeNode
+              ? { ...folder, name: text }
+              : folder
+          ),
+        },
+      ]);
+
+      // save to the db, if it fails post a toast message
+
+      setSavedFolders([
+        {
+          id: currentFolders[0].id,
+          folders: currentFolders[0].folders.map((folder) =>
+            folder.id === nodeEdit.activeNode
+              ? { ...folder, name: text }
+              : folder
+          ),
+        },
+      ]);
+
+      setNodeEdit({
+        ...nodeEdit,
+        editMode: false,
+      });
+    }
+  };
 
   const onClick = () => {
     if (!selected) {
@@ -50,6 +95,14 @@ export const TreeFolder = (props: TreeFolderType) => {
     ));
   };
 
+  // if edit mode is turned on for a node, select it automatically so the user can type
+  useEffect(() => {
+    if (nodeEdit.activeNode === folderData.id && textRef.current) {
+      textRef.current.focus();
+      textRef.current.setSelectionRange(text.length, text.length);
+    }
+  }, [nodeEdit]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <>
       <NodeRow>
@@ -57,6 +110,7 @@ export const TreeFolder = (props: TreeFolderType) => {
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onKeyDown={(key) => onKeyDown(key)}
           className={styles.folder}
           aria-label={folderData.name}
           onClick={onClick}
@@ -81,20 +135,24 @@ export const TreeFolder = (props: TreeFolderType) => {
             )}
           </div>
           {selected && <div className={styles.selected}></div>}
-          <span className={styles.folderText}>
-            {folderData.name.toUpperCase()}
-          </span>
-          <input
-            className={styles.folderTextInput}
-            value={text.toUpperCase()}
-            onChange={(e) => setText(e.target.value)}
-            onPointerDown={(e) => e.stopPropagation()}
-            style={{
-              border: "none",
-              background: "transparent",
-              resize: "none",
-            }}
-          />
+          {nodeEdit.activeNode === folderData.id && nodeEdit.editMode ? (
+            <input
+              ref={textRef}
+              className={styles.folderTextInput}
+              value={text.toUpperCase()}
+              onChange={(e) => setText(e.target.value)}
+              onPointerDown={(e) => e.stopPropagation()}
+              style={{
+                border: "none",
+                background: "transparent",
+                resize: "none",
+              }}
+            />
+          ) : (
+            <span className={styles.folderText}>
+              {folderData.name.toUpperCase()}
+            </span>
+          )}
           <ThreeDots isHovered={isHovered} id={folderData.id} />
         </div>
       </NodeRow>

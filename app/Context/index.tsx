@@ -3,8 +3,7 @@ import { createContext, useContext, useState } from "react";
 import { CustomTextNode } from "../Components/Canvas";
 import nodeDate from "../Constants/pageNode.json";
 import folderData from "../Constants/treeNodeData.json";
-import { RootFolder } from "../Constants/types";
-import { TextNodeType } from "../Constants/types";
+import { editNodeType, RootFolder, TextNodeType } from "../Constants/types";
 
 type NodesContextType = {
   userId: string;
@@ -20,6 +19,8 @@ type NodesContextType = {
   setCurrentPageNodes: (currentPageNodes: any) => void;
   currentPageId: string;
   setCurrentPageId: (currentPageId: string) => void;
+  nodeEdit: editNodeType;
+  setNodeEdit: (nodeEdit: editNodeType) => void;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
@@ -46,6 +47,12 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentPageId, setCurrentPageId] = useState<string>("7"); // will be used when creating new nodes, will set the parent ID to this.
   // when the server is up these will come from my db
 
+  // this will be the active element. this state determines what is being edited, as well as if the new file button appears in the hotbar
+  const [nodeEdit, setNodeEdit] = useState<editNodeType>({
+    activeNode: undefined,
+    editMode: false,
+  });
+
   return (
     <NodesContext.Provider
       value={{
@@ -61,6 +68,8 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setCurrentPageNodes,
         currentPageId,
         setCurrentPageId,
+        nodeEdit,
+        setNodeEdit,
       }}
     >
       {children}

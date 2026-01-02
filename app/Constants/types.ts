@@ -28,12 +28,17 @@ export type TextNodeType = {
   type: NodePlateType;
   position: Coordinates;
   width: number;
-  height: number
+  height: number;
   data: nodeData;
 };
 
-export type Coordinates = {x: number, y: number};
+export type Coordinates = { x: number; y: number };
 
-export type nodeData = { text: string }
+export type nodeData = { text: string };
 
 export type NodePlateType = "textNode";
+
+export type editNodeType = {
+  activeNode: string | undefined;
+  editMode: boolean;
+};
