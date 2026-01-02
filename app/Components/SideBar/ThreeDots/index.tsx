@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 
-import styles from "./styles.module.scss";
+import { PopupMenu } from "./PopupMenu";
 
 type ThreeDotsType = {
   isHovered: boolean;
@@ -29,7 +29,7 @@ export const ThreeDots = (props: ThreeDotsType) => {
   };
 
   return (
-    <div className={styles.threeDots} onClick={onClick}>
+    <div onClick={onClick}>
       {isHovered && (
         <div
           onMouseDown={handleMouseDown}
@@ -45,7 +45,7 @@ export const ThreeDots = (props: ThreeDotsType) => {
           />
         </div>
       )}
-      {/* place popup menu here */}
+      {editMode && <PopupMenu isHovered={isHovered} />}
     </div>
   );
 };

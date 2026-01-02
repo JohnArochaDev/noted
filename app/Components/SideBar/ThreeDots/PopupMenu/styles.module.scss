@@ -1,0 +1,12 @@
+@import "@/app/Constants/colors.module";
+
+.popupMenu {
+  width: 150px;
+  height: 75px;
+  background-color: $sidebarBackground;
+  border: 2px solid #9e968e;
+  position: fixed;
+  margin-left: 30px;
+  margin-top: -28px;
+  z-index: 10000 !important;
+}
