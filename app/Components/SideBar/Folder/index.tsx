@@ -36,36 +36,36 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   const textRef = useRef<HTMLInputElement>(null);
 
+  const saveEdit = () => {
+    setCurrentFolders([
+      {
+        id: currentFolders[0].id,
+        folders: currentFolders[0].folders.map((folder) =>
+          folder.id === nodeEdit.activeNode ? { ...folder, name: text } : folder
+        ),
+      },
+    ]);
+
+    // save to the db, if it fails post a toast message
+
+    setSavedFolders([
+      {
+        id: currentFolders[0].id,
+        folders: currentFolders[0].folders.map((folder) =>
+          folder.id === nodeEdit.activeNode ? { ...folder, name: text } : folder
+        ),
+      },
+    ]);
+
+    setNodeEdit({
+      ...nodeEdit,
+      editMode: false,
+    });
+  };
+
   const onKeyDown = (key: React.KeyboardEvent) => {
     if (key.code === "Enter") {
-      setCurrentFolders([
-        {
-          id: currentFolders[0].id,
-          folders: currentFolders[0].folders.map((folder) =>
-            folder.id === nodeEdit.activeNode
-              ? { ...folder, name: text }
-              : folder
-          ),
-        },
-      ]);
-
-      // save to the db, if it fails post a toast message
-
-      setSavedFolders([
-        {
-          id: currentFolders[0].id,
-          folders: currentFolders[0].folders.map((folder) =>
-            folder.id === nodeEdit.activeNode
-              ? { ...folder, name: text }
-              : folder
-          ),
-        },
-      ]);
-
-      setNodeEdit({
-        ...nodeEdit,
-        editMode: false,
-      });
+      saveEdit();
     }
   };
 
@@ -142,6 +142,7 @@ export const TreeFolder = (props: TreeFolderType) => {
               value={text.toUpperCase()}
               onChange={(e) => setText(e.target.value)}
               onPointerDown={(e) => e.stopPropagation()}
+              onBlur={saveEdit}
               style={{
                 border: "none",
                 background: "transparent",
