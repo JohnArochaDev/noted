@@ -21,6 +21,7 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   const [selected, setSelected] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [text, setText] = useState<string>(folderData.name);
   const [open, setOpen] = useState<boolean>(false);
 
   const onClick = () => {
@@ -83,6 +84,17 @@ export const TreeFolder = (props: TreeFolderType) => {
           <span className={styles.folderText}>
             {folderData.name.toUpperCase()}
           </span>
+          <input
+            className={styles.folderTextInput}
+            value={text.toUpperCase()}
+            onChange={(e) => setText(e.target.value)}
+            onPointerDown={(e) => e.stopPropagation()}
+            style={{
+              border: "none",
+              background: "transparent",
+              resize: "none",
+            }}
+          />
           <ThreeDots isHovered={isHovered} id={folderData.id} />
         </div>
       </NodeRow>

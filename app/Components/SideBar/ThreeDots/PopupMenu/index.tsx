@@ -18,6 +18,10 @@ export const PopupMenu = (props: PopupMenuType) => {
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
+  // const editNodes = () => {
+  //   // make context to track whci node IF ANY are being edited
+  // }
+
   const deleteNodes = () => {
     const previousFolders = currentFolders[0].folders;
 
@@ -63,3 +67,6 @@ export const PopupMenu = (props: PopupMenuType) => {
     </>
   );
 };
+
+
+// makew edit work, make selection in context and hide the add new file button if nothing is selcted, add ability to add new folders to a pre-existing folder IF a folder is selected, then add nodes file IF a folder is selected, add ability to edit folders AND nodes

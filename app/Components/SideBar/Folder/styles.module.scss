@@ -23,6 +23,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 16px;
 }
 
 .folder:hover {
@@ -45,4 +46,28 @@
   transform: translateY(-50%);
   width: auto;
   height: auto;
+}
+
+.folderTextInput {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Rainbow100", sans-serif;
+  color: #9e968e;
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.folderTextInput:focus {
+  outline: none;
+  border: none;
+}
+
+.folderTextInput::selection {
+  color: #ffffff;
+  background: #9e968e;
 }
