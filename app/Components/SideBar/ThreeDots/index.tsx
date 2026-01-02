@@ -45,7 +45,7 @@ export const ThreeDots = (props: ThreeDotsType) => {
           />
         </div>
       )}
-      {editMode && <PopupMenu isHovered={isHovered} />}
+      {editMode && <PopupMenu isHovered={isHovered} setEditMode={setEditMode} editMode={editMode} />}
     </div>
   );
 };

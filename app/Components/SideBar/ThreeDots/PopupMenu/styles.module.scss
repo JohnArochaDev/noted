@@ -9,4 +9,19 @@
   margin-left: 30px;
   margin-top: -28px;
   z-index: 10000 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.option:hover {
+  background-color: $hover; /* Assuming $hover is defined in colors.module, change to your desired hover color if not */
 }
