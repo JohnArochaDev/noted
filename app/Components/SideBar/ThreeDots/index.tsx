@@ -2,15 +2,18 @@ import { useState } from "react";
 
 import Image from "next/image";
 
+import { NodeType } from "@/app/Constants/types";
+
 import { PopupMenu } from "./PopupMenu";
 
 type ThreeDotsType = {
   isHovered: boolean;
   id: string;
+  type: NodeType;
 };
 
 export const ThreeDots = (props: ThreeDotsType) => {
-  const { isHovered, id } = props;
+  const { isHovered, id, type } = props;
   const [imageSrc, setImageSrc] = useState("/assets/threeDots.png");
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -52,6 +55,7 @@ export const ThreeDots = (props: ThreeDotsType) => {
           setEditMode={setEditMode}
           editMode={editMode}
           id={id}
+          type={type}
         />
       )}
     </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { NodeType } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import styles from "./styles.module.scss";
@@ -9,6 +10,7 @@ type PopupMenuType = {
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
+  type: string
 };
 
 export const PopupMenu = (props: PopupMenuType) => {

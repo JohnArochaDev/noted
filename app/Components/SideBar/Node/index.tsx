@@ -1,31 +1,104 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
+import { Folder, Node, RootFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import { ThreeDots } from "../ThreeDots";
 import styles from "./styles.module.scss";
 
 type TreeNodeType = {
-  label: string;
-  id: string;
+  node: Node;
 };
 
 export const TreeNode = (props: TreeNodeType) => {
-  const { label, id } = props;
+  const { node } = props;
+  const { name, id, parent_id } = node;
 
-  const { setCurrentPageId, nodeEdit, setNodeEdit } = useNodes();
+  const {
+    setCurrentPageId,
+    nodeEdit,
+    setNodeEdit,
+    setCurrentFolders,
+    setSavedFolders,
+    currentFolders,
+  } = useNodes();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [selected, setSelected] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
-  const [text, setText] = useState<string>();
+  const [text, setText] = useState<string>("");
+
+  const textRef = useRef<HTMLInputElement>(null);
+
+  const onClick = () => {
+    setCurrentPageId(id);
+
+    if (!selected) {
+      setSelected(true);
+    }
+    setOpen(!open);
+
+    setNodeEdit({
+      ...nodeEdit,
+      activeFolder: undefined,
+      activeNode: id,
+    });
+  };
+
+  const saveEdit = () => {
+    const updateNodeName = (
+      data: RootFolder[],
+      nodeId: string,
+      parentId: string
+    ): RootFolder[] => {
+      const updateFolders = (folders: Folder[]): Folder[] => {
+        return folders.map((folder) => {
+          if (folder.id === parentId) {
+            return {
+              ...folder,
+              nodes: folder.nodes.map((node) =>
+                node.id === nodeId ? { ...node, name: text } : node
+              ),
+            };
+          } else {
+            return {
+              ...folder,
+              subfolders: updateFolders(folder.subfolders),
+            };
+          }
+        });
+      };
+
+      return data.map((root) => ({
+        ...root,
+        folders: updateFolders(root.folders),
+      }));
+    };
+
+    setCurrentFolders(updateNodeName(currentFolders, id, parent_id));
+
+    // save to the db, if it fails post a toast message
+
+    setSavedFolders(updateNodeName(currentFolders, id, parent_id));
+
+    setNodeEdit({
+      ...nodeEdit,
+      editMode: false,
+    });
+  };
+
+  const onKeyDown = (key: React.KeyboardEvent) => {
+    if (key.code === "Enter") {
+      saveEdit();
+    }
+  };
 
   useEffect(() => {
-    let formattedLabel = label.toLowerCase().trim();
+    let formattedLabel = name.toLowerCase().trim();
 
     // this makes it camelCase, make another for snake case
     if (formattedLabel.includes(" ")) {
@@ -47,30 +120,24 @@ export const TreeNode = (props: TreeNodeType) => {
     // eslint-disable-next-line
   }, []);
 
-  const onClick = () => {
-    setCurrentPageId(id);
-
-    if (!selected) {
-      setSelected(true);
+  // if edit mode is turned on for a node, select it automatically so the user can type
+  useEffect(() => {
+    if (nodeEdit.activeNode === id && textRef.current) {
+      textRef.current.focus();
+      textRef.current.setSelectionRange(text.length, text.length);
     }
-    setOpen(!open);
-
-    setNodeEdit({
-      ...nodeEdit,
-      activeFolder: undefined,
-      activeNode: id,
-    });
-  };
+  }, [nodeEdit]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div
       className={styles.node}
-      aria-label={label}
+      aria-label={name}
       onClick={onClick}
       tabIndex={0}
       onBlur={() => setSelected(false)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onKeyDown={(key) => onKeyDown(key)}
     >
       <div className={styles.file}>
         <Image
@@ -82,16 +149,14 @@ export const TreeNode = (props: TreeNodeType) => {
       </div>
       {selected && <div className={styles.selected}></div>}
 
-      <span className={styles.nodeText}>{`${text}.node`}</span>
-
-      {/* {nodeEdit.activeFolder === id && nodeEdit.editMode ? (
+      {nodeEdit.activeNode === id && nodeEdit.editMode ? (
         <input
-          // ref={textRef}
+          ref={textRef}
           className={styles.folderTextInput}
           value={text}
           onChange={(e) => setText(e.target.value)}
           onPointerDown={(e) => e.stopPropagation()}
-          // onBlur={saveEdit}
+          onBlur={saveEdit}
           style={{
             border: "none",
             background: "transparent",
@@ -100,9 +165,9 @@ export const TreeNode = (props: TreeNodeType) => {
         />
       ) : (
         <span className={styles.nodeText}>{`${text}.node`}</span>
-      )} */}
+      )}
 
-      <ThreeDots isHovered={isHovered} id={id} />
+      <ThreeDots isHovered={isHovered} id={id} type={node.type} />
     </div>
   );
 };

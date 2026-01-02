@@ -92,7 +92,7 @@ export const TreeFolder = (props: TreeFolderType) => {
         {data.map((node) => (
           <NodeRow key={node.id}>
             <Spacer indentation={indent} />
-            <TreeNode label={node.name} id={node.id} />
+            <TreeNode node={node} />
           </NodeRow>
         ))}
       </>
@@ -164,7 +164,7 @@ export const TreeFolder = (props: TreeFolderType) => {
               {folderData.name.toUpperCase()}
             </span>
           )}
-          <ThreeDots isHovered={isHovered} id={folderData.id} />
+          <ThreeDots isHovered={isHovered} id={folderData.id} type={folderData.type} />
         </div>
       </NodeRow>
 

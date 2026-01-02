@@ -16,7 +16,6 @@ export type Node = {
   id: string;
   parent_id: string;
   name: string;
-  data: string;
   type: NodeType;
 };
 
