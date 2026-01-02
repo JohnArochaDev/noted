@@ -21,7 +21,8 @@ export const PopupMenu = (props: PopupMenuType) => {
 
   const editNodes = () => {
     setNodeEdit({
-      activeNode: id,
+      activeFolder: id,
+      activeNode: undefined,
       editMode: true,
     });
   };

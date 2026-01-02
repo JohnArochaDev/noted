@@ -39,6 +39,7 @@ export type nodeData = { text: string };
 export type NodePlateType = "textNode";
 
 export type editNodeType = {
+  activeFolder: string | undefined;
   activeNode: string | undefined;
   editMode: boolean;
 };

@@ -98,7 +98,7 @@ export const HotBar = () => {
           type="newFolder"
           onClick={() => createNewFolder()}
         />
-        {nodeEdit.activeNode && (
+        {nodeEdit.activeFolder && (
           <Button label="New File" type="newFile" onClick={() => {}} />
         )}
         <Button

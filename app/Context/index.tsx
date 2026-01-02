@@ -49,6 +49,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
 
   // this will be the active element. this state determines what is being edited, as well as if the new file button appears in the hotbar
   const [nodeEdit, setNodeEdit] = useState<editNodeType>({
+    activeFolder: undefined,
     activeNode: undefined,
     editMode: false,
   });

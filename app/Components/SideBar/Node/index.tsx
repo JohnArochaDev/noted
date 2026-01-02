@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
@@ -22,22 +22,30 @@ export const TreeNode = (props: TreeNodeType) => {
   const [selected, setSelected] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
-  let formattedLabel = label.toLowerCase().trim();
+  const [text, setText] = useState<string>();
 
-  // this makes it camelCase, make another for snake case
-  if (formattedLabel.includes(" ")) {
-    for (let i = 0; i < formattedLabel.length; i++) {
-      if (formattedLabel.includes(" ")) {
-        const parts = formattedLabel.split(" ");
-        formattedLabel =
-          parts[0].toLowerCase() +
-          parts
-            .slice(1)
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join("");
+  useEffect(() => {
+    let formattedLabel = label.toLowerCase().trim();
+
+    // this makes it camelCase, make another for snake case
+    if (formattedLabel.includes(" ")) {
+      for (let i = 0; i < formattedLabel.length; i++) {
+        if (formattedLabel.includes(" ")) {
+          const parts = formattedLabel.split(" ");
+          formattedLabel =
+            parts[0].toLowerCase() +
+            parts
+              .slice(1)
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join("");
+        }
       }
     }
-  }
+
+    // eslint-disable-next-line
+    setText(formattedLabel);
+    // eslint-disable-next-line
+  }, []);
 
   const onClick = () => {
     setCurrentPageId(id);
@@ -49,7 +57,8 @@ export const TreeNode = (props: TreeNodeType) => {
 
     setNodeEdit({
       ...nodeEdit,
-      activeNode: undefined,
+      activeFolder: undefined,
+      activeNode: id,
     });
   };
 
@@ -72,7 +81,27 @@ export const TreeNode = (props: TreeNodeType) => {
         />
       </div>
       {selected && <div className={styles.selected}></div>}
-      <span className={styles.nodeText}>{`${formattedLabel}.node`}</span>
+
+      <span className={styles.nodeText}>{`${text}.node`}</span>
+
+      {/* {nodeEdit.activeFolder === id && nodeEdit.editMode ? (
+        <input
+          // ref={textRef}
+          className={styles.folderTextInput}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onPointerDown={(e) => e.stopPropagation()}
+          // onBlur={saveEdit}
+          style={{
+            border: "none",
+            background: "transparent",
+            resize: "none",
+          }}
+        />
+      ) : (
+        <span className={styles.nodeText}>{`${text}.node`}</span>
+      )} */}
+
       <ThreeDots isHovered={isHovered} id={id} />
     </div>
   );

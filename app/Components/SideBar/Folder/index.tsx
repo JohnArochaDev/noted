@@ -41,7 +41,9 @@ export const TreeFolder = (props: TreeFolderType) => {
       {
         id: currentFolders[0].id,
         folders: currentFolders[0].folders.map((folder) =>
-          folder.id === nodeEdit.activeNode ? { ...folder, name: text } : folder
+          folder.id === nodeEdit.activeFolder
+            ? { ...folder, name: text }
+            : folder
         ),
       },
     ]);
@@ -52,7 +54,9 @@ export const TreeFolder = (props: TreeFolderType) => {
       {
         id: currentFolders[0].id,
         folders: currentFolders[0].folders.map((folder) =>
-          folder.id === nodeEdit.activeNode ? { ...folder, name: text } : folder
+          folder.id === nodeEdit.activeFolder
+            ? { ...folder, name: text }
+            : folder
         ),
       },
     ]);
@@ -77,7 +81,8 @@ export const TreeFolder = (props: TreeFolderType) => {
 
     setNodeEdit({
       ...nodeEdit,
-      activeNode: folderData.id,
+      activeFolder: folderData.id,
+      activeNode: undefined,
     });
   };
 
@@ -102,7 +107,7 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   // if edit mode is turned on for a node, select it automatically so the user can type
   useEffect(() => {
-    if (nodeEdit.activeNode === folderData.id && textRef.current) {
+    if (nodeEdit.activeFolder === folderData.id && textRef.current) {
       textRef.current.focus();
       textRef.current.setSelectionRange(text.length, text.length);
     }
@@ -140,7 +145,7 @@ export const TreeFolder = (props: TreeFolderType) => {
             )}
           </div>
           {selected && <div className={styles.selected}></div>}
-          {nodeEdit.activeNode === folderData.id && nodeEdit.editMode ? (
+          {nodeEdit.activeFolder === folderData.id && nodeEdit.editMode ? (
             <input
               ref={textRef}
               className={styles.folderTextInput}
