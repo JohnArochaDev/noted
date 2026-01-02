@@ -55,7 +55,7 @@ export const HotBar = () => {
     setCurrentPageNodes([...currentPageNodes, newNode]);
   };
 
-  const createNewFolder = () => {
+  const createNewFolder = () => { // this needs to make new folders inside of other folders!!
     const previousFolders = currentFolders[0].folders;
 
     const newFolder: Folder = {
