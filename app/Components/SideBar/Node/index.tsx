@@ -16,7 +16,7 @@ type TreeNodeType = {
 export const TreeNode = (props: TreeNodeType) => {
   const { label, id } = props;
 
-  const { setCurrentPageId } = useNodes()
+  const { setCurrentPageId, nodeEdit, setNodeEdit } = useNodes();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [selected, setSelected] = useState<boolean>(false);
@@ -40,12 +40,17 @@ export const TreeNode = (props: TreeNodeType) => {
   }
 
   const onClick = () => {
-    setCurrentPageId(id)
+    setCurrentPageId(id);
 
     if (!selected) {
       setSelected(true);
     }
     setOpen(!open);
+
+    setNodeEdit({
+      ...nodeEdit,
+      activeNode: undefined,
+    });
   };
 
   return (

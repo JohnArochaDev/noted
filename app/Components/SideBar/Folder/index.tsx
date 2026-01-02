@@ -74,6 +74,11 @@ export const TreeFolder = (props: TreeFolderType) => {
       setSelected(true);
     }
     setOpen(!open);
+
+    setNodeEdit({
+      ...nodeEdit,
+      activeNode: folderData.id,
+    });
   };
 
   const renderNodes = (data: Node[], indent: number): React.ReactNode => {

@@ -17,6 +17,7 @@ export const HotBar = () => {
     setCurrentFolders,
     userId,
     setSavedFolders,
+    nodeEdit,
   } = useNodes();
 
   const saveNodes = () => {
@@ -81,7 +82,6 @@ export const HotBar = () => {
         folders: [newFolder, ...previousFolders],
       },
     ]);
-    
   }; // right now a node has to have a folder as a parent. we'll leave this for now, so nodes cant just take up space unorganized. need to hide the button if no folders are found!!
 
   // when saving a new folder or a new file, I need to both create it by updating the context,
@@ -98,7 +98,9 @@ export const HotBar = () => {
           type="newFolder"
           onClick={() => createNewFolder()}
         />
-        <Button label="New File" type="newFile" onClick={() => {}} />
+        {nodeEdit.activeNode && (
+          <Button label="New File" type="newFile" onClick={() => {}} />
+        )}
         <Button
           label="New Node"
           type="newNode2"
