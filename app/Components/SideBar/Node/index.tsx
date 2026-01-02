@@ -27,19 +27,18 @@ export const TreeNode = (props: TreeNodeType) => {
   } = useNodes();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [selected, setSelected] = useState<boolean>(false);
+  // const [selected, setSelected] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   const [text, setText] = useState<string>("");
 
   const textRef = useRef<HTMLInputElement>(null);
 
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    
     setCurrentPageId(id);
 
-    if (!selected) {
-      setSelected(true);
-    }
     setOpen(!open);
 
     setNodeEdit({
@@ -134,7 +133,6 @@ export const TreeNode = (props: TreeNodeType) => {
       aria-label={name}
       onClick={onClick}
       tabIndex={0}
-      onBlur={() => setSelected(false)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onKeyDown={(key) => onKeyDown(key)}
@@ -147,7 +145,7 @@ export const TreeNode = (props: TreeNodeType) => {
           height={20}
         />
       </div>
-      {selected && <div className={styles.selected}></div>}
+      {nodeEdit.activeNode === id && <div className={styles.selected}></div>}
 
       {nodeEdit.activeNode === id && nodeEdit.editMode ? (
         <input

@@ -29,7 +29,7 @@ export const TreeFolder = (props: TreeFolderType) => {
     setSavedFolders,
   } = useNodes();
 
-  const [selected, setSelected] = useState<boolean>(false);
+  // const [selected, setSelected] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [text, setText] = useState<string>(folderData.name);
   const [open, setOpen] = useState<boolean>(false);
@@ -73,10 +73,9 @@ export const TreeFolder = (props: TreeFolderType) => {
     }
   };
 
-  const onClick = () => {
-    if (!selected) {
-      setSelected(true);
-    }
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    
     setOpen(!open);
 
     setNodeEdit({
@@ -125,7 +124,6 @@ export const TreeFolder = (props: TreeFolderType) => {
           aria-label={folderData.name}
           onClick={onClick}
           tabIndex={0}
-          onBlur={() => setSelected(false)}
         >
           <div className={styles.open}>
             {open ? (
@@ -144,7 +142,9 @@ export const TreeFolder = (props: TreeFolderType) => {
               />
             )}
           </div>
-          {selected && <div className={styles.selected}></div>}
+          {nodeEdit.activeFolder === folderData.id && (
+            <div className={styles.selected}></div>
+          )}
           {nodeEdit.activeFolder === folderData.id && nodeEdit.editMode ? (
             <input
               ref={textRef}
@@ -164,7 +164,11 @@ export const TreeFolder = (props: TreeFolderType) => {
               {folderData.name.toUpperCase()}
             </span>
           )}
-          <ThreeDots isHovered={isHovered} id={folderData.id} type={folderData.type} />
+          <ThreeDots
+            isHovered={isHovered}
+            id={folderData.id}
+            type={folderData.type}
+          />
         </div>
       </NodeRow>
 
