@@ -11,19 +11,25 @@ type ThreeDotsType = {
 export const ThreeDots = (props: ThreeDotsType) => {
   const { isHovered } = props;
   const [imageSrc, setImageSrc] = useState("/assets/threeDots.png");
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setImageSrc("/assets/threeDotsSelected.png");
   };
 
-  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
+  const handleMouseUp = () => {
     setImageSrc("/assets/threeDots.png");
   };
 
+  const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+
+    setEditMode(!editMode);
+  };
+
   return (
-    <div className={styles.threeDots} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.threeDots} onClick={onClick}>
       {isHovered && (
         <div
           onMouseDown={handleMouseDown}
@@ -39,6 +45,7 @@ export const ThreeDots = (props: ThreeDotsType) => {
           />
         </div>
       )}
+      {/* place popup menu here */}
     </div>
   );
 };
