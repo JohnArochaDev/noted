@@ -13,6 +13,16 @@ body {
   margin: 0;
   padding: 0;
 
-  color: #9E968E;
+  color: #9e968e;
   font-family: "Rainbow100", sans-serif;
+}
+
+::selection {
+  color: #ffffff;
+  background: #9e968e;
+}
+
+::-moz-selection {
+  color: #ffffff;
+  background: #9e968e;
 }
