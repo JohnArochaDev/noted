@@ -65,9 +65,9 @@ Generate a unique ID (e.g., using crypto.randomUUID() or a library like uuid—i
 Set default position (e.g., center of board: x=2500, y=2500) or based on current viewport (query the panning library's transform state for offsets—see its docs).
 Pass the add function as a prop from Canvas to parent components if needed, or use context for global state (React context docs: https://react.dev/reference/react/createContext).
 
-8. Polish front end [HALF-DONE]
+8. Polish front end [DONE]
 
-Add undo / redo functionality to node page. ~~Make a folder open if its not already when a new node is added to it.~~ ~~Fix bug where if there are no folders, a new one cant be created. (this happens because after a user deletes them all, it wants to add a new folder to a folder that no longer exists. Also there is not a method to make a top-level folder if none are made, it needs to link a top level to a users custom id).~~ Also fix the center canvas button so either it centers canvas to its initial load spot, or the initial load spot is set to the center of the canvas. ~~Fix bug where if the node list is too long, and you scroll down AND open the three dots menu, the menu appears very low or off screen low.~~ ~~fix the bug where ehen your editing a node and click to drag text, the first time you can, but afterwards it moves the node again and the e.stoppropogation stops working.~~
+~~Make a folder open if its not already when a new node is added to it.~~ ~~Fix bug where if there are no folders, a new one cant be created. (this happens because after a user deletes them all, it wants to add a new folder to a folder that no longer exists. Also there is not a method to make a top-level folder if none are made, it needs to link a top level to a users custom id).~~ ~~Also fix the center canvas button so either it centers canvas to its initial load spot, or the initial load spot is set to the center of the canvas.~~ ~~Fix bug where if the node list is too long, and you scroll down AND open the three dots menu, the menu appears very low or off screen low.~~ ~~fix the bug where ehen your editing a node and click to drag text, the first time you can, but afterwards it moves the node again and the e.stoppropogation stops working.~~
 
 9. Integrate Saving and Loading with Your Database [HALF-DONE]
 
@@ -83,7 +83,7 @@ If using a specific DB service, follow their JS client docs (e.g., Supabase: htt
 
 10. Enhance with Additional Features
 
-You've already added the panning library in Step 2—test it by dragging the mouse to pan the board view.
+Add the ability to use undo / redo. You've already added the panning library in Step 2—test it by dragging the mouse to pan the board view.
 For zooming: Enable it in the library config to let users zoom in/out (e.g., via mouse wheel), which scales the view without resizing the actual board or nodes.
 Persist view state if desired (e.g., save current pan/zoom offsets to DB or localStorage on unload, reload on mount—library provides ways to get/set transform).
 Add keyboard shortcuts (e.g., delete node): Use react-hotkeys-hook (docs: https://www.npmjs.com/package/react-hotkeys-hook).
