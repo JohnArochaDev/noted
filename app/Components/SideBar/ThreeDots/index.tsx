@@ -35,7 +35,11 @@ export const ThreeDots = (props: ThreeDotsType) => {
     e.stopPropagation();
 
     const rect = e.currentTarget.getBoundingClientRect();
-    setMenuPosition({ top: rect.bottom, left: rect.left });
+    let calculatedTop = rect.bottom;
+    if (rect.bottom + 60 > window.innerHeight) {
+      calculatedTop = rect.top - 24;
+    }
+    setMenuPosition({ top: calculatedTop, left: rect.left });
 
     setEditMode(!editMode);
   };
