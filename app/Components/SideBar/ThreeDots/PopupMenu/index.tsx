@@ -24,14 +24,7 @@ export const PopupMenu = (props: PopupMenuType) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
   const editNodes = () => {
-    console.log("hit");
     setNodeEdit({
-      activeFolder: type === "folder" ? id : undefined,
-      activeNode: type === "node" ? id : undefined,
-      editMode: true,
-    });
-
-    console.log("edit", {
       activeFolder: type === "folder" ? id : undefined,
       activeNode: type === "node" ? id : undefined,
       editMode: true,

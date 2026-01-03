@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { useNodes } from "@/app/Context";
 
-import { Folder, Node } from "../../../Constants/types";
+import { Folder, Node, RootFolder } from "../../../Constants/types";
 import { TreeNode } from "../Node";
 import { NodeRow } from "../NodeRow";
 import { Spacer } from "../Spacer";
@@ -37,29 +37,34 @@ export const TreeFolder = (props: TreeFolderType) => {
   const textRef = useRef<HTMLInputElement>(null);
 
   const saveEdit = () => {
-    setCurrentFolders([
-      {
-        id: currentFolders[0].id,
-        folders: currentFolders[0].folders.map((folder) =>
-          folder.id === nodeEdit.activeFolder
-            ? { ...folder, name: text }
-            : folder
-        ),
-      },
-    ]);
+    const updateFolderName = (data: RootFolder[]): RootFolder[] => {
+      const updateFolder = (folders: Folder[], id: string): Folder[] => {
+        return folders.map((folder) => {
+          if (folder.id === id) {
+            return {
+              ...folder,
+              name: text,
+            };
+          } else {
+            return {
+              ...folder,
+              subfolders: updateFolder(folder.subfolders, id),
+            };
+          }
+        });
+      };
+
+      return data.map((root) => ({
+        ...root,
+        folders: updateFolder(root.folders, folderData.id),
+      }));
+    };
+
+    setCurrentFolders(updateFolderName(currentFolders));
 
     // save to the db, if it fails post a toast message
 
-    setSavedFolders([
-      {
-        id: currentFolders[0].id,
-        folders: currentFolders[0].folders.map((folder) =>
-          folder.id === nodeEdit.activeFolder
-            ? { ...folder, name: text }
-            : folder
-        ),
-      },
-    ]);
+    setSavedFolders(updateFolderName(currentFolders));
 
     setNodeEdit({
       ...nodeEdit,
@@ -75,7 +80,7 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    
+
     setOpen(!open);
 
     setNodeEdit({
