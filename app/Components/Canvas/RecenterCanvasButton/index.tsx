@@ -5,13 +5,10 @@ import { useReactFlow } from "@xyflow/react";
 import { SquareButton } from "../../SquareButton";
 
 export const RecenterButton = () => {
-  const { setViewport, getViewport, setCenter } = useReactFlow();
+  const { fitView } = useReactFlow();
 
   const recenterCanvas = () => {
-    const currentViewport = getViewport();
-
-    setViewport({ x: 2500, y: 2500, zoom: currentViewport.zoom });
-    setCenter(2500, 2500)
+    fitView(); // Padding adds some margin; duration animates the transition
   };
 
   return (
