@@ -18,6 +18,11 @@ type TreeFolderType = {
   indentation?: number;
 };
 
+type NodeAndFolderChildren = {
+  folders: number;
+  nodes: number;
+};
+
 export const TreeFolder = (props: TreeFolderType) => {
   const { folderData, indentation = 0 } = props;
 
@@ -29,6 +34,10 @@ export const TreeFolder = (props: TreeFolderType) => {
     setSavedFolders,
   } = useNodes();
 
+  const [children, setChildren] = useState<NodeAndFolderChildren>({
+    folders: folderData.subfolders.length,
+    nodes: folderData.nodes.length,
+  });
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [text, setText] = useState<string>(folderData.name);
   const [open, setOpen] = useState<boolean>(false);
@@ -115,6 +124,20 @@ export const TreeFolder = (props: TreeFolderType) => {
       textRef.current.setSelectionRange(text.length, text.length);
     }
   }, [nodeEdit]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (
+      children.folders < folderData.subfolders.length ||
+      children.nodes < folderData.nodes.length
+    ) {
+      // eslint-disable-next-line
+      setOpen(true);
+      setChildren({
+        folders: folderData.subfolders.length,
+        nodes: folderData.nodes.length,
+      });
+    }
+  }, [folderData, children.folders, children.nodes]);
 
   return (
     <>
