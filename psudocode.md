@@ -58,14 +58,18 @@ For touch/mobile support, the libraries handle it out of the box—test on devic
 Refer to the libraries' props and examples in their docs (linked in Step 1) for configuration options.
 Use the panning library's context to convert screen coordinates to board ("world") coordinates in the drag callback, ensuring positions are saved absolutely relative to the 5000x5000 board (docs for context/transform access: https://bettertyped.github.io/react-zoom-pan-pinch/?path=/story/docs-hooks--page).
 
-7. Handle Adding New Nodes and new Folders / Files [HALF-DONE] You can save nodes && folder, need t oadd ability to add files to a folder
+7. Handle Adding New Nodes and new Folders / Files [DONE]
 
 From your hotbar or sidebar (e.g., on button click in <HotBar> or <SideBar>), trigger a function to add a new node to the canvas state.
 Generate a unique ID (e.g., using crypto.randomUUID() or a library like uuid—install if needed: https://www.npmjs.com/package/uuid).
 Set default position (e.g., center of board: x=2500, y=2500) or based on current viewport (query the panning library's transform state for offsets—see its docs).
 Pass the add function as a prop from Canvas to parent components if needed, or use context for global state (React context docs: https://react.dev/reference/react/createContext).
 
-8. Integrate Saving and Loading with Your Database [HALF-DONE]
+8. Polish front end [HALF-DONE]
+
+Add undo / redo functionality to node page. Add node page connection to the currently selected node. Make a folder open if its not already when a new node is added to it. Fix bug where if there are no folders, a new one cant be created. (this happens because after a user deletes them all, it wants to add a new folder to a folder that no longer exists. Also there is not a method to make a top-level folder if none are made, it needs to link a top level to a users custom id). Also fix the center canvas button so either it centers canvas to its initial load spot, or the initial load spot is set to the center of the canvas.
+
+9. Integrate Saving and Loading with Your Database [HALF-DONE]
 
 For loading: In useEffect of Canvas, make a fetch request to your API endpoint to get nodes for the current page (use a page ID from URL params or state).
 Parse the JSON response and set it to your nodes state—the absolute x/y pixels will place nodes correctly on the board, even off-screen.
@@ -77,7 +81,7 @@ Handle errors (e.g., show a toast notification).
 For fetch API basics: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch.
 If using a specific DB service, follow their JS client docs (e.g., Supabase: https://supabase.com/docs/guides/getting-started, Firebase: https://firebase.google.com/docs/web/setup).
 
-9. Enhance with Additional Features
+10. Enhance with Additional Features
 
 You've already added the panning library in Step 2—test it by dragging the mouse to pan the board view.
 For zooming: Enable it in the library config to let users zoom in/out (e.g., via mouse wheel), which scales the view without resizing the actual board or nodes.
@@ -86,7 +90,7 @@ Add keyboard shortcuts (e.g., delete node): Use react-hotkeys-hook (docs: https:
 Responsiveness: The outer wrapper auto-adjusts to screen size, but the inner board stays fixed; test on different monitors to confirm positions consistency.
 Accessibility: Add ARIA roles/labels to nodes (docs: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA).
 
-10. Test and Iterate
+11. Test and Iterate
 
 Run the app and add nodes at various positions on the large board.
 Pan around to view off-screen areas, drag nodes, save/reload—verify positions are identical across sessions/devices.
