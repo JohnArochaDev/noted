@@ -46,7 +46,7 @@ export const PopupMenu = (props: PopupMenuType) => {
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           className={styles.popupMenu}
-          style={{ top: `${top}px`, left: `${left}px` }}
+          style={{ top: `${top - 28}px`, left: `${left + 28}px` }}
         >
           <div className={styles.option} onClick={() => editNodes()}>
             Edit
