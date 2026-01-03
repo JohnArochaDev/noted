@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 
-import { Folder, RootFolder } from "@/app/Constants/types";
+import { Folder, Node, RootFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -97,6 +97,44 @@ export const HotBar = () => {
     setSavedFolders(addNewFolder(currentFolders));
   };
 
+  const createNewFile = () => {
+    const newFile: Node = {
+      id: generateUUID(),
+      parent_id: nodeEdit.activeFolder ?? "",
+      name: "newFile",
+      type: "node",
+    };
+
+    const addNewFile = (data: RootFolder[], parentId: string): RootFolder[] => {
+      const addFile = (folders: Folder[], parentId: string): Folder[] => {
+        return folders.map((folder) => {
+          if (folder.id === parentId) {
+            return {
+              ...folder,
+              nodes: [newFile, ...folder.nodes],
+            };
+          } else {
+            return {
+              ...folder,
+              subfolders: addFile(folder.subfolders, parentId),
+            };
+          }
+        });
+      };
+
+      return data.map((root) => ({
+        ...root,
+        folders: addFile(root.folders, parentId),
+      }));
+    };
+
+    setCurrentFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
+
+    // if db call works, then update the state, if not, toast message
+
+    setSavedFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
+  };
+
   return (
     <div className={styles.hotBar}>
       <div className={styles.leftSection}>
@@ -108,7 +146,11 @@ export const HotBar = () => {
           onClick={() => createNewFolder()}
         />
         {nodeEdit.activeFolder && (
-          <Button label="New File" type="newFile" onClick={() => {}} />
+          <Button
+            label="New File"
+            type="newFile"
+            onClick={() => createNewFile()}
+          />
         )}
         <Button
           label="New Node"
