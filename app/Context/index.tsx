@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { CustomTextNode } from "../Components/Canvas";
 import nodeDate from "../Constants/pageNode.json";
@@ -53,6 +53,17 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     activeNode: undefined,
     editMode: false,
   });
+
+  useEffect(() => {
+    if (!currentFolders[0].folders.length) {
+      // eslint-disable-next-line
+      setNodeEdit({
+        activeFolder: undefined,
+        activeNode: undefined,
+        editMode: false,
+      });
+    }
+  }, [currentFolders]);
 
   return (
     <NodesContext.Provider

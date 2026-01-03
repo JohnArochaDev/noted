@@ -65,6 +65,44 @@ export const HotBar = () => {
       nodes: [],
     };
 
+    if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
+      setCurrentFolders([
+        {
+          id: currentFolders[0].id,
+          folders: [newFolder, ...currentFolders[0].folders],
+        },
+      ]);
+
+      // if db call works, then update the state, if not, toast message
+
+      setSavedFolders([
+        {
+          id: currentFolders[0].id,
+          folders: [newFolder, ...currentFolders[0].folders],
+        },
+      ]);
+
+      return;
+    } else if (!currentFolders[0].folders.length) {
+      setCurrentFolders([
+        {
+          id: currentFolders[0].id,
+          folders: [newFolder],
+        },
+      ]);
+
+      // if db call works, then update the state, if not, toast message
+
+      setSavedFolders([
+        {
+          id: currentFolders[0].id,
+          folders: [newFolder],
+        },
+      ]);
+
+      return;
+    }
+
     const addNewFolder = (root: RootFolder[]): RootFolder[] => {
       const addFolder = (folders: Folder[], parentId: string): Folder[] => {
         return folders.map((folder) => {
@@ -145,7 +183,7 @@ export const HotBar = () => {
           type="newFolder"
           onClick={() => createNewFolder()}
         />
-        {nodeEdit.activeFolder && (
+        {nodeEdit.activeFolder && !!currentFolders[0].folders.length && (
           <Button
             label="New File"
             type="newFile"

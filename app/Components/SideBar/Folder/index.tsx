@@ -29,7 +29,6 @@ export const TreeFolder = (props: TreeFolderType) => {
     setSavedFolders,
   } = useNodes();
 
-  // const [selected, setSelected] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [text, setText] = useState<string>(folderData.name);
   const [open, setOpen] = useState<boolean>(false);
