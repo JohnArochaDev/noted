@@ -129,7 +129,7 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
         {isEditing ? (
           <textarea
             ref={textRef}
-            className={`${styles.text} nopan`}
+            className={`${styles.text} nopan nodrag`}
             value={text}
             onChange={(e) => setText(e.target.value)}
             onPointerDown={(e) => e.stopPropagation()}
