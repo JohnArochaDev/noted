@@ -13,10 +13,12 @@ type PopupMenuType = {
   id: string;
   type: NodeType;
   parentId?: string;
+  top: number;
+  left: number;
 };
 
 export const PopupMenu = (props: PopupMenuType) => {
-  const { isHovered, setEditMode, id, type, parentId = "" } = props;
+  const { isHovered, setEditMode, id, type, parentId = "", top, left } = props;
 
   const { currentFolders, setCurrentFolders, setSavedFolders, setNodeEdit } =
     useNodes();
@@ -44,6 +46,7 @@ export const PopupMenu = (props: PopupMenuType) => {
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           className={styles.popupMenu}
+          style={{ top: `${top}px`, left: `${left}px` }}
         >
           <div className={styles.option} onClick={() => editNodes()}>
             Edit

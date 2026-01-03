@@ -17,6 +17,10 @@ export const ThreeDots = (props: ThreeDotsType) => {
   const { isHovered, id, type, parentId = "" } = props;
   const [imageSrc, setImageSrc] = useState("/assets/threeDots.png");
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [menuPosition, setMenuPosition] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -29,6 +33,9 @@ export const ThreeDots = (props: ThreeDotsType) => {
 
   const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMenuPosition({ top: rect.bottom, left: rect.left });
 
     setEditMode(!editMode);
   };
@@ -58,6 +65,8 @@ export const ThreeDots = (props: ThreeDotsType) => {
           id={id}
           type={type}
           parentId={parentId}
+          top={menuPosition.top}
+          left={menuPosition.left}
         />
       )}
     </div>
