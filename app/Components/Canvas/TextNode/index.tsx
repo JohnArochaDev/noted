@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import {
@@ -18,16 +18,22 @@ import styles from "./styles.module.scss";
 
 type TextNodeType = Node<{ text: string }, "textNode">;
 
-export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
+function TextNodeComponent({ data, selected, id }: NodeProps<TextNodeType>) {
   const { currentPageNodes, setCurrentPageNodes } = useNodes();
 
   const [isEditing, setIsEditing] = useState(false);
-
   const [text, setText] = useState<string>(data.text);
 
   const rf = useReactFlow();
-
   const textRef = useRef<HTMLTextAreaElement>(null);
+
+  const syncTextToContext = () => {
+    setCurrentPageNodes(
+      currentPageNodes.map((node) =>
+        node.id === id ? { ...node, data: { text } } : node
+      )
+    );
+  };
 
   const handleResizeEnd = (
     _event: D3DragEvent<HTMLDivElement, null, SubjectPosition>,
@@ -47,11 +53,12 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
   };
 
   useEffect(() => {
-    if (!selected) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!selected && isEditing) {
+      // eslint-disable-next-line
       setIsEditing(false);
+      syncTextToContext();
     }
-  }, [selected]);
+  }, [selected, isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     rf.setNodes((nodes) =>
@@ -66,14 +73,6 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
       textRef.current.focus();
       textRef.current.setSelectionRange(text.length, text.length);
     }
-
-    setTimeout(() => {
-      setCurrentPageNodes(
-        currentPageNodes.map((node) =>
-          node.id === id ? { ...node, data: { text: text } } : node
-        )
-      );
-    }, 1000);
   }, [isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -112,7 +111,7 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
             }}
           />
         </>
-      )}{" "}
+      )}
       <NodeResizer
         minWidth={100}
         minHeight={100}
@@ -132,6 +131,10 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
             className={`${styles.text} nopan nodrag`}
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onBlur={() => {
+              setIsEditing(false);
+              syncTextToContext();
+            }}
             onPointerDown={(e) => e.stopPropagation()}
             style={{
               border: "none",
@@ -195,3 +198,5 @@ export function TextNode({ data, selected, id }: NodeProps<TextNodeType>) {
     </div>
   );
 }
+
+export const TextNode = memo(TextNodeComponent);

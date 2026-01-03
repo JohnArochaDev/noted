@@ -1,16 +1,15 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
-  applyNodeChanges,
   Background,
   BackgroundVariant,
   Node,
-  OnNodesChange,
   Panel,
   PanOnScrollMode,
   ReactFlow,
   ReactFlowProvider,
+  useNodesState,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -26,21 +25,23 @@ export type CustomTextNode = Node<TextNodeData, "textNode">;
 type TextNodeData = { text: string };
 
 export const Canvas = () => {
-  const { currentPageNodes, setCurrentPageNodes } = useNodes();
+  const { currentPageNodes: initialNodes, setCurrentPageNodes } = useNodes();
+
+  // eslint-disable-next-line
+  const [nodes, setNodes, onNodesChange] =
+    useNodesState<CustomTextNode>(initialNodes);
 
   const [minZoomVal, setMinZoomVal] = useState(0.1);
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  const nodeTypes = { textNode: TextNode };
+  // Memoize nodeTypes and other static props
+  const nodeTypes = useMemo(() => ({ textNode: TextNode }), []);
 
-  const onNodesChange: OnNodesChange<CustomTextNode> = useCallback(
-    (changes) =>
-      // eslint-disable-next-line
-      setCurrentPageNodes((nds: any) => applyNodeChanges(changes, nds)),
-    [setCurrentPageNodes]
-  );
+  const syncNodesToContext = useCallback(() => {
+    setCurrentPageNodes(nodes);
+  }, [nodes, setCurrentPageNodes]);
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
@@ -61,6 +62,12 @@ export const Canvas = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    syncNodesToContext();
+
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <ReactFlowProvider>
@@ -68,7 +75,7 @@ export const Canvas = () => {
           <ReactFlow
             fitView
             nodeTypes={nodeTypes}
-            nodes={currentPageNodes}
+            nodes={nodes}
             onNodesChange={onNodesChange}
             snapToGrid
             snapGrid={[20, 20]}
@@ -92,6 +99,8 @@ export const Canvas = () => {
               [5000, 5000],
             ]}
             panOnScrollMode={PanOnScrollMode.Free}
+            onNodeDragStop={syncNodesToContext}
+            onlyRenderVisibleElements // Lazily render off-screen elements
           >
             <Background
               variant={BackgroundVariant.Dots}
