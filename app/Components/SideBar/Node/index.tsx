@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
-import { Folder, Node, RootFolder } from "@/app/Constants/types";
+import { Folder, Node, UserFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import { ThreeDots } from "../ThreeDots";
@@ -50,10 +50,10 @@ export const TreeNode = (props: TreeNodeType) => {
 
   const saveEdit = () => {
     const updateNodeName = (
-      data: RootFolder[],
+      data: UserFolder[],
       nodeId: string,
       parentId: string
-    ): RootFolder[] => {
+    ): UserFolder[] => {
       const updateFolders = (folders: Folder[]): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parentId) {

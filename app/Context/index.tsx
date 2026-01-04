@@ -3,24 +3,25 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { CustomTextNode } from "../Components/Canvas";
 import nodeDate from "../Constants/pageNode.json";
 import folderData from "../Constants/treeNodeData.json";
-import { editNodeType, RootFolder, TextNodeType } from "../Constants/types";
+import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
 type NodesContextType = {
   userId: string;
   setUserId: (userId: string) => void;
-  savedFolders: RootFolder[];
-  setSavedFolders: (savedFolders: RootFolder[]) => void;
-  currentFolders: RootFolder[];
-  setCurrentFolders: (currentFolders: RootFolder[]) => void;
-  savedPageNodes: TextNodeType[];
-  setSavedPageNodes: (pageNodes: TextNodeType[]) => void;
+  savedFolders: UserFolder[];
+  setSavedFolders: (savedFolders: UserFolder[]) => void;
+  currentFolders: UserFolder[];
+  setCurrentFolders: (currentFolders: UserFolder[]) => void;
+  savedPageNodes: Nodule[];
+  setSavedPageNodes: (pageNodes: Nodule[]) => void;
   currentPageNodes: CustomTextNode[];
+  // leave this until i create a mapper 
   // eslint-disable-next-line
   setCurrentPageNodes: (currentPageNodes: any) => void;
   currentPageId: string;
   setCurrentPageId: (currentPageId: string) => void;
-  nodeEdit: editNodeType;
-  setNodeEdit: (nodeEdit: editNodeType) => void;
+  nodeEdit: EditNoduleType;
+  setNodeEdit: (nodeEdit: EditNoduleType) => void;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
@@ -28,16 +29,16 @@ const NodesContext = createContext<NodesContextType | undefined>(undefined);
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [userId, setUserId] = useState<string>("12345"); // logged in user
 
-  const [savedFolders, setSavedFolders] = useState<RootFolder[]>(
-    folderData as RootFolder[]
+  const [savedFolders, setSavedFolders] = useState<UserFolder[]>(
+    folderData as UserFolder[]
   ); // all folders and .node files that are saved to the db
-  const [currentFolders, setCurrentFolders] = useState<RootFolder[]>(
-    folderData as RootFolder[]
+  const [currentFolders, setCurrentFolders] = useState<UserFolder[]>(
+    folderData as UserFolder[]
   ); // all folders and .node files that are current
 
   // active saved page nodes selected from hierarchy tree. these will be found via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
-  const [savedPageNodes, setSavedPageNodes] = useState<TextNodeType[]>(
-    nodeDate as TextNodeType[]
+  const [savedPageNodes, setSavedPageNodes] = useState<Nodule[]>(
+    nodeDate as Nodule[]
   );
   // these nodes are the unsaved page nodes. When a save happens, these will be formatted to meet the format expected by the DB, send to the DB, and then a call will pull them back from the DB to keep everythiing synced up
   const [currentPageNodes, setCurrentPageNodes] = useState<CustomTextNode[]>(
@@ -48,7 +49,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   // when the server is up these will come from my db
 
   // this will be the active element. this state determines what is being edited, as well as if the new file button appears in the hotbar
-  const [nodeEdit, setNodeEdit] = useState<editNodeType>({
+  const [nodeEdit, setNodeEdit] = useState<EditNoduleType>({
     activeFolder: undefined,
     activeNode: undefined,
     editMode: false,

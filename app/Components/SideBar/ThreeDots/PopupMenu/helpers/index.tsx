@@ -1,12 +1,12 @@
-import { Folder, NodeType, RootFolder } from "@/app/Constants/types";
+import { Folder, NodeType, UserFolder } from "@/app/Constants/types";
 
 type DeleteNodesAndFoldersType = {
   type: NodeType;
-  currentFolders: RootFolder[];
+  currentFolders: UserFolder[];
   id: string;
   parentId?: string;
-  setCurrentFolders: (currentFolders: RootFolder[]) => void;
-  setSavedFolders: (savedFolders: RootFolder[]) => void;
+  setCurrentFolders: (currentFolders: UserFolder[]) => void;
+  setSavedFolders: (savedFolders: UserFolder[]) => void;
 };
 
 export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
@@ -22,7 +22,7 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
   if (type === "folder") {
     // logic to delete folders cascading from parents
 
-    const deleteFolders = (data: RootFolder[], id: string): RootFolder[] => {
+    const deleteFolders = (data: UserFolder[], id: string): UserFolder[] => {
       const deleteFolder = (folders: Folder[]): Folder[] => {
         return folders
           .filter((folder) => folder.id !== id)
@@ -47,10 +47,10 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
     // logic to delete node files cascading from parents
 
     const deleteNodes = (
-      data: RootFolder[],
+      data: UserFolder[],
       id: string,
       parent_id: string
-    ): RootFolder[] => {
+    ): UserFolder[] => {
       const deleteNode = (folders: Folder[]): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parent_id) {

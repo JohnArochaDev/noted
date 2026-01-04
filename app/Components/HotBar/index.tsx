@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 
-import { Folder, Node, RootFolder } from "@/app/Constants/types";
+import { Folder, Node, UserFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -103,7 +103,7 @@ export const HotBar = () => {
       return;
     }
 
-    const addNewFolder = (root: RootFolder[]): RootFolder[] => {
+    const addNewFolder = (root: UserFolder[]): UserFolder[] => {
       const addFolder = (folders: Folder[], parentId: string): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parentId) {
@@ -143,7 +143,7 @@ export const HotBar = () => {
       type: "node",
     };
 
-    const addNewFile = (data: RootFolder[], parentId: string): RootFolder[] => {
+    const addNewFile = (data: UserFolder[], parentId: string): UserFolder[] => {
       const addFile = (folders: Folder[], parentId: string): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parentId) {

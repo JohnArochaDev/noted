@@ -16,9 +16,9 @@ import "@xyflow/react/dist/style.css";
 import { useNodes } from "@/app/Context";
 
 import { ViewportClamper } from "./helpers";
+import { Nodule } from "./Nodule";
 import { RecenterButton } from "./RecenterCanvasButton";
 import styles from "./styles.module.scss";
-import { TextNode } from "./TextNode";
 
 export type CustomTextNode = Node<TextNodeData, "textNode">;
 
@@ -37,7 +37,7 @@ export const Canvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
 
   // Memoize nodeTypes and other static props
-  const nodeTypes = useMemo(() => ({ textNode: TextNode }), []);
+  const nodeTypes = useMemo(() => ({ textNode: Nodule }), []);
 
   const syncNodesToContext = useCallback(() => {
     setCurrentPageNodes(nodes);

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { useNodes } from "@/app/Context";
 
-import { Folder, Node, RootFolder } from "../../../Constants/types";
+import { Folder, Node, UserFolder } from "../../../Constants/types";
 import { TreeNode } from "../Node";
 import { NodeRow } from "../NodeRow";
 import { Spacer } from "../Spacer";
@@ -45,7 +45,7 @@ export const TreeFolder = (props: TreeFolderType) => {
   const textRef = useRef<HTMLInputElement>(null);
 
   const saveEdit = () => {
-    const updateFolderName = (data: RootFolder[]): RootFolder[] => {
+    const updateFolderName = (data: UserFolder[]): UserFolder[] => {
       const updateFolder = (folders: Folder[], id: string): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === id) {

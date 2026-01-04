@@ -16,9 +16,9 @@ import { useNodes } from "@/app/Context";
 import { SquareButton } from "../../SquareButton";
 import styles from "./styles.module.scss";
 
-type TextNodeType = Node<{ text: string }, "textNode">;
+type Nodule = Node<{ text: string }, "Nodule">;
 
-function TextNodeComponent({ data, selected, id }: NodeProps<TextNodeType>) {
+function TextNodeComponent({ data, selected, id }: NodeProps<Nodule>) {
   const { currentPageNodes, setCurrentPageNodes } = useNodes();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -199,4 +199,4 @@ function TextNodeComponent({ data, selected, id }: NodeProps<TextNodeType>) {
   );
 }
 
-export const TextNode = memo(TextNodeComponent);
+export const Nodule = memo(TextNodeComponent);
