@@ -24,6 +24,7 @@ export const HotBar = () => {
     const dataToBeSaved = currentPageNodes.map((node) => ({
       id: node.id,
       type: node.type,
+      pageId: currentPageId,
       position: node.position,
       width: node.width,
       height: node.height,
