@@ -6,8 +6,8 @@ import Image from "next/image";
 
 import { useNodes } from "@/app/Context";
 
-import { Folder, Node, UserFolder } from "../../../Constants/types";
-import { TreeNode } from "../Node";
+import { Folder, NodeFile, UserFolder } from "../../../Constants/types";
+import { TreeNode } from "../NodeFile";
 import { NodeRow } from "../NodeRow";
 import { Spacer } from "../Spacer";
 import { ThreeDots } from "../ThreeDots";
@@ -98,7 +98,7 @@ export const TreeFolder = (props: TreeFolderType) => {
     });
   };
 
-  const renderNodes = (data: Node[], indent: number): React.ReactNode => {
+  const renderNodes = (data: NodeFile[], indent: number): React.ReactNode => {
     return (
       <>
         {data.map((node) => (

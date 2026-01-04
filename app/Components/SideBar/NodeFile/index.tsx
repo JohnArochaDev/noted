@@ -3,19 +3,19 @@ import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
-import { Folder, Node, UserFolder } from "@/app/Constants/types";
+import { Folder, NodeFile, UserFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import { ThreeDots } from "../ThreeDots";
 import styles from "./styles.module.scss";
 
 type TreeNodeType = {
-  node: Node;
+  node: NodeFile;
 };
 
 export const TreeNode = (props: TreeNodeType) => {
   const { node } = props;
-  const { name, id, parent_id } = node;
+  const { name, id, parentId } = node;
 
   const {
     setCurrentPageId,
@@ -78,11 +78,11 @@ export const TreeNode = (props: TreeNodeType) => {
       }));
     };
 
-    setCurrentFolders(updateNodeName(currentFolders, id, parent_id));
+    setCurrentFolders(updateNodeName(currentFolders, id, parentId));
 
     // save to the db, if it fails post a toast message
 
-    setSavedFolders(updateNodeName(currentFolders, id, parent_id));
+    setSavedFolders(updateNodeName(currentFolders, id, parentId));
 
     setNodeEdit({
       ...nodeEdit,
@@ -169,7 +169,7 @@ export const TreeNode = (props: TreeNodeType) => {
         isHovered={isHovered}
         id={id}
         type={node.type}
-        parentId={node.parent_id}
+        parentId={node.parentId}
       />
     </div>
   );

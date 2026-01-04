@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 
-import { Folder, Node, UserFolder } from "@/app/Constants/types";
+import { Folder, NodeFile, Nodule, UserFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -37,7 +37,7 @@ export const HotBar = () => {
   };
 
   const createNewNode = () => {
-    const newNode = {
+    const newNode: Nodule = {
       id: generateUUID(),
       type: "textNode",
       pageId: currentPageId,
@@ -58,7 +58,7 @@ export const HotBar = () => {
   const createNewFolder = () => {
     const newFolder: Folder = {
       id: generateUUID(),
-      parent_id: userId,
+      parentId: userId,
       name: "Folder",
       type: "folder",
       subfolders: [],
@@ -136,9 +136,9 @@ export const HotBar = () => {
   };
 
   const createNewFile = () => {
-    const newFile: Node = {
+    const newFile: NodeFile = {
       id: generateUUID(),
-      parent_id: nodeEdit.activeFolder ?? "",
+      parentId: nodeEdit.activeFolder ?? "",
       name: "newFile",
       type: "node",
     };

@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { CustomTextNode } from "../Components/Canvas";
 import nodeDate from "../Constants/pageNode.json";
 import folderData from "../Constants/treeNodeData.json";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
@@ -14,10 +13,8 @@ type NodesContextType = {
   setCurrentFolders: (currentFolders: UserFolder[]) => void;
   savedPageNodes: Nodule[];
   setSavedPageNodes: (pageNodes: Nodule[]) => void;
-  currentPageNodes: CustomTextNode[];
-  // leave this until i create a mapper 
-  // eslint-disable-next-line
-  setCurrentPageNodes: (currentPageNodes: any) => void;
+  currentPageNodes: Nodule[];
+  setCurrentPageNodes: (currentPageNodes: Nodule[]) => void;
   currentPageId: string;
   setCurrentPageId: (currentPageId: string) => void;
   nodeEdit: EditNoduleType;
@@ -32,23 +29,24 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [savedFolders, setSavedFolders] = useState<UserFolder[]>(
     folderData as UserFolder[]
   ); // all folders and .node files that are saved to the db
+
   const [currentFolders, setCurrentFolders] = useState<UserFolder[]>(
     folderData as UserFolder[]
   ); // all folders and .node files that are current
 
-  // active saved page nodes selected from hierarchy tree. these will be found via a call for a specific node page ID. all results will be used on the page, no filtering through different pages nodes will be required
+  // active saved page nodes selected from hierarchy tree
   const [savedPageNodes, setSavedPageNodes] = useState<Nodule[]>(
     nodeDate as Nodule[]
   );
-  // these nodes are the unsaved page nodes. When a save happens, these will be formatted to meet the format expected by the DB, send to the DB, and then a call will pull them back from the DB to keep everythiing synced up
-  const [currentPageNodes, setCurrentPageNodes] = useState<CustomTextNode[]>(
-    nodeDate as CustomTextNode[]
+
+  // unsaved / currently edited page nodes on the canvas
+  const [currentPageNodes, setCurrentPageNodes] = useState<Nodule[]>(
+    nodeDate as Nodule[]
   );
 
-  const [currentPageId, setCurrentPageId] = useState<string>("7"); // will be used when creating new nodes, will set the parent ID to this.
-  // when the server is up these will come from my db
+  const [currentPageId, setCurrentPageId] = useState<string>("7"); // used when creating new nodes
 
-  // this will be the active element. this state determines what is being edited, as well as if the new file button appears in the hotbar
+  // active element for editing
   const [nodeEdit, setNodeEdit] = useState<EditNoduleType>({
     activeFolder: undefined,
     activeNode: undefined,
@@ -56,7 +54,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    if (!currentFolders[0].folders.length) {
+    if (!currentFolders[0]?.folders.length) {
       // eslint-disable-next-line
       setNodeEdit({
         activeFolder: undefined,
@@ -92,7 +90,8 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useNodes = () => {
   const context = useContext(NodesContext);
-  if (!context) throw new Error("useNodes must be used within a NodeProvider");
-
+  if (!context) {
+    throw new Error("useNodes must be used within a NodeProvider");
+  }
   return context;
 };

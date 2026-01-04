@@ -2,10 +2,9 @@
   {
     "id": "1",
     "type": "textNode",
-    "pageId": 7,
     "position": {
-      "x": 2360,
-      "y": 2280
+      "x": 2320,
+      "y": 2320
     },
     "width": 300,
     "height": 200,
@@ -16,7 +15,6 @@
   {
     "id": "2",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 2760,
       "y": 2340
@@ -30,7 +28,6 @@
   {
     "id": "3",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 2480,
       "y": 2680
@@ -44,7 +41,6 @@
   {
     "id": "4",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 3120,
       "y": 2860
@@ -58,7 +54,6 @@
   {
     "id": "5",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 2040,
       "y": 2560
@@ -72,7 +67,6 @@
   {
     "id": "6",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 2060,
       "y": 3100
@@ -86,7 +80,6 @@
   {
     "id": "7",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 3080,
       "y": 2460
@@ -100,7 +93,6 @@
   {
     "id": "8",
     "type": "textNode",
-    "pageId": 7,
     "position": {
       "x": 2800,
       "y": 3260

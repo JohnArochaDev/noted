@@ -1,3 +1,5 @@
+import { Node } from "@xyflow/react";
+
 export type UserFolder = {
   id: string;
   folders: Folder[];
@@ -5,25 +7,25 @@ export type UserFolder = {
 
 export type Folder = {
   id: string;
-  parent_id: string | null;
+  parentId: string | null;
   name: string;
   type: NodeFileType;
   subfolders: Folder[];
-  nodes: Node[];
+  nodes: NodeFile[];
 };
 
-export type Node = {
+export type NodeFile = {
   id: string;
-  parent_id: string;
+  parentId: string;
   name: string;
   type: NodeFileType;
 };
 
 export type NodeFileType = "folder" | "node";
 
-export type Nodule = {
+export type Nodule = Node<NoduleData, NodePlateType> & {
   id: string;
-  pageId: number;
+  pageId: string;
   type: NodePlateType;
   position: Coordinates;
   width: number;
