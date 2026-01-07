@@ -2,6 +2,7 @@ import { Node } from "@xyflow/react";
 
 export type UserFolder = {
   id: string;
+  userId?: string,
   folders: Folder[];
 };
 

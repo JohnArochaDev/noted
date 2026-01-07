@@ -1,12 +1,12 @@
-import { Folder, NodeType, UserFolder } from "@/app/Constants/types";
+import { Folder, NodeFileType, UserFolder } from "@/app/Constants/types";
 
 type DeleteNodesAndFoldersType = {
-  type: NodeType;
-  currentFolders: UserFolder[];
+  type: NodeFileType;
+  currentFolders: UserFolder;
   id: string;
   parentId?: string;
-  setCurrentFolders: (currentFolders: UserFolder[]) => void;
-  setSavedFolders: (savedFolders: UserFolder[]) => void;
+  setCurrentFolders: (currentFolders: UserFolder) => void;
+  setSavedFolders: (savedFolders: UserFolder) => void;
 };
 
 export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
@@ -22,7 +22,7 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
   if (type === "folder") {
     // logic to delete folders cascading from parents
 
-    const deleteFolders = (data: UserFolder[], id: string): UserFolder[] => {
+    const deleteFolders = (data: UserFolder, id: string): UserFolder => {
       const deleteFolder = (folders: Folder[]): Folder[] => {
         return folders
           .filter((folder) => folder.id !== id)
@@ -32,10 +32,10 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
           }));
       };
 
-      return data.map((root) => ({
-        ...root,
-        folders: deleteFolder(root.folders),
-      }));
+      return {
+        ...data,
+        folders: deleteFolder(data.folders),
+      };
     };
 
     setCurrentFolders(deleteFolders(currentFolders, id));
@@ -47,10 +47,10 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
     // logic to delete node files cascading from parents
 
     const deleteNodes = (
-      data: UserFolder[],
+      data: UserFolder,
       id: string,
       parent_id: string
-    ): UserFolder[] => {
+    ): UserFolder => {
       const deleteNode = (folders: Folder[]): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parent_id) {
@@ -67,10 +67,10 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
         });
       };
 
-      return data.map((root) => ({
-        ...root,
-        folders: deleteNode(root.folders),
-      }));
+      return {
+        ...data,
+        folders: deleteNode(data.folders),
+      };
     };
 
     setCurrentFolders(deleteNodes(currentFolders, id, parentId));

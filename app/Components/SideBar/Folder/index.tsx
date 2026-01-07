@@ -45,7 +45,7 @@ export const TreeFolder = (props: TreeFolderType) => {
   const textRef = useRef<HTMLInputElement>(null);
 
   const saveEdit = () => {
-    const updateFolderName = (data: UserFolder[]): UserFolder[] => {
+    const updateFolderName = (data: UserFolder): UserFolder => {
       const updateFolder = (folders: Folder[], id: string): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === id) {
@@ -62,10 +62,10 @@ export const TreeFolder = (props: TreeFolderType) => {
         });
       };
 
-      return data.map((root) => ({
-        ...root,
-        folders: updateFolder(root.folders, folderData.id),
-      }));
+      return {
+        ...data,
+        folders: updateFolder(data.folders, folderData.id),
+      };
     };
 
     setCurrentFolders(updateFolderName(currentFolders));

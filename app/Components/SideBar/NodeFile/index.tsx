@@ -27,16 +27,14 @@ export const TreeNode = (props: TreeNodeType) => {
   } = useNodes();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  // const [selected, setSelected] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-
   const [text, setText] = useState<string>("");
-
+  
   const textRef = useRef<HTMLInputElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    
+
     setCurrentPageId(id);
 
     setOpen(!open);
@@ -50,10 +48,10 @@ export const TreeNode = (props: TreeNodeType) => {
 
   const saveEdit = () => {
     const updateNodeName = (
-      data: UserFolder[],
+      data: UserFolder,
       nodeId: string,
       parentId: string
-    ): UserFolder[] => {
+    ): UserFolder => {
       const updateFolders = (folders: Folder[]): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parentId) {
@@ -72,10 +70,10 @@ export const TreeNode = (props: TreeNodeType) => {
         });
       };
 
-      return data.map((root) => ({
-        ...root,
-        folders: updateFolders(root.folders),
-      }));
+      return {
+        ...data,
+        folders: updateFolders(data.folders),
+      };
     };
 
     setCurrentFolders(updateNodeName(currentFolders, id, parentId));

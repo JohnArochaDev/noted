@@ -67,44 +67,36 @@ export const HotBar = () => {
     };
 
     if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
-      setCurrentFolders([
-        {
-          id: currentFolders[0].id,
-          folders: [newFolder, ...currentFolders[0].folders],
-        },
-      ]);
+      setCurrentFolders({
+        id: currentFolders.id,
+        folders: [newFolder, ...currentFolders.folders],
+      });
 
       // if db call works, then update the state, if not, toast message
 
-      setSavedFolders([
-        {
-          id: currentFolders[0].id,
-          folders: [newFolder, ...currentFolders[0].folders],
-        },
-      ]);
+      setSavedFolders({
+        id: currentFolders.id,
+        folders: [newFolder, ...currentFolders.folders],
+      });
 
       return;
-    } else if (!currentFolders[0].folders.length) {
-      setCurrentFolders([
-        {
-          id: currentFolders[0].id,
-          folders: [newFolder],
-        },
-      ]);
+    } else if (!currentFolders.folders.length) {
+      setCurrentFolders({
+        id: currentFolders.id,
+        folders: [newFolder],
+      });
 
       // if db call works, then update the state, if not, toast message
 
-      setSavedFolders([
-        {
-          id: currentFolders[0].id,
-          folders: [newFolder],
-        },
-      ]);
+      setSavedFolders({
+        id: currentFolders.id,
+        folders: [newFolder],
+      });
 
       return;
     }
 
-    const addNewFolder = (root: UserFolder[]): UserFolder[] => {
+    const addNewFolder = (root: UserFolder): UserFolder => {
       const addFolder = (folders: Folder[], parentId: string): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parentId) {
@@ -121,12 +113,10 @@ export const HotBar = () => {
         });
       };
 
-      return [
-        {
-          id: root[0].id,
-          folders: addFolder(root[0].folders, nodeEdit.activeFolder ?? ""),
-        },
-      ];
+      return {
+        id: root.id,
+        folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
+      };
     };
 
     setCurrentFolders(addNewFolder(currentFolders));
@@ -144,7 +134,7 @@ export const HotBar = () => {
       type: "node",
     };
 
-    const addNewFile = (data: UserFolder[], parentId: string): UserFolder[] => {
+    const addNewFile = (data: UserFolder, parentId: string): UserFolder => {
       const addFile = (folders: Folder[], parentId: string): Folder[] => {
         return folders.map((folder) => {
           if (folder.id === parentId) {
@@ -161,10 +151,10 @@ export const HotBar = () => {
         });
       };
 
-      return data.map((root) => ({
-        ...root,
-        folders: addFile(root.folders, parentId),
-      }));
+      return {
+        ...data,
+        folders: addFile(data.folders, parentId),
+      };
     };
 
     setCurrentFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
@@ -184,7 +174,7 @@ export const HotBar = () => {
           type="newFolder"
           onClick={() => createNewFolder()}
         />
-        {nodeEdit.activeFolder && !!currentFolders[0].folders.length && (
+        {nodeEdit.activeFolder && !!currentFolders.folders.length && (
           <Button
             label="New File"
             type="newFile"

@@ -7,10 +7,10 @@ import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 type NodesContextType = {
   userId: string;
   setUserId: (userId: string) => void;
-  savedFolders: UserFolder[];
-  setSavedFolders: (savedFolders: UserFolder[]) => void;
-  currentFolders: UserFolder[];
-  setCurrentFolders: (currentFolders: UserFolder[]) => void;
+  savedFolders: UserFolder;
+  setSavedFolders: (savedFolders: UserFolder) => void;
+  currentFolders: UserFolder;
+  setCurrentFolders: (currentFolders: UserFolder) => void;
   savedPageNodes: Nodule[];
   setSavedPageNodes: (pageNodes: Nodule[]) => void;
   currentPageNodes: Nodule[];
@@ -26,12 +26,12 @@ const NodesContext = createContext<NodesContextType | undefined>(undefined);
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   const [userId, setUserId] = useState<string>("12345"); // logged in user
 
-  const [savedFolders, setSavedFolders] = useState<UserFolder[]>(
-    folderData as UserFolder[]
+  const [savedFolders, setSavedFolders] = useState<UserFolder>(
+    folderData as UserFolder
   ); // all folders and .node files that are saved to the db
 
-  const [currentFolders, setCurrentFolders] = useState<UserFolder[]>(
-    folderData as UserFolder[]
+  const [currentFolders, setCurrentFolders] = useState<UserFolder>(
+    folderData as UserFolder
   ); // all folders and .node files that are current
 
   // active saved page nodes selected from hierarchy tree
@@ -54,7 +54,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    if (!currentFolders[0]?.folders.length) {
+    if (!currentFolders?.folders.length) {
       // eslint-disable-next-line
       setNodeEdit({
         activeFolder: undefined,
