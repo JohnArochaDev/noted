@@ -11,6 +11,7 @@
   gap: 8px;
   font-size: 15px;
   user-select: none;
+  cursor: pointer;
 }
 
 .button.centered {
@@ -20,7 +21,6 @@
   margin-right: auto;
 }
 
-/* Hover works for both regular and centered buttons */
 .button:hover {
   background-color: #464342;
   box-shadow: none;
