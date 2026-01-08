@@ -5,8 +5,8 @@ import folderData from "../Constants/treeNodeData.json";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
 type NodesContextType = {
-  userId: string;
-  setUserId: (userId: string) => void;
+  userId: string | undefined;
+  setUserId: (userId: string | undefined) => void;
   savedFolders: UserFolder | undefined;
   setSavedFolders: (savedFolders: UserFolder) => void;
   currentFolders: UserFolder;
@@ -24,7 +24,7 @@ type NodesContextType = {
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [userId, setUserId] = useState<string>("12345"); // logged in user
+  const [userId, setUserId] = useState<string>();
 
   const [savedFolders, setSavedFolders] = useState<UserFolder>(); // all folders and .node files that are saved to the db
 

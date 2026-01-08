@@ -1,0 +1,27 @@
+.spacer {
+  flex-shrink: 0;
+}
+
+.horizontal {
+  width: 0;
+  height: auto;
+}
+
+.xs {
+  height: 4px;
+}
+.sm {
+  height: 8px;
+}
+.md {
+  height: 16px;
+}
+.lg {
+  height: 32px;
+}
+.x {
+  height: 40px;
+}
+.xl {
+  height: 64px;
+}
