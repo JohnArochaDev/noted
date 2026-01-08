@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import nodeDate from "../Constants/pageNode.json";
+import { fetchFolders } from "../Constants/requests";
 import folderData from "../Constants/treeNodeData.json";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
@@ -67,32 +68,15 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [currentFolders]);
 
-  // useEffect(() => {
-  //   const fetchFolders = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:8080/noted/folders", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           // Add any auth headers if needed, e.g.:
-  //           // 'Authorization': `Bearer ${token}`,
-  //         },
-  //       });
+  useEffect(() => {
+    const loadFolders = async () => {
+      const folders = await fetchFolders();
+      setSavedFolders(folders);
+      console.log('FOLDERS', folders)
+    };
 
-  //       if (!response.ok) {
-  //         throw new Error(`HTTP error! status: ${response.status}`);
-  //       }
-
-  //       const data: UserFolder = await response.json();
-  //       setSavedFolders(data);
-  //       // eslint-disable-next-line
-  //     } catch (err: any) {
-  //       console.error("Failed to fetch folders:", err);
-  //     }
-  //   };
-
-  //   fetchFolders();
-  // }, []); // Empty dependency array → runs once on mount
+    loadFolders();
+  }, []); // Runs once on mount
 
   return (
     <NodesContext.Provider
