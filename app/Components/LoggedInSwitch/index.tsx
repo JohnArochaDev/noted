@@ -1,11 +1,17 @@
-import { JSX } from "react";
+import { ReactNode } from "react";
 
 import { useNodes } from "@/app/Context";
 
-type LoggedInSwitch = {
-  loggedIn: JSX.Element;
+type LoggedInSwitchProps = {
+  loggedIn: ReactNode;
+  loggedOut: ReactNode;
 };
 
-export const LoggedInSwitch = () => {
+export const LoggedInSwitch = ({
+  loggedIn,
+  loggedOut,
+}: LoggedInSwitchProps) => {
   const { userId } = useNodes();
+
+  return <>{userId ? loggedIn : loggedOut}</>;
 };
