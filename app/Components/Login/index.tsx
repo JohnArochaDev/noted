@@ -121,7 +121,7 @@ export const LoginPage = () => {
         <h5 className={styles.rights}>
           SYSTEM STATUS: <span style={{ color: "#00ff00" }}>ONLINE</span>
           <br />
-          <br />© {currentYear} noted.exe - ALL RIGHTS RESERVED
+          <br />© {currentYear} noted.exe - All Rights Reserved
         </h5>
       </div>
     </div>
