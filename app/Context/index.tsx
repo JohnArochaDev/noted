@@ -24,7 +24,11 @@ type NodesContextType = {
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [userId, setUserId] = useState<string>();
+  const userIdFromStorage = localStorage.getItem("userId");
+
+  const [userId, setUserId] = useState<string | undefined>(
+    userIdFromStorage ?? undefined
+  );
 
   const [savedFolders, setSavedFolders] = useState<UserFolder>(); // all folders and .node files that are saved to the db
 
@@ -53,6 +57,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!currentFolders?.folders.length) {
+      // eslint-disable-next-line
       setNodeEdit({
         activeFolder: undefined,
         activeNode: undefined,
@@ -61,32 +66,32 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [currentFolders]);
 
-  useEffect(() => {
-    const fetchFolders = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/noted/folders", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // Add any auth headers if needed, e.g.:
-            // 'Authorization': `Bearer ${token}`,
-          },
-        });
+  // useEffect(() => {
+  //   const fetchFolders = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:8080/noted/folders", {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           // Add any auth headers if needed, e.g.:
+  //           // 'Authorization': `Bearer ${token}`,
+  //         },
+  //       });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
 
-        const data: UserFolder = await response.json();
-        setSavedFolders(data);
-        // eslint-disable-next-line
-      } catch (err: any) {
-        console.error("Failed to fetch folders:", err);
-      }
-    };
+  //       const data: UserFolder = await response.json();
+  //       setSavedFolders(data);
+  //       // eslint-disable-next-line
+  //     } catch (err: any) {
+  //       console.error("Failed to fetch folders:", err);
+  //     }
+  //   };
 
-    fetchFolders();
-  }, []); // Empty dependency array → runs once on mount
+  //   fetchFolders();
+  // }, []); // Empty dependency array → runs once on mount
 
   return (
     <NodesContext.Provider

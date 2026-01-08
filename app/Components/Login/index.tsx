@@ -46,6 +46,7 @@ export const LoginPage = () => {
       if (token && user?.userId) {
         localStorage.setItem("authToken", token);
 
+        localStorage.setItem("userId", user.userId);
         setUserId(user.userId);
 
         console.log("Login successful!");
