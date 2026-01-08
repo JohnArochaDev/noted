@@ -1,0 +1,86 @@
+@import "@/app/Constants/colors.module";
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  background-color: $background;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loginModal {
+  background-color: #1b1b1d;
+  border: 1px solid #9e968e;
+  text-align: center;
+  width: 900px;
+  height: 550px;
+  box-shadow: 4px 4px #464342;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registerModal {
+  background-color: #1b1b1d;
+  border: 1px solid #9e968e;
+  text-align: center;
+  width: 900px;
+  height: 700px;
+  box-shadow: 4px 4px #464342;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-top: -20px;
+  font-weight: 100;
+  font-size: 55px;
+  user-select: none;
+}
+
+.text {
+  margin-top: -15px;
+  font-weight: 100;
+  font-size: 15px;
+  padding-bottom: 30px;
+  user-select: none;
+}
+
+.rights {
+  font-weight: 100;
+  font-size: 14px;
+  user-select: none;
+}
+
+.containerLogin {
+  width: 100%;
+  height: 70%;
+  border-top: 2px solid #343335;
+  border-bottom: 2px solid #343335;
+  background-color: $sidebarBackground;
+}
+
+.containerRegister {
+  width: 100%;
+  height: 75%;
+  border-top: 2px solid #343335;
+  border-bottom: 2px solid #343335;
+  background-color: $sidebarBackground;
+}

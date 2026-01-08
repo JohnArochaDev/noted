@@ -2,7 +2,7 @@ import { Node } from "@xyflow/react";
 
 export type UserFolder = {
   id: string;
-  userId?: string,
+  userId?: string;
   folders: Folder[];
 };
 
@@ -45,3 +45,11 @@ export type EditNoduleType = {
   activeNode: string | undefined;
   editMode: boolean;
 };
+
+export type LoginRegisterSwitchProps = {
+  selected: SelectedType;
+  setSelected: (value: SelectedType) => void;
+};
+
+export type SelectedType = "login" | "register";
+
