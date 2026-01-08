@@ -1,5 +1,6 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
+import { login } from "@/app/Constants/requests";
 import { SelectedType } from "@/app/Constants/types";
 
 import { Button } from "../Button";
@@ -78,7 +79,11 @@ export const LoginPage = () => {
               }
             />
             <Spacer size="lg" direction="vertical" />
-            <Button label="LOGIN" onClick={() => {}} centered />
+            <Button
+              label="LOGIN"
+              onClick={() => login(loginData.username, loginData.password)}
+              centered
+            />
           </div>
         )}
 

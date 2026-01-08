@@ -53,3 +53,13 @@ export type LoginRegisterSwitchProps = {
 
 export type SelectedType = "login" | "register";
 
+export type UserResponse = {
+  token: string;
+  user: User;
+};
+
+export type User = {
+  userId: string;
+  username: string;
+  password: string;
+};
