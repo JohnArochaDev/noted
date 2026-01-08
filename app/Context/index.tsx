@@ -75,7 +75,6 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     loadFolders();
-    // this needs to run once on mount, but ALSO run when nodes or folders is updated, after an await so it has time to save before it re-pulls
   }, []); // Runs once on mount
 
   return (

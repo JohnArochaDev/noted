@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { login } from "@/app/Constants/requests";
+import { loginPost } from "@/app/Constants/requests";
 import { SelectedType } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
@@ -39,7 +39,7 @@ export const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await login(loginData.username, loginData.password);
+      const response = await loginPost(loginData.username, loginData.password);
 
       const { token, user } = response;
 

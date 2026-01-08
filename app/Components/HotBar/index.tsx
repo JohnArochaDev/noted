@@ -1,6 +1,13 @@
 import { saveAs } from "file-saver";
 
-import { Folder, NodeFile, Nodule, UserFolder } from "@/app/Constants/types";
+import { newFolderPost } from "@/app/Constants/requests";
+import {
+  CreateFolderResponse,
+  Folder,
+  NodeFile,
+  Nodule,
+  UserFolder,
+} from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -37,6 +44,7 @@ export const HotBar = () => {
     saveAs(blob, "pageNode.json");
   };
 
+  // no need to save this to DB, only save when user pushes the SAVE button
   const createNewNode = () => {
     const newNode: Nodule = {
       id: generateUUID(),
@@ -56,74 +64,85 @@ export const HotBar = () => {
     setCurrentPageNodes([...currentPageNodes, newNode]);
   };
 
-  const createNewFolder = () => {
+  const createNewFolder = async () => {
     const newFolder: Folder = {
       id: generateUUID(),
-      parentId: userId,
+      parentId: userId ?? "",
       name: "Folder",
       type: "folder",
       subfolders: [],
       nodes: [],
     };
 
-    if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
-      setCurrentFolders({
-        id: currentFolders.id,
-        folders: [newFolder, ...currentFolders.folders],
-      });
+    const response: CreateFolderResponse = await newFolderPost(
+      userId ?? "",
+      "Folder"
+    );
 
-      // if db call works, then update the state, if not, toast message
-
-      setSavedFolders({
-        id: currentFolders.id,
-        folders: [newFolder, ...currentFolders.folders],
-      });
-
-      return;
-    } else if (!currentFolders.folders.length) {
-      setCurrentFolders({
-        id: currentFolders.id,
-        folders: [newFolder],
-      });
-
-      // if db call works, then update the state, if not, toast message
-
-      setSavedFolders({
-        id: currentFolders.id,
-        folders: [newFolder],
-      });
-
-      return;
-    }
-
-    const addNewFolder = (root: UserFolder): UserFolder => {
-      const addFolder = (folders: Folder[], parentId: string): Folder[] => {
-        return folders.map((folder) => {
-          if (folder.id === parentId) {
-            return {
-              ...folder,
-              subfolders: [newFolder, ...folder.subfolders],
-            };
-          } else {
-            return {
-              ...folder,
-              subfolders: addFolder(folder.subfolders, parentId),
-            };
-          }
+    // only save to UI if the POST request returns a valid id - signifying a successful save to the db
+    if (response.id) {
+      // this creates a folder at root level
+      if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
+        setCurrentFolders({
+          id: currentFolders.id,
+          folders: [newFolder, ...currentFolders.folders],
         });
+
+        // if db call works, then update the state, if not, toast message
+
+        setSavedFolders({
+          id: currentFolders.id,
+          folders: [newFolder, ...currentFolders.folders],
+        });
+
+        return;
+        // this creates a folder at root level IF NONE CURRENTLY EXIST AT ROOT LEVEL in UI
+      } else if (!currentFolders.folders.length) {
+        setCurrentFolders({
+          id: currentFolders.id,
+          folders: [newFolder],
+        });
+
+        // if db call works, then update the state, if not, toast message
+
+        setSavedFolders({
+          id: currentFolders.id,
+          folders: [newFolder],
+        });
+
+        return;
+      }
+
+      // this adds a folder to the hierarchy. it finds its placement before saving
+      const addNewFolder = (root: UserFolder): UserFolder => {
+        const addFolder = (folders: Folder[], parentId: string): Folder[] => {
+          return folders.map((folder) => {
+            if (folder.id === parentId) {
+              return {
+                ...folder,
+                subfolders: [newFolder, ...folder.subfolders],
+              };
+            } else {
+              return {
+                ...folder,
+                subfolders: addFolder(folder.subfolders, parentId),
+              };
+            }
+          });
+        };
+
+        return {
+          id: root.id,
+          folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
+        };
       };
 
-      return {
-        id: root.id,
-        folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
-      };
-    };
+      setCurrentFolders(addNewFolder(currentFolders));
 
-    setCurrentFolders(addNewFolder(currentFolders));
+      // if db call works, then update the state, if not, toast message
 
-    // if db call works, then update the state, if not, toast message
-
-    setSavedFolders(addNewFolder(currentFolders));
+      setSavedFolders(addNewFolder(currentFolders));
+    }
   };
 
   const createNewFile = () => {

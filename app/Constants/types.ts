@@ -63,3 +63,12 @@ export type User = {
   username: string;
   password: string;
 };
+
+export type CreateFolderResponse = {
+  id: string;
+  parentId: string;
+  name: string;
+  subfolders: null;
+  nodes: null;
+  type: string;
+};
