@@ -9,7 +9,7 @@ export const TreeBuilder = () => {
 
   return (
     <>
-      {savedFolders.folders.map((folder) => (
+      {savedFolders && savedFolders.folders.map((folder) => (
         <TreeFolder folderData={folder} key={folder.id} />
       ))}
     </>
