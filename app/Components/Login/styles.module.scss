@@ -21,6 +21,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .loginModal {
@@ -32,4 +33,17 @@
   box-shadow: 4px 4px #464342;
   display: flex;
   flex-direction: column;
+}
+
+.title {
+  margin-top: -20px;
+  font-weight: 100;
+  font-size: 55px;
+}
+
+.text {
+  margin-top: -15px;
+  font-weight: 100;
+  font-size: 15px;
+  padding-bottom: 30px;
 }
