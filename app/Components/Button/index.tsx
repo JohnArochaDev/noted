@@ -7,17 +7,21 @@ type ButtonPropType = {
   type?: ButtonType;
   onClick: () => void;
   centered?: boolean;
+  disabled?: boolean;
 };
 
 type ButtonType = "newFile" | "newFolder" | "newNode2";
 
 export const Button = (props: ButtonPropType) => {
-  const { label, type, onClick, centered = false } = props;
+  const { label, type, onClick, centered = false, disabled = false } = props;
 
   return (
     <button
-      className={`${styles.button} ${centered ? styles.centered : ""}`}
-      onClick={onClick}
+      className={`${styles.button} ${centered ? styles.centered : ""} ${
+        disabled ? styles.disabled : ""
+      }`}
+      onClick={disabled ? undefined : onClick}
+      disabled={disabled}
     >
       {type && (
         <Image

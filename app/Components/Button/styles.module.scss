@@ -12,6 +12,7 @@
   font-size: 15px;
   user-select: none;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .button.centered {
@@ -21,7 +22,14 @@
   margin-right: auto;
 }
 
-.button:hover {
+.button:hover:not(.disabled) {
   background-color: #464342;
+  box-shadow: none;
+}
+
+.button.disabled {
+  background-color: #2a292b;
+  color: #6b6460;
+  cursor: not-allowed;
   box-shadow: none;
 }
