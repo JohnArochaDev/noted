@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { LoginRegisterSwitchProps } from "@/app/Constants/types";
 
 import styles from "./styles.module.scss";
 
-type SelectedType = "login" | "register";
-
-export const LoginRegisterSwitch = () => {
-  const [selected, setSelected] = useState<SelectedType>("login");
-
+export const LoginRegisterSwitch = ({
+  selected,
+  setSelected,
+}: LoginRegisterSwitchProps) => {
   return (
     <div className={styles.loginRegisterSwitch}>
       <div
