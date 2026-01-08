@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { login } from "@/app/Constants/requests";
 import { SelectedType } from "@/app/Constants/types";
+import { useNodes } from "@/app/Context";
 
 import { Button } from "../Button";
 import { Input } from "../Input";
@@ -21,6 +22,8 @@ type RegisterType = {
 };
 
 export const LoginPage = () => {
+  const { setUserId } = useNodes();
+
   const [selected, setSelected] = useState<SelectedType>("login");
 
   const [loginData, setLoginData] = useState<LoginType>({
@@ -33,6 +36,27 @@ export const LoginPage = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const handleLogin = async () => {
+    try {
+      const response = await login(loginData.username, loginData.password);
+
+      const { token, user } = response;
+
+      if (token && user?.userId) {
+        localStorage.setItem("authToken", token);
+
+        setUserId(user.userId);
+
+        console.log("Login successful!");
+      }
+      // eslint-disable-next-line
+    } catch (error: any) {
+      console.error("Login failed:", error);
+
+      alert("Login failed. Please check your credentials.");
+    }
+  };
 
   // Clear fields when switching between login and register
   useEffect(() => {
@@ -81,7 +105,7 @@ export const LoginPage = () => {
             <Spacer size="lg" direction="vertical" />
             <Button
               label="LOGIN"
-              onClick={() => login(loginData.username, loginData.password)}
+              onClick={() => handleLogin()}
               centered
             />
           </div>
