@@ -72,10 +72,10 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     const loadFolders = async () => {
       const folders = await fetchFolders();
       setSavedFolders(folders);
-      console.log('FOLDERS', folders)
     };
 
     loadFolders();
+    // this needs to run once on mount, but ALSO run when nodes or folders is updated, after an await so it has time to save before it re-pulls
   }, []); // Runs once on mount
 
   return (
