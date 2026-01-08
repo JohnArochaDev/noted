@@ -10,8 +10,8 @@ export const LoginPage = () => {
       <div className={styles.loginModal}>
         <LoginRegisterSwitch />
         <div className={styles.container} >
-          <Input label="username" />
-          <Input label="password" />
+          <Input label="USERNAME" placeholder="ENTER USERNAME..." />
+          <Input label="PASSWORD" placeholder="ENTER PASSWORD..." />
         </div>
       </div>
     </div>
