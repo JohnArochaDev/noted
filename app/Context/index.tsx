@@ -24,6 +24,7 @@ type NodesContextType = {
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
+  // in future, need to check jwt token and time BEFORE i set to state
   const userIdFromStorage = localStorage.getItem("userId");
 
   const [userId, setUserId] = useState<string | undefined>(
