@@ -18,7 +18,7 @@ import styles from "./styles.module.scss";
 
 type Nodule = Node<{ text: string }, "Nodule">;
 
-function TextNodeComponent({ data, selected, id }: NodeProps<Nodule>) {
+function NoduleComponent({ data, selected, id }: NodeProps<Nodule>) {
   const { currentPageNodes, setCurrentPageNodes } = useNodes();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -199,4 +199,4 @@ function TextNodeComponent({ data, selected, id }: NodeProps<Nodule>) {
   );
 }
 
-export const TextNode = memo(TextNodeComponent);
+export const Nodule = memo(NoduleComponent);
