@@ -8,3 +8,4 @@
 
 
 [] add route to check if API is online, and dynamically change the SYSTEM STATUS on login page to match
+[] make the re-size scaler of canvas only happen between node files, not during usage!!

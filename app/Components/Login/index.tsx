@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { loginPost, registerPost } from "@/app/Constants/requests";
 import { SelectedType } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
@@ -24,8 +26,11 @@ type RegisterType = {
 
 export const LoginPage = () => {
   const { setUserId } = useNodes();
-  const { showError } = useToast()
+  const { showError } = useToast();
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [selected, setSelected] = useState<SelectedType>("login");
 
   const [loginData, setLoginData] = useState<LoginType>({
@@ -68,7 +73,7 @@ export const LoginPage = () => {
     );
 
     if (!registered) {
-      showError("Account already exists")
+      showError("Account already exists");
       return;
     }
 
@@ -80,13 +85,6 @@ export const LoginPage = () => {
     });
   };
 
-  // Clear fields when switching between login and register
-  useEffect(() => {
-    // eslint-disable-next-line
-    setLoginData({ username: "", password: "" });
-    setRegisterData({ username: "", password: "", confirmPassword: "" });
-  }, [selected]);
-
   const passwordsMatch = registerData.password === registerData.confirmPassword;
   const canRegister =
     registerData.username.trim() !== "" &&
@@ -94,6 +92,28 @@ export const LoginPage = () => {
     passwordsMatch;
 
   const currentYear = new Date().getFullYear();
+
+  // Clear fields when switching between login and register
+  useEffect(() => {
+    // eslint-disable-next-line
+    setLoginData({ username: "", password: "" });
+    setRegisterData({ username: "", password: "", confirmPassword: "" });
+  }, [selected]);
+
+  useEffect(() => {
+    const pageIdParam = searchParams.get("pageId");
+
+    if (pageIdParam !== null) {
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.delete("pageId");
+
+      const newUrl = newSearchParams.toString()
+        ? `${pathname}?${newSearchParams.toString()}`
+        : pathname;
+
+      router.replace(newUrl, { scroll: false });
+    }
+  }, [searchParams, pathname, router]);
 
   return (
     <div className={styles.login}>
