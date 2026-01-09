@@ -64,11 +64,8 @@ export type User = {
   password: string;
 };
 
-export type CreateFolderResponse = {
+export type CreateFolderOrNodeResponse = {
   id: string;
   parentId: string;
   name: string;
-  subfolders: null;
-  nodes: null;
-  type: string;
 };

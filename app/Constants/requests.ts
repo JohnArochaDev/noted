@@ -1,4 +1,4 @@
-import { CreateFolderResponse, UserFolder, UserResponse } from "./types";
+import { CreateFolderOrNodeResponse, UserFolder, UserResponse } from "./types";
 
 export const loginPost = async (username: string, password: string) => {
   try {
@@ -60,6 +60,7 @@ export const newFolderPost = async (parentId: string | null, name: string) => {
     parent_id: parentId,
     name: name,
   };
+
   try {
     const response = await fetch("http://localhost:8080/noted/folders", {
       method: "POST",
@@ -74,12 +75,45 @@ export const newFolderPost = async (parentId: string | null, name: string) => {
       throw new Error(`Failed to save folder: ${response.status}`);
     }
 
-    const createdFolder: CreateFolderResponse = await response.json();
+    const createdFolder: CreateFolderOrNodeResponse = await response.json();
 
     return createdFolder;
     // eslint-disable-next-line
   } catch (err: any) {
     console.error("Folder save error:", err);
+
+    throw err;
+  }
+};
+
+export const newFilePost = async (parentId: string, name: string) => {
+  const token = localStorage.getItem("authToken");
+
+  const nodeFile = {
+    parent_id: parentId,
+    name: name,
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/noted/node-files", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(nodeFile),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to save node file: ${response.status}`);
+    }
+
+    const createdNodeFile: CreateFolderOrNodeResponse = await response.json();
+
+    return createdNodeFile;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Node file save error:", err);
 
     throw err;
   }

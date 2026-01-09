@@ -2,7 +2,7 @@ import { saveAs } from "file-saver";
 
 import { newFolderPost } from "@/app/Constants/requests";
 import {
-  CreateFolderResponse,
+  CreateFolderOrNodeResponse,
   Folder,
   NodeFile,
   Nodule,
@@ -43,7 +43,7 @@ export const HotBar = () => {
   };
 
   // no need to save this to DB, only save when user pushes the SAVE button
-  const createNewNode = () => {
+  const createNewNodule = () => {
     const newNode: Nodule = {
       id: generateUUID(),
       type: "textNode",
@@ -63,7 +63,7 @@ export const HotBar = () => {
   };
 
   const createNewFolder = async () => {
-    const response: CreateFolderResponse = await newFolderPost(
+    const response: CreateFolderOrNodeResponse = await newFolderPost(
       nodeEdit.activeFolder ?? null,
       "Folder"
     );
@@ -201,7 +201,7 @@ export const HotBar = () => {
         <Button
           label="New Node"
           type="newNode2"
-          onClick={() => createNewNode()}
+          onClick={() => createNewNodule()}
         />
       </div>
 
