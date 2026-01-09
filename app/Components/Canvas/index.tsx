@@ -17,7 +17,7 @@ import { Nodule } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import { ViewportClamper } from "./helpers";
-import { Nodule } from "./Nodule";
+import { NoduleComp } from "./Nodule";
 import { RecenterButton } from "./RecenterCanvasButton";
 import styles from "./styles.module.scss";
 
@@ -33,7 +33,7 @@ export const Canvas = () => {
 
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  const nodeTypes = useMemo(() => ({ textNode: Nodule }), []);
+  const nodeTypes = useMemo(() => ({ textNode: NoduleComp }), []);
 
   const syncNodesToContext = useCallback(() => {
     setCurrentPageNodes(nodes);

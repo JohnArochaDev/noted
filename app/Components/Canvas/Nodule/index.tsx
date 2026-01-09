@@ -199,4 +199,4 @@ function NoduleComponent({ data, selected, id }: NodeProps<Nodule>) {
   );
 }
 
-export const Nodule = memo(NoduleComponent);
+export const NoduleComp = memo(NoduleComponent);
