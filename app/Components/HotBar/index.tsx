@@ -183,6 +183,9 @@ export const HotBar = () => {
   };
 
   const logout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
+    
     setUserId(undefined);
   };
 

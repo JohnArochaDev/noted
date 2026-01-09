@@ -65,46 +65,38 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     loadFolders();
-  }, []); // Runs once on mount
+  }, []);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
-    const storedUserId = localStorage.getItem("userId");
 
-    // If there's no userId in state AND no valid token/userId in storage → clear everything
-    if (!userId && !storedUserId) {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("userId");
-      return;
-    }
-
-    // If no token → clear storage
+    // if no token at all → ensure everything is cleared
     if (!authToken) {
       localStorage.removeItem("authToken");
       localStorage.removeItem("userId");
+      // eslint-disable-next-line
+      setUserId(undefined);
       return;
     }
 
     try {
       const decoded: { exp?: number } = jwtDecode(authToken);
 
-      // Check if token has expired
-      if (decoded.exp) {
-        const currentTime = Date.now() / 1000; // seconds
-        if (decoded.exp < currentTime) {
-          // Token expired → clear everything
-          localStorage.removeItem("authToken");
-          localStorage.removeItem("userId");
-          return;
-        }
+      if (decoded.exp && decoded.exp < Date.now() / 1000) {
+        // expired
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("userId");
+        setUserId(undefined);
       }
+      // if valid token → you could also set userId from token if needed
     } catch (error) {
-      // Invalid token (malformed, corrupted, etc.) → clear it
+      // invalid token
       console.warn("Invalid JWT token:", error);
       localStorage.removeItem("authToken");
       localStorage.removeItem("userId");
+      setUserId(undefined);
     }
-  }, [userId]); // runs when userId changes (e.g. login/logout)
+  }, []);
 
   useEffect(() => {
     if (nodeEdit.activeNode !== undefined) {
