@@ -1,3 +1,4 @@
+import { deleteFolderPost, deleteNodeFilePost } from "@/app/Constants/requests";
 import { Folder, NodeFileType, UserFolder } from "@/app/Constants/types";
 
 type DeleteNodesAndFoldersType = {
@@ -8,7 +9,9 @@ type DeleteNodesAndFoldersType = {
   setSavedFolders: (savedFolders: UserFolder) => void;
 };
 
-export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
+export const deleteNodesAndFolders = async (
+  props: DeleteNodesAndFoldersType
+) => {
   const { type, savedFolders, id, setSavedFolders, parentId = "" } = props;
 
   if (type === "folder") {
@@ -30,7 +33,12 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
       };
     };
 
-    setSavedFolders(deleteFolders(savedFolders, id));
+    // delete from db, and update if successful
+    const deleted = await deleteFolderPost(id);
+
+    if (deleted) {
+      setSavedFolders(deleteFolders(savedFolders, id));
+    }
   } else {
     // logic to delete node files cascading from parents
 
@@ -61,6 +69,11 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
       };
     };
 
-    setSavedFolders(deleteNodes(savedFolders, id, parentId));
+    // delete from db, and update if successful
+    const deleted = await deleteNodeFilePost(id);
+
+    if (deleted) {
+      setSavedFolders(deleteNodes(savedFolders, id, parentId));
+    }
   }
 };

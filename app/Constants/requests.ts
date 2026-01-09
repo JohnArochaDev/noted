@@ -118,3 +118,63 @@ export const newFilePost = async (parentId: string, name: string) => {
     throw err;
   }
 };
+
+export const deleteFolderPost = async (id: string) => {
+  const token = localStorage.getItem("authToken");
+
+  const folder = {
+    id: id,
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/noted/folders", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(folder),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete folder: ${response.status}`);
+    }
+
+    return true;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Folder save error:", err);
+
+    return false;
+  }
+};
+
+export const deleteNodeFilePost = async (id: string) => {
+  const token = localStorage.getItem("authToken");
+
+  const nodeFile = {
+    id: id,
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/noted/node-files", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(nodeFile),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete folder: ${response.status}`);
+    }
+
+    return true;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Folder save error:", err);
+
+    return false;
+  }
+};
