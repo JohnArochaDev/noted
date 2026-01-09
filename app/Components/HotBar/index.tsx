@@ -1,5 +1,3 @@
-import { saveAs } from "file-saver";
-
 import {
   newFilePost,
   newFolderPost,
@@ -32,23 +30,10 @@ export const HotBar = () => {
 
   // THIS is where we save the nodules to db
   const saveNodules = async () => {
-    const dataToBeSaved = currentPageNodes.map((node) => ({
-      id: node.id,
-      type: node.type,
-      pageId: currentPageId,
-      position: node.position,
-      width: node.width,
-      height: node.height,
-      data: node.data,
-    }));
-
     const nodes = await saveNodulesPost(currentPageNodes);
 
-    if (nodes.length) {
-      const blob = new Blob([JSON.stringify(dataToBeSaved, null, 2)], {
-        type: "application/json;charset=utf-8",
-      });
-      saveAs(blob, "pageNode.json");
+    if (!nodes.length) {
+      // add toast for failure
     }
   };
 

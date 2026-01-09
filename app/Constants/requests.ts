@@ -250,8 +250,7 @@ export const saveNodulesPost = async (nodules: Nodule[]) => {
   const token = localStorage.getItem("authToken");
 
   const nodulesToUpdate = nodules.map((nodule) => ({
-    // parentId: nodule.pageId, while we test
-    parentId: "a0000000-0000-0000-0000-000000000002",
+    parentId: nodule.pageId,
     x: Math.round(nodule.position.x), // make sure integers are sent
     y: Math.round(nodule.position.y),
     width: nodule.width,
