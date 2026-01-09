@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 
-import { newFolderPost } from "@/app/Constants/requests";
+import { newFilePost, newFolderPost } from "@/app/Constants/requests";
 import {
   CreateFolderOrNodeResponse,
   Folder,
@@ -143,42 +143,45 @@ export const HotBar = () => {
     }
   };
 
-  const createNewFile = () => {
-    const newFile: NodeFile = {
-      id: generateUUID(),
-      parentId: nodeEdit.activeFolder ?? "",
-      name: "newFile",
-      type: "node",
-    };
+  const createNewFile = async () => {
+    const response: CreateFolderOrNodeResponse = await newFilePost(
+      nodeEdit.activeFolder!,
+      "newNode"
+    );
 
-    const addNewFile = (data: UserFolder, parentId: string): UserFolder => {
-      const addFile = (folders: Folder[], parentId: string): Folder[] => {
-        return folders.map((folder) => {
-          if (folder.id === parentId) {
-            return {
-              ...folder,
-              nodes: [newFile, ...folder.nodes],
-            };
-          } else {
-            return {
-              ...folder,
-              subfolders: addFile(folder.subfolders, parentId),
-            };
-          }
-        });
+    if (response.id) {
+      const newFile: NodeFile = {
+        id: response.id,
+        parentId: response.parentId,
+        name: response.name,
+        type: "node",
       };
 
-      return {
-        ...data,
-        folders: addFile(data.folders, parentId),
+      const addNewFile = (data: UserFolder, parentId: string): UserFolder => {
+        const addFile = (folders: Folder[], parentId: string): Folder[] => {
+          return folders.map((folder) => {
+            if (folder.id === parentId) {
+              return {
+                ...folder,
+                nodes: [...folder.nodes, newFile],
+              };
+            } else {
+              return {
+                ...folder,
+                subfolders: addFile(folder.subfolders, parentId),
+              };
+            }
+          });
+        };
+
+        return {
+          ...data,
+          folders: addFile(data.folders, parentId),
+        };
       };
-    };
 
-    setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder ?? ""));
-
-    // if db call works, then update the state, if not, toast message
-
-    setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder ?? ""));
+      setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder!));
+    }
   };
 
   return (
