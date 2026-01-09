@@ -108,14 +108,19 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (nodeEdit.activeNode !== undefined) {
-      const loadNodules = async () => {
-        const nodules = await getNodules(nodeEdit.activeNode!);
-        if (nodules) {
-          setCurrentPageNodes(nodules);
-        }
-      };
+      const urlParams = new URLSearchParams(window.location.search);
+      const pageIdFromUrl = urlParams.get("pageId");
 
-      loadNodules();
+      if (pageIdFromUrl) {
+        const loadNodules = async () => {
+          const nodules = await getNodules(pageIdFromUrl);
+          if (nodules) {
+            setCurrentPageNodes(nodules);
+          }
+        };
+
+        loadNodules();
+      }
     }
   }, [nodeEdit]);
 

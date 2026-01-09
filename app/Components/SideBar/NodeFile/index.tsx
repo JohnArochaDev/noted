@@ -44,6 +44,11 @@ export const TreeNode = (props: TreeNodeType) => {
       activeFolder: undefined,
       activeNode: id,
     });
+
+    // ← ADD THIS: update URL with ?pageId=
+    const url = new URL(window.location.href);
+    url.searchParams.set("pageId", id);
+    window.history.pushState({}, "", url);
   };
 
   const updateNodeFile = async () => {

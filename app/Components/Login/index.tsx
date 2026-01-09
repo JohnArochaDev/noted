@@ -94,6 +94,7 @@ export const LoginPage = () => {
               onChange={(value) =>
                 setLoginData((prev) => ({ ...prev, username: value }))
               }
+              type="person"
             />
             <Input
               label="PASSWORD"
@@ -102,13 +103,10 @@ export const LoginPage = () => {
               onChange={(value) =>
                 setLoginData((prev) => ({ ...prev, password: value }))
               }
+              type="lock"
             />
             <Spacer size="lg" direction="vertical" />
-            <Button
-              label="LOGIN"
-              onClick={() => handleLogin()}
-              centered
-            />
+            <Button label="LOGIN" onClick={() => handleLogin()} centered />
           </div>
         )}
 
