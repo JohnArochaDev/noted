@@ -23,13 +23,37 @@ export const loginPost = async (username: string, password: string) => {
     }
 
     const data: UserResponse = await response.json();
-    console.log("LOGIN REQUEST", data);
 
     return data;
     // eslint-disable-next-line
   } catch (err: any) {
     console.error("Login error:", err);
     throw err;
+  }
+};
+
+export const registerPost = async (username: string, password: string) => {
+  try {
+    const response = await fetch("http://localhost:8080/noted/users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Login failed: ${response.status}`);
+    }
+
+    return true;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Login error:", err);
+    return false;
   }
 };
 
@@ -55,6 +79,7 @@ export const fetchFolders = async () => {
     // eslint-disable-next-line
   } catch (err: any) {
     console.error("Failed to fetch folders:", err);
+    return { id: "", folders: [] };
   }
 };
 

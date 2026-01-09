@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
 import { fetchFolders, getNodules } from "../Constants/requests";
-import folderData from "../Constants/treeNodeData.json";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
 type NodesContextType = {
@@ -17,26 +16,30 @@ type NodesContextType = {
   setCurrentPageId: (currentPageId: string) => void;
   nodeEdit: EditNoduleType;
   setNodeEdit: (nodeEdit: EditNoduleType) => void;
+  isLoadingFolders: boolean; // ← added to context
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
-  // in future, need to check jwt token and time BEFORE i set to state
   const userIdFromStorage = localStorage.getItem("userId");
 
   const [userId, setUserId] = useState<string | undefined>(
     userIdFromStorage ?? undefined
   );
 
-  const [savedFolders, setSavedFolders] = useState<UserFolder>(
-    folderData as UserFolder
-  ); // all folders and .node files that are saved to the db
+  // Loading state for folders
+  const [isLoadingFolders, setIsLoadingFolders] = useState(true);
+
+  const [savedFolders, setSavedFolders] = useState<UserFolder>({
+    id: "",
+    folders: [],
+  } as UserFolder);
 
   // unsaved / currently edited page nodes on the canvas
   const [currentPageNodes, setCurrentPageNodes] = useState<Nodule[]>([]);
 
-  const [currentPageId, setCurrentPageId] = useState<string>("7"); // used when creating new nodes
+  const [currentPageId, setCurrentPageId] = useState<string>("7");
 
   // active element for editing
   const [nodeEdit, setNodeEdit] = useState<EditNoduleType>({
@@ -46,8 +49,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    if (!savedFolders?.folders.length) {
-      // eslint-disable-next-line
+    if (savedFolders && !savedFolders?.folders.length) {
       setNodeEdit({
         activeFolder: undefined,
         activeNode: undefined,
@@ -58,23 +60,31 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const loadFolders = async () => {
-      const folders = await fetchFolders();
-      if (folders) {
-        setSavedFolders(folders);
+      setIsLoadingFolders(true);
+
+      try {
+        const folders = await fetchFolders();
+        setSavedFolders(folders || { id: "", folders: [] });
+      } catch (error) {
+        console.error("Failed to load folders:", error);
+        setSavedFolders({ id: "", folders: [] });
+      } finally {
+        setIsLoadingFolders(false);
       }
     };
 
-    loadFolders();
-  }, []);
+    // only try to fetch when we have a userId (i.e. after login)
+    if (userId) {
+      loadFolders();
+    }
+  }, [userId]);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
 
-    // if no token at all → ensure everything is cleared
     if (!authToken) {
       localStorage.removeItem("authToken");
       localStorage.removeItem("userId");
-      // eslint-disable-next-line
       setUserId(undefined);
       return;
     }
@@ -83,14 +93,11 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
       const decoded: { exp?: number } = jwtDecode(authToken);
 
       if (decoded.exp && decoded.exp < Date.now() / 1000) {
-        // expired
         localStorage.removeItem("authToken");
         localStorage.removeItem("userId");
         setUserId(undefined);
       }
-      // if valid token → you could also set userId from token if needed
     } catch (error) {
-      // invalid token
       console.warn("Invalid JWT token:", error);
       localStorage.removeItem("authToken");
       localStorage.removeItem("userId");
@@ -129,6 +136,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setCurrentPageId,
         nodeEdit,
         setNodeEdit,
+        isLoadingFolders,
       }}
     >
       {children}

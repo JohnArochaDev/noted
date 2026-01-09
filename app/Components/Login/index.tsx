@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { loginPost } from "@/app/Constants/requests";
+import { loginPost, registerPost } from "@/app/Constants/requests";
 import { SelectedType } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
@@ -57,6 +57,25 @@ export const LoginPage = () => {
 
       alert("Login failed. Please check your credentials.");
     }
+  };
+
+  const handleRegister = async () => {
+    const registered = await registerPost(
+      registerData.username,
+      registerData.password
+    );
+
+    if (!registered) {
+      // do a toast message
+      return;
+    }
+
+    setSelected("login");
+    setRegisterData({
+      username: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   // Clear fields when switching between login and register
@@ -119,6 +138,7 @@ export const LoginPage = () => {
               onChange={(value) =>
                 setRegisterData((prev) => ({ ...prev, username: value }))
               }
+              type="person"
             />
             <Input
               label="PASSWORD"
@@ -127,6 +147,7 @@ export const LoginPage = () => {
               onChange={(value) =>
                 setRegisterData((prev) => ({ ...prev, password: value }))
               }
+              type="lock"
             />
             <Input
               label="CONFIRM PASSWORD"
@@ -135,11 +156,12 @@ export const LoginPage = () => {
               onChange={(value) =>
                 setRegisterData((prev) => ({ ...prev, confirmPassword: value }))
               }
+              type="lock"
             />
             <Spacer size="lg" direction="vertical" />
             <Button
               label="CREATE ACCOUNT"
-              onClick={() => {}}
+              onClick={() => handleRegister()}
               centered
               disabled={!canRegister}
             />
