@@ -119,6 +119,68 @@ export const newFilePost = async (parentId: string, name: string) => {
   }
 };
 
+export const updateFolderPut = async (id: string, name: string) => {
+  const token = localStorage.getItem("authToken");
+
+  const folder = {
+    id: id,
+    name: name,
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/noted/folders", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(folder),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to save node file: ${response.status}`);
+    }
+
+    return true;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Node file save error:", err);
+
+    return false;
+  }
+};
+
+export const updateFilePut = async (id: string, name: string) => {
+  const token = localStorage.getItem("authToken");
+
+  const nodeFile = {
+    id: id,
+    name: name,
+  };
+
+  try {
+    const response = await fetch("http://localhost:8080/noted/node-files", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(nodeFile),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to save node file: ${response.status}`);
+    }
+
+    return true;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Node file save error:", err);
+
+    return false;
+  }
+};
+
 export const deleteFolderPost = async (id: string) => {
   const token = localStorage.getItem("authToken");
 

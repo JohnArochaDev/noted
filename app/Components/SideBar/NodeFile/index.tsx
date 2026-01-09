@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
+import { updateFilePut } from "@/app/Constants/requests";
 import { Folder, NodeFile, UserFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
@@ -45,7 +46,7 @@ export const TreeNode = (props: TreeNodeType) => {
     });
   };
 
-  const saveEdit = () => {
+  const updateNodeFile = async () => {
     const updateNodeName = (
       data: UserFolder,
       nodeId: string,
@@ -75,9 +76,12 @@ export const TreeNode = (props: TreeNodeType) => {
       };
     };
 
-    // save to the db, if it fails post a toast message
+    const updated = await updateFilePut(id, text);
 
-    setSavedFolders(updateNodeName(savedFolders, id, parentId));
+    if (updated) {
+      setSavedFolders(updateNodeName(savedFolders, id, parentId));
+    }
+    // if fail need to post a toast message
 
     setNodeEdit({
       ...nodeEdit,
@@ -87,7 +91,7 @@ export const TreeNode = (props: TreeNodeType) => {
 
   const onKeyDown = (key: React.KeyboardEvent) => {
     if (key.code === "Enter") {
-      saveEdit();
+      updateNodeFile();
     }
   };
 
@@ -149,7 +153,7 @@ export const TreeNode = (props: TreeNodeType) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           onPointerDown={(e) => e.stopPropagation()}
-          onBlur={saveEdit}
+          onBlur={updateNodeFile}
           style={{
             border: "none",
             background: "transparent",
