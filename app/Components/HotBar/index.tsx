@@ -25,7 +25,8 @@ export const HotBar = () => {
     nodeEdit,
   } = useNodes();
 
-  const saveNodes = () => {
+  // THIS is where we save the nodules to db
+  const saveNodules = () => {
     const dataToBeSaved = currentPageNodes.map((node) => ({
       id: node.id,
       type: node.type,
@@ -211,7 +212,7 @@ export const HotBar = () => {
       <div className={styles.rightSection}>
         <SquareButton type="undo" onClick={() => {}} />
         <SquareButton type="redo" onClick={() => {}} />
-        <SquareButton type="save" onClick={() => saveNodes()} />
+        <SquareButton type="save" onClick={() => saveNodules()} />
       </div>
     </div>
   );
