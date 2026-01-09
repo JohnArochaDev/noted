@@ -20,9 +20,7 @@ export const HotBar = () => {
     currentPageNodes,
     currentPageId,
     setCurrentPageNodes,
-    currentFolders,
-    setCurrentFolders,
-    userId,
+    savedFolders,
     setSavedFolders,
     nodeEdit,
   } = useNodes();
@@ -65,48 +63,48 @@ export const HotBar = () => {
   };
 
   const createNewFolder = async () => {
-    const newFolder: Folder = {
-      id: generateUUID(),
-      parentId: userId ?? "",
-      name: "Folder",
-      type: "folder",
-      subfolders: [],
-      nodes: [],
-    };
-
     const response: CreateFolderResponse = await newFolderPost(
-      userId ?? "",
+      nodeEdit.activeFolder ?? null,
       "Folder"
     );
 
     // only save to UI if the POST request returns a valid id - signifying a successful save to the db
     if (response.id) {
+      const newFolder: Folder = {
+        id: response.id,
+        parentId: response.parentId,
+        name: response.name,
+        type: "folder",
+        subfolders: [],
+        nodes: [],
+      };
+
       // this creates a folder at root level
       if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
-        setCurrentFolders({
-          id: currentFolders.id,
-          folders: [newFolder, ...currentFolders.folders],
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [...savedFolders.folders, newFolder],
         });
 
         // if db call works, then update the state, if not, toast message
 
         setSavedFolders({
-          id: currentFolders.id,
-          folders: [newFolder, ...currentFolders.folders],
+          id: savedFolders.id,
+          folders: [...savedFolders.folders, newFolder],
         });
 
         return;
         // this creates a folder at root level IF NONE CURRENTLY EXIST AT ROOT LEVEL in UI
-      } else if (!currentFolders.folders.length) {
-        setCurrentFolders({
-          id: currentFolders.id,
+      } else if (!savedFolders.folders.length) {
+        setSavedFolders({
+          id: savedFolders.id,
           folders: [newFolder],
         });
 
         // if db call works, then update the state, if not, toast message
 
         setSavedFolders({
-          id: currentFolders.id,
+          id: savedFolders.id,
           folders: [newFolder],
         });
 
@@ -137,11 +135,11 @@ export const HotBar = () => {
         };
       };
 
-      setCurrentFolders(addNewFolder(currentFolders));
+      setSavedFolders(addNewFolder(savedFolders));
 
       // if db call works, then update the state, if not, toast message
 
-      setSavedFolders(addNewFolder(currentFolders));
+      setSavedFolders(addNewFolder(savedFolders));
     }
   };
 
@@ -176,11 +174,11 @@ export const HotBar = () => {
       };
     };
 
-    setCurrentFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
+    setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder ?? ""));
 
     // if db call works, then update the state, if not, toast message
 
-    setSavedFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
+    setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder ?? ""));
   };
 
   return (
@@ -193,7 +191,7 @@ export const HotBar = () => {
           type="newFolder"
           onClick={() => createNewFolder()}
         />
-        {nodeEdit.activeFolder && !!currentFolders.folders.length && (
+        {nodeEdit.activeFolder && !!savedFolders.folders.length && (
           <Button
             label="New File"
             type="newFile"

@@ -26,13 +26,7 @@ type NodeAndFolderChildren = {
 export const TreeFolder = (props: TreeFolderType) => {
   const { folderData, indentation = 0 } = props;
 
-  const {
-    nodeEdit,
-    setNodeEdit,
-    currentFolders,
-    setCurrentFolders,
-    setSavedFolders,
-  } = useNodes();
+  const { nodeEdit, setNodeEdit, savedFolders, setSavedFolders } = useNodes();
 
   const [children, setChildren] = useState<NodeAndFolderChildren>({
     folders: folderData.subfolders.length,
@@ -68,11 +62,7 @@ export const TreeFolder = (props: TreeFolderType) => {
       };
     };
 
-    setCurrentFolders(updateFolderName(currentFolders));
-
-    // save to the db, if it fails post a toast message
-
-    setSavedFolders(updateFolderName(currentFolders));
+    setSavedFolders(updateFolderName(savedFolders));
 
     setNodeEdit({
       ...nodeEdit,

@@ -53,7 +53,7 @@ export const fetchFolders = async () => {
   }
 };
 
-export const newFolderPost = async (parentId: string, name: string) => {
+export const newFolderPost = async (parentId: string | null, name: string) => {
   const token = localStorage.getItem("authToken");
 
   const folder = {

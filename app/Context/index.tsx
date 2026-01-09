@@ -8,10 +8,8 @@ import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 type NodesContextType = {
   userId: string | undefined;
   setUserId: (userId: string | undefined) => void;
-  savedFolders: UserFolder | undefined;
+  savedFolders: UserFolder;
   setSavedFolders: (savedFolders: UserFolder) => void;
-  currentFolders: UserFolder;
-  setCurrentFolders: (currentFolders: UserFolder) => void;
   savedPageNodes: Nodule[];
   setSavedPageNodes: (pageNodes: Nodule[]) => void;
   currentPageNodes: Nodule[];
@@ -32,11 +30,9 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     userIdFromStorage ?? undefined
   );
 
-  const [savedFolders, setSavedFolders] = useState<UserFolder>(); // all folders and .node files that are saved to the db
-
-  const [currentFolders, setCurrentFolders] = useState<UserFolder>(
+  const [savedFolders, setSavedFolders] = useState<UserFolder>(
     folderData as UserFolder
-  ); // all folders and .node files that are current
+  ); // all folders and .node files that are saved to the db
 
   // active saved page nodes selected from hierarchy tree
   const [savedPageNodes, setSavedPageNodes] = useState<Nodule[]>(
@@ -58,7 +54,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    if (!currentFolders?.folders.length) {
+    if (!savedFolders?.folders.length) {
       // eslint-disable-next-line
       setNodeEdit({
         activeFolder: undefined,
@@ -66,12 +62,14 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         editMode: false,
       });
     }
-  }, [currentFolders]);
+  }, [savedFolders]);
 
   useEffect(() => {
     const loadFolders = async () => {
       const folders = await fetchFolders();
-      setSavedFolders(folders);
+      if (folders) {
+        setSavedFolders(folders);
+      }
     };
 
     loadFolders();
@@ -84,8 +82,6 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setUserId,
         savedFolders,
         setSavedFolders,
-        currentFolders,
-        setCurrentFolders,
         savedPageNodes,
         setSavedPageNodes,
         currentPageNodes,

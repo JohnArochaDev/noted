@@ -21,15 +21,14 @@ export const TreeNode = (props: TreeNodeType) => {
     setCurrentPageId,
     nodeEdit,
     setNodeEdit,
-    setCurrentFolders,
+    savedFolders,
     setSavedFolders,
-    currentFolders,
   } = useNodes();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
-  
+
   const textRef = useRef<HTMLInputElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -76,11 +75,9 @@ export const TreeNode = (props: TreeNodeType) => {
       };
     };
 
-    setCurrentFolders(updateNodeName(currentFolders, id, parentId));
-
     // save to the db, if it fails post a toast message
 
-    setSavedFolders(updateNodeName(currentFolders, id, parentId));
+    setSavedFolders(updateNodeName(savedFolders, id, parentId));
 
     setNodeEdit({
       ...nodeEdit,
