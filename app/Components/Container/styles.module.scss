@@ -2,4 +2,13 @@
   flex: 1;
   display: flex;
   overflow: hidden;
+
+  > :first-child {
+    flex: 0 0 269px;
+  }
+
+  > :last-child {
+    flex: 1; // takes all remaining space
+    min-width: 0; // Important for ReactFlow to allow internal overflow/scroll
+  }
 }

@@ -200,7 +200,9 @@ export const HotBar = () => {
   return (
     <div className={styles.hotBar}>
       <div className={styles.leftSection}>
-        <h2 style={{ fontWeight: 100, marginLeft: "60px" }}>noted.exe</h2>
+        <div className={styles.titleWrapper} >
+          <h2 className={styles.title} >noted.exe</h2>
+        </div>
         <div className={styles.verticalDivider} />
         <Button
           label="New Folder"
