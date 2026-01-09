@@ -7,6 +7,7 @@ import { useNodes } from "@/app/Context";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { Spacer } from "../Spacer";
+import { useToast } from "../Toast";
 import { LoginRegisterSwitch } from "./LoginRegisterSwitch";
 import styles from "./styles.module.scss";
 
@@ -23,6 +24,7 @@ type RegisterType = {
 
 export const LoginPage = () => {
   const { setUserId } = useNodes();
+  const { showError } = useToast()
 
   const [selected, setSelected] = useState<SelectedType>("login");
 
@@ -66,7 +68,7 @@ export const LoginPage = () => {
     );
 
     if (!registered) {
-      // do a toast message
+      showError("Account already exists")
       return;
     }
 

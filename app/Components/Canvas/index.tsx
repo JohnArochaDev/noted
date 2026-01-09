@@ -17,9 +17,9 @@ import { Nodule } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import { ViewportClamper } from "./helpers";
+import { Nodule } from "./Nodule";
 import { RecenterButton } from "./RecenterCanvasButton";
 import styles from "./styles.module.scss";
-import { Nodule } from "./Nodule";
 
 export const Canvas = () => {
   const { currentPageNodes, setCurrentPageNodes } = useNodes();
