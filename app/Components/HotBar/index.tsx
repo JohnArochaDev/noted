@@ -118,7 +118,7 @@ export const HotBar = () => {
             if (folder.id === parentId) {
               return {
                 ...folder,
-                subfolders: [newFolder, ...folder.subfolders],
+                subfolders: [...folder.subfolders, newFolder],
               };
             } else {
               return {
