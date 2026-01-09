@@ -1,23 +1,18 @@
+import { deleteFolderPost, deleteNodeFilePost } from "@/app/Constants/requests";
 import { Folder, NodeFileType, UserFolder } from "@/app/Constants/types";
 
 type DeleteNodesAndFoldersType = {
   type: NodeFileType;
-  currentFolders: UserFolder;
+  savedFolders: UserFolder;
   id: string;
   parentId?: string;
-  setCurrentFolders: (currentFolders: UserFolder) => void;
   setSavedFolders: (savedFolders: UserFolder) => void;
 };
 
-export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
-  const {
-    type,
-    currentFolders,
-    id,
-    setCurrentFolders,
-    setSavedFolders,
-    parentId = "",
-  } = props;
+export const deleteNodesAndFolders = async (
+  props: DeleteNodesAndFoldersType
+) => {
+  const { type, savedFolders, id, setSavedFolders, parentId = "" } = props;
 
   if (type === "folder") {
     // logic to delete folders cascading from parents
@@ -38,11 +33,12 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
       };
     };
 
-    setCurrentFolders(deleteFolders(currentFolders, id));
+    // delete from db, and update if successful
+    const deleted = await deleteFolderPost(id);
 
-    // if db call works, then update the state, if not, toast message
-
-    setSavedFolders(deleteFolders(currentFolders, id));
+    if (deleted) {
+      setSavedFolders(deleteFolders(savedFolders, id));
+    }
   } else {
     // logic to delete node files cascading from parents
 
@@ -73,10 +69,11 @@ export const deleteNodesAndFolders = (props: DeleteNodesAndFoldersType) => {
       };
     };
 
-    setCurrentFolders(deleteNodes(currentFolders, id, parentId));
+    // delete from db, and update if successful
+    const deleted = await deleteNodeFilePost(id);
 
-    // save to the db, if it fails post a toast message
-
-    setSavedFolders(deleteNodes(currentFolders, id, parentId));
+    if (deleted) {
+      setSavedFolders(deleteNodes(savedFolders, id, parentId));
+    }
   }
 };

@@ -12,7 +12,9 @@
   font-size: 15px;
   user-select: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s ease,
+    color 0.2s;
+  position: relative;
 }
 
 .button.centered {
@@ -22,14 +24,37 @@
   margin-right: auto;
 }
 
-.button:hover:not(.disabled) {
+.button:hover:not(.disabled):not(.danger) {
   background-color: #464342;
-  box-shadow: none;
+  box-shadow: 3px 3px #9e968ea8;
+  transform: translate(-1px, -1px);
 }
 
-.button.disabled {
+.button.danger {
+  background-color: #dc2626;
+  border: 1px solid #ef4444;
+  color: #ffb4b4;
+  box-shadow: 2px 2px #883132;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.button.danger:hover:not(.disabled) {
+  background-color: #e63232;
+  box-shadow: 3px 3px #ffb4b486;
+  transform: translate(-1px, -1px);
+}
+
+.button.disabled,
+.button.danger.disabled {
   background-color: #2a292b;
   color: #6b6460;
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
+}
+
+.button.danger.disabled {
+  background-color: #4a1515;
+  color: #8b5f5f;
 }

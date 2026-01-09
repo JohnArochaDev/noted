@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { NodeType } from "@/app/Constants/types";
+import { NodeFileType } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
 import { deleteNodesAndFolders } from "./helpers";
@@ -11,7 +11,7 @@ type PopupMenuType = {
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
-  type: NodeType;
+  type: NodeFileType;
   parentId?: string;
   top: number;
   left: number;
@@ -20,8 +20,7 @@ type PopupMenuType = {
 export const PopupMenu = (props: PopupMenuType) => {
   const { isHovered, setEditMode, id, type, parentId = "", top, left } = props;
 
-  const { currentFolders, setCurrentFolders, setSavedFolders, setNodeEdit } =
-    useNodes();
+  const { savedFolders, setSavedFolders, setNodeEdit } = useNodes();
 
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
@@ -56,10 +55,9 @@ export const PopupMenu = (props: PopupMenuType) => {
             onClick={() =>
               deleteNodesAndFolders({
                 type,
-                currentFolders,
+                savedFolders,
                 id,
                 parentId,
-                setCurrentFolders,
                 setSavedFolders,
               })
             }

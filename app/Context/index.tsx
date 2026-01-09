@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import nodeDate from "../Constants/pageNode.json";
+import { jwtDecode } from "jwt-decode";
+
+import { fetchFolders, getNodules } from "../Constants/requests";
 import folderData from "../Constants/treeNodeData.json";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
@@ -9,10 +11,6 @@ type NodesContextType = {
   setUserId: (userId: string | undefined) => void;
   savedFolders: UserFolder;
   setSavedFolders: (savedFolders: UserFolder) => void;
-  currentFolders: UserFolder;
-  setCurrentFolders: (currentFolders: UserFolder) => void;
-  savedPageNodes: Nodule[];
-  setSavedPageNodes: (pageNodes: Nodule[]) => void;
   currentPageNodes: Nodule[];
   setCurrentPageNodes: (currentPageNodes: Nodule[]) => void;
   currentPageId: string;
@@ -24,25 +22,19 @@ type NodesContextType = {
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [userId, setUserId] = useState<string>();
+  // in future, need to check jwt token and time BEFORE i set to state
+  const userIdFromStorage = localStorage.getItem("userId");
+
+  const [userId, setUserId] = useState<string | undefined>(
+    userIdFromStorage ?? undefined
+  );
 
   const [savedFolders, setSavedFolders] = useState<UserFolder>(
     folderData as UserFolder
   ); // all folders and .node files that are saved to the db
 
-  const [currentFolders, setCurrentFolders] = useState<UserFolder>(
-    folderData as UserFolder
-  ); // all folders and .node files that are current
-
-  // active saved page nodes selected from hierarchy tree
-  const [savedPageNodes, setSavedPageNodes] = useState<Nodule[]>(
-    nodeDate as Nodule[]
-  );
-
   // unsaved / currently edited page nodes on the canvas
-  const [currentPageNodes, setCurrentPageNodes] = useState<Nodule[]>(
-    nodeDate as Nodule[]
-  );
+  const [currentPageNodes, setCurrentPageNodes] = useState<Nodule[]>([]);
 
   const [currentPageId, setCurrentPageId] = useState<string>("7"); // used when creating new nodes
 
@@ -54,7 +46,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    if (!currentFolders?.folders.length) {
+    if (!savedFolders?.folders.length) {
       // eslint-disable-next-line
       setNodeEdit({
         activeFolder: undefined,
@@ -62,7 +54,70 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         editMode: false,
       });
     }
-  }, [currentFolders]);
+  }, [savedFolders]);
+
+  useEffect(() => {
+    const loadFolders = async () => {
+      const folders = await fetchFolders();
+      if (folders) {
+        setSavedFolders(folders);
+      }
+    };
+
+    loadFolders();
+  }, []); // Runs once on mount
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    const storedUserId = localStorage.getItem("userId");
+
+    // If there's no userId in state AND no valid token/userId in storage → clear everything
+    if (!userId && !storedUserId) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+      return;
+    }
+
+    // If no token → clear storage
+    if (!authToken) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+      return;
+    }
+
+    try {
+      const decoded: { exp?: number } = jwtDecode(authToken);
+
+      // Check if token has expired
+      if (decoded.exp) {
+        const currentTime = Date.now() / 1000; // seconds
+        if (decoded.exp < currentTime) {
+          // Token expired → clear everything
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
+          return;
+        }
+      }
+    } catch (error) {
+      // Invalid token (malformed, corrupted, etc.) → clear it
+      console.warn("Invalid JWT token:", error);
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+    }
+  }, [userId]); // runs when userId changes (e.g. login/logout)
+
+  useEffect(() => {
+    if (nodeEdit.activeNode !== undefined) {
+      const loadNodules = async () => {
+        const nodules = await getNodules(nodeEdit.activeNode!);
+        if (nodules) {
+          setCurrentPageNodes(nodules);
+        }
+      };
+
+      loadNodules();
+    }
+  }, [nodeEdit]);
 
   return (
     <NodesContext.Provider
@@ -71,10 +126,6 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setUserId,
         savedFolders,
         setSavedFolders,
-        currentFolders,
-        setCurrentFolders,
-        savedPageNodes,
-        setSavedPageNodes,
         currentPageNodes,
         setCurrentPageNodes,
         currentPageId,

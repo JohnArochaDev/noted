@@ -1,6 +1,17 @@
 import { saveAs } from "file-saver";
 
-import { Folder, NodeFile, Nodule, UserFolder } from "@/app/Constants/types";
+import {
+  newFilePost,
+  newFolderPost,
+  saveNodulesPost,
+} from "@/app/Constants/requests";
+import {
+  CreateFolderOrNodeResponse,
+  Folder,
+  NodeFile,
+  Nodule,
+  UserFolder,
+} from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 import { generateUUID } from "@/app/utils/uuid";
 
@@ -13,14 +24,14 @@ export const HotBar = () => {
     currentPageNodes,
     currentPageId,
     setCurrentPageNodes,
-    currentFolders,
-    setCurrentFolders,
-    userId,
+    savedFolders,
     setSavedFolders,
     nodeEdit,
+    setUserId,
   } = useNodes();
 
-  const saveNodes = () => {
+  // THIS is where we save the nodules to db
+  const saveNodules = async () => {
     const dataToBeSaved = currentPageNodes.map((node) => ({
       id: node.id,
       type: node.type,
@@ -31,13 +42,18 @@ export const HotBar = () => {
       data: node.data,
     }));
 
-    const blob = new Blob([JSON.stringify(dataToBeSaved, null, 2)], {
-      type: "application/json;charset=utf-8",
-    });
-    saveAs(blob, "pageNode.json");
+    const nodes = await saveNodulesPost(currentPageNodes);
+
+    if (nodes.length) {
+      const blob = new Blob([JSON.stringify(dataToBeSaved, null, 2)], {
+        type: "application/json;charset=utf-8",
+      });
+      saveAs(blob, "pageNode.json");
+    }
   };
 
-  const createNewNode = () => {
+  // no need to save this to DB, only save when user pushes the SAVE button
+  const createNewNodule = () => {
     const newNode: Nodule = {
       id: generateUUID(),
       type: "textNode",
@@ -56,112 +72,130 @@ export const HotBar = () => {
     setCurrentPageNodes([...currentPageNodes, newNode]);
   };
 
-  const createNewFolder = () => {
-    const newFolder: Folder = {
-      id: generateUUID(),
-      parentId: userId,
-      name: "Folder",
-      type: "folder",
-      subfolders: [],
-      nodes: [],
-    };
+  const createNewFolder = async () => {
+    const response: CreateFolderOrNodeResponse = await newFolderPost(
+      nodeEdit.activeFolder ?? null,
+      "Folder"
+    );
 
-    if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
-      setCurrentFolders({
-        id: currentFolders.id,
-        folders: [newFolder, ...currentFolders.folders],
-      });
+    // only save to UI if the POST request returns a valid id - signifying a successful save to the db
+    if (response.id) {
+      const newFolder: Folder = {
+        id: response.id,
+        parentId: response.parentId,
+        name: response.name,
+        type: "folder",
+        subfolders: [],
+        nodes: [],
+      };
 
-      // if db call works, then update the state, if not, toast message
-
-      setSavedFolders({
-        id: currentFolders.id,
-        folders: [newFolder, ...currentFolders.folders],
-      });
-
-      return;
-    } else if (!currentFolders.folders.length) {
-      setCurrentFolders({
-        id: currentFolders.id,
-        folders: [newFolder],
-      });
-
-      // if db call works, then update the state, if not, toast message
-
-      setSavedFolders({
-        id: currentFolders.id,
-        folders: [newFolder],
-      });
-
-      return;
-    }
-
-    const addNewFolder = (root: UserFolder): UserFolder => {
-      const addFolder = (folders: Folder[], parentId: string): Folder[] => {
-        return folders.map((folder) => {
-          if (folder.id === parentId) {
-            return {
-              ...folder,
-              subfolders: [newFolder, ...folder.subfolders],
-            };
-          } else {
-            return {
-              ...folder,
-              subfolders: addFolder(folder.subfolders, parentId),
-            };
-          }
+      // this creates a folder at root level
+      if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [...savedFolders.folders, newFolder],
         });
+
+        // if db call works, then update the state, if not, toast message
+
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [...savedFolders.folders, newFolder],
+        });
+
+        return;
+        // this creates a folder at root level IF NONE CURRENTLY EXIST AT ROOT LEVEL in UI
+      } else if (!savedFolders.folders.length) {
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [newFolder],
+        });
+
+        // if db call works, then update the state, if not, toast message
+
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [newFolder],
+        });
+
+        return;
+      }
+
+      // this adds a folder to the hierarchy. it finds its placement before saving
+      const addNewFolder = (root: UserFolder): UserFolder => {
+        const addFolder = (folders: Folder[], parentId: string): Folder[] => {
+          return folders.map((folder) => {
+            if (folder.id === parentId) {
+              return {
+                ...folder,
+                subfolders: [...folder.subfolders, newFolder],
+              };
+            } else {
+              return {
+                ...folder,
+                subfolders: addFolder(folder.subfolders, parentId),
+              };
+            }
+          });
+        };
+
+        return {
+          id: root.id,
+          folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
+        };
       };
 
-      return {
-        id: root.id,
-        folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
-      };
-    };
+      setSavedFolders(addNewFolder(savedFolders));
 
-    setCurrentFolders(addNewFolder(currentFolders));
+      // if db call works, then update the state, if not, toast message
 
-    // if db call works, then update the state, if not, toast message
-
-    setSavedFolders(addNewFolder(currentFolders));
+      setSavedFolders(addNewFolder(savedFolders));
+    }
   };
 
-  const createNewFile = () => {
-    const newFile: NodeFile = {
-      id: generateUUID(),
-      parentId: nodeEdit.activeFolder ?? "",
-      name: "newFile",
-      type: "node",
-    };
+  const createNewFile = async () => {
+    const response: CreateFolderOrNodeResponse = await newFilePost(
+      nodeEdit.activeFolder!,
+      "newNode"
+    );
 
-    const addNewFile = (data: UserFolder, parentId: string): UserFolder => {
-      const addFile = (folders: Folder[], parentId: string): Folder[] => {
-        return folders.map((folder) => {
-          if (folder.id === parentId) {
-            return {
-              ...folder,
-              nodes: [newFile, ...folder.nodes],
-            };
-          } else {
-            return {
-              ...folder,
-              subfolders: addFile(folder.subfolders, parentId),
-            };
-          }
-        });
+    if (response.id) {
+      const newFile: NodeFile = {
+        id: response.id,
+        parentId: response.parentId,
+        name: response.name,
+        type: "node",
       };
 
-      return {
-        ...data,
-        folders: addFile(data.folders, parentId),
+      const addNewFile = (data: UserFolder, parentId: string): UserFolder => {
+        const addFile = (folders: Folder[], parentId: string): Folder[] => {
+          return folders.map((folder) => {
+            if (folder.id === parentId) {
+              return {
+                ...folder,
+                nodes: [...folder.nodes, newFile],
+              };
+            } else {
+              return {
+                ...folder,
+                subfolders: addFile(folder.subfolders, parentId),
+              };
+            }
+          });
+        };
+
+        return {
+          ...data,
+          folders: addFile(data.folders, parentId),
+        };
       };
-    };
 
-    setCurrentFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
+      setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder!));
+    }
+  };
 
-    // if db call works, then update the state, if not, toast message
-
-    setSavedFolders(addNewFile(currentFolders, nodeEdit.activeFolder ?? ""));
+  const logout = () => {
+    setUserId(undefined);
   };
 
   return (
@@ -174,7 +208,7 @@ export const HotBar = () => {
           type="newFolder"
           onClick={() => createNewFolder()}
         />
-        {nodeEdit.activeFolder && !!currentFolders.folders.length && (
+        {nodeEdit.activeFolder && !!savedFolders.folders.length && (
           <Button
             label="New File"
             type="newFile"
@@ -184,14 +218,22 @@ export const HotBar = () => {
         <Button
           label="New Node"
           type="newNode2"
-          onClick={() => createNewNode()}
+          onClick={() => createNewNodule()}
         />
       </div>
-
       <div className={styles.rightSection}>
-        <SquareButton type="undo" onClick={() => {}} />
-        <SquareButton type="redo" onClick={() => {}} />
-        <SquareButton type="save" onClick={() => saveNodes()} />
+        {/* add back when functionality exists */}
+        {/* <SquareButton type="undo" onClick={() => {}} />
+        <SquareButton type="redo" onClick={() => {}} /> */}
+        <SquareButton type="save" onClick={() => saveNodules()} />
+        <div className={styles.verticalDividerLast} />
+        <Button
+          label="Logout"
+          type="logout"
+          onClick={() => logout()}
+          variant="danger"
+        />
+        <div style={{ width: "20px" }}></div>
       </div>
     </div>
   );

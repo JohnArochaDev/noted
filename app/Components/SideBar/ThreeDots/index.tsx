@@ -2,14 +2,14 @@ import { useState } from "react";
 
 import Image from "next/image";
 
-import { NodeType } from "@/app/Constants/types";
+import { NodeFileType } from "@/app/Constants/types";
 
 import { PopupMenu } from "./PopupMenu";
 
 type ThreeDotsType = {
   isHovered: boolean;
   id: string;
-  type: NodeType;
+  type: NodeFileType;
   parentId?: string;
 };
 

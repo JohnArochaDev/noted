@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
+import { updateFolderPut } from "@/app/Constants/requests";
 import { useNodes } from "@/app/Context";
 
 import { Folder, NodeFile, UserFolder } from "../../../Constants/types";
@@ -26,13 +27,7 @@ type NodeAndFolderChildren = {
 export const TreeFolder = (props: TreeFolderType) => {
   const { folderData, indentation = 0 } = props;
 
-  const {
-    nodeEdit,
-    setNodeEdit,
-    currentFolders,
-    setCurrentFolders,
-    setSavedFolders,
-  } = useNodes();
+  const { nodeEdit, setNodeEdit, savedFolders, setSavedFolders } = useNodes();
 
   const [children, setChildren] = useState<NodeAndFolderChildren>({
     folders: folderData.subfolders.length,
@@ -44,7 +39,7 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   const textRef = useRef<HTMLInputElement>(null);
 
-  const saveEdit = () => {
+  const updateFolder = async () => {
     const updateFolderName = (data: UserFolder): UserFolder => {
       const updateFolder = (folders: Folder[], id: string): Folder[] => {
         return folders.map((folder) => {
@@ -68,11 +63,11 @@ export const TreeFolder = (props: TreeFolderType) => {
       };
     };
 
-    setCurrentFolders(updateFolderName(currentFolders));
+    const updated = await updateFolderPut(folderData.id, text);
 
-    // save to the db, if it fails post a toast message
-
-    setSavedFolders(updateFolderName(currentFolders));
+    if (updated) {
+      setSavedFolders(updateFolderName(savedFolders));
+    }
 
     setNodeEdit({
       ...nodeEdit,
@@ -82,7 +77,7 @@ export const TreeFolder = (props: TreeFolderType) => {
 
   const onKeyDown = (key: React.KeyboardEvent) => {
     if (key.code === "Enter") {
-      saveEdit();
+      updateFolder();
     }
   };
 
@@ -179,7 +174,7 @@ export const TreeFolder = (props: TreeFolderType) => {
               value={text.toUpperCase()}
               onChange={(e) => setText(e.target.value)}
               onPointerDown={(e) => e.stopPropagation()}
-              onBlur={saveEdit}
+              onBlur={updateFolder}
               style={{
                 border: "none",
                 background: "transparent",
