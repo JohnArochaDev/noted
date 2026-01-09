@@ -214,8 +214,9 @@ export const HotBar = () => {
         />
       </div>
       <div className={styles.rightSection}>
-        <SquareButton type="undo" onClick={() => {}} />
-        <SquareButton type="redo" onClick={() => {}} />
+        {/* add back when functionality exists */}
+        {/* <SquareButton type="undo" onClick={() => {}} />
+        <SquareButton type="redo" onClick={() => {}} /> */}
         <SquareButton type="save" onClick={() => saveNodules()} />
         <div className={styles.verticalDividerLast} />
         <Button
