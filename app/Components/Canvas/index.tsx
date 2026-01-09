@@ -7,9 +7,10 @@ import {
   Panel,
   PanOnScrollMode,
   ReactFlow,
-  ReactFlowProvider,
   useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
+import { usePathname } from "next/navigation";
 
 import "@xyflow/react/dist/style.css";
 import { Nodule } from "@/app/Constants/types";
@@ -22,8 +23,8 @@ import { TextNode } from "./TextNode";
 
 export const Canvas = () => {
   const { currentPageNodes, setCurrentPageNodes } = useNodes();
+  const pathname = usePathname();
 
-  // Local editable state for the canvas
   const [nodes, setNodes, onNodesChange] =
     useNodesState<Nodule>(currentPageNodes);
 
@@ -65,52 +66,66 @@ export const Canvas = () => {
     return () => observer.disconnect();
   }, []);
 
+  const { fitView } = useReactFlow();
+
+  useEffect(() => {
+    if (nodes.length === 0) return;
+
+    const timer = setTimeout(() => {
+      fitView({
+        padding: 0.2,
+        duration: 800,
+        maxZoom: 1.5,
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [pathname, nodes, fitView]);
+
   return (
-    <ReactFlowProvider>
-      <div className={styles.canvas} ref={canvasRef}>
-        <ReactFlow
-          fitView
-          nodeTypes={nodeTypes}
-          nodes={nodes}
-          onNodesChange={onNodesChange}
-          snapToGrid
-          snapGrid={[20, 20]}
-          panOnDrag
-          zoomOnScroll
-          zoomOnPinch
-          zoomOnDoubleClick={false}
-          preventScrolling
-          nodesDraggable
-          nodesConnectable={false}
-          elementsSelectable
-          deleteKeyCode={null}
-          minZoom={minZoomVal}
-          maxZoom={2}
-          translateExtent={[
-            [0, 0],
-            [5000, 5000],
-          ]}
-          nodeExtent={[
-            [0, 0],
-            [5000, 5000],
-          ]}
-          panOnScrollMode={PanOnScrollMode.Free}
-          onNodeDragStop={handleNodeDragStop}
-          onlyRenderVisibleElements
-        >
-          <Background
-            variant={BackgroundVariant.Dots}
-            gap={20}
-            size={1}
-            color="rgba(255,255,255,0.1)"
-            bgColor="#121113"
-          />
-          <Panel position="top-right">
-            <RecenterButton />
-          </Panel>
-          <ViewportClamper viewportSize={viewportSize} />
-        </ReactFlow>
-      </div>
-    </ReactFlowProvider>
+    <div className={styles.canvas} ref={canvasRef}>
+      <ReactFlow
+        fitView
+        nodeTypes={nodeTypes}
+        nodes={nodes}
+        onNodesChange={onNodesChange}
+        snapToGrid
+        snapGrid={[20, 20]}
+        panOnDrag
+        zoomOnScroll
+        zoomOnPinch
+        zoomOnDoubleClick={false}
+        preventScrolling
+        nodesDraggable
+        nodesConnectable={false}
+        elementsSelectable
+        deleteKeyCode={null}
+        minZoom={minZoomVal}
+        maxZoom={2}
+        translateExtent={[
+          [0, 0],
+          [5000, 5000],
+        ]}
+        nodeExtent={[
+          [0, 0],
+          [5000, 5000],
+        ]}
+        panOnScrollMode={PanOnScrollMode.Free}
+        onNodeDragStop={handleNodeDragStop}
+        onlyRenderVisibleElements
+      >
+        <Background
+          variant={BackgroundVariant.Dots}
+          gap={20}
+          size={1}
+          color="rgba(255,255,255,0.1)"
+          bgColor="#121113"
+        />
+        <Panel position="top-right">
+          <RecenterButton />
+        </Panel>
+        <ViewportClamper viewportSize={viewportSize} />
+      </ReactFlow>
+    </div>
   );
 };

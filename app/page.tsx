@@ -1,5 +1,7 @@
 "use client";
 
+import { ReactFlowProvider } from "@xyflow/react";
+
 import { Canvas } from "./Components/Canvas";
 import { Container } from "./Components/Container";
 import { HotBar } from "./Components/HotBar";
@@ -22,7 +24,10 @@ const Home = () => {
                 <SideBar>
                   <TreeBuilder />
                 </SideBar>
-                <Canvas />
+                <ReactFlowProvider>
+                  {" "}
+                  <Canvas />
+                </ReactFlowProvider>
               </Container>
             </>
           }
