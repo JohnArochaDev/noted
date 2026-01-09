@@ -1,6 +1,10 @@
 import { saveAs } from "file-saver";
 
-import { newFilePost, newFolderPost } from "@/app/Constants/requests";
+import {
+  newFilePost,
+  newFolderPost,
+  saveNodulesPost,
+} from "@/app/Constants/requests";
 import {
   CreateFolderOrNodeResponse,
   Folder,
@@ -27,7 +31,7 @@ export const HotBar = () => {
   } = useNodes();
 
   // THIS is where we save the nodules to db
-  const saveNodules = () => {
+  const saveNodules = async () => {
     const dataToBeSaved = currentPageNodes.map((node) => ({
       id: node.id,
       type: node.type,
@@ -38,10 +42,14 @@ export const HotBar = () => {
       data: node.data,
     }));
 
-    const blob = new Blob([JSON.stringify(dataToBeSaved, null, 2)], {
-      type: "application/json;charset=utf-8",
-    });
-    saveAs(blob, "pageNode.json");
+    const nodes = await saveNodulesPost(currentPageNodes);
+
+    if (nodes.length) {
+      const blob = new Blob([JSON.stringify(dataToBeSaved, null, 2)], {
+        type: "application/json;charset=utf-8",
+      });
+      saveAs(blob, "pageNode.json");
+    }
   };
 
   // no need to save this to DB, only save when user pushes the SAVE button

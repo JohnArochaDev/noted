@@ -1,4 +1,9 @@
-import { CreateFolderOrNodeResponse, UserFolder, UserResponse } from "./types";
+import {
+  CreateFolderOrNodeResponse,
+  Nodule,
+  UserFolder,
+  UserResponse,
+} from "./types";
 
 export const loginPost = async (username: string, password: string) => {
   try {
@@ -238,5 +243,59 @@ export const deleteNodeFilePost = async (id: string) => {
     console.error("Folder save error:", err);
 
     return false;
+  }
+};
+
+export const saveNodulesPost = async (nodules: Nodule[]) => {
+  const token = localStorage.getItem("authToken");
+
+  const nodulesToUpdate = nodules.map((nodule) => ({
+    // parentId: nodule.pageId, while we test
+    parentId: "a0000000-0000-0000-0000-000000000002",
+    x: Math.round(nodule.position.x), // make sure integers are sent
+    y: Math.round(nodule.position.y),
+    width: nodule.width,
+    height: nodule.height,
+    textContent: nodule.data.text ?? "",
+  }));
+
+  try {
+    const response = await fetch("http://localhost:8080/noted/nodules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(nodulesToUpdate),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to save folder: ${response.status}`);
+    }
+
+    // eslint-disable-next-line
+    const createdNodules: any[] = await response.json();
+
+    const formattedNodules: Nodule[] = createdNodules.map((nodule) => ({
+      id: nodule.id,
+      pageId: nodule.parentId,
+      type: "textNode" as const,
+      position: {
+        x: nodule.coordinates.x,
+        y: nodule.coordinates.y,
+      },
+      width: nodule.width,
+      height: nodule.height,
+      data: {
+        text: nodule.data?.text ?? "",
+      },
+    }));
+
+    return formattedNodules;
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Nodules save error:", err);
+
+    throw err;
   }
 };
