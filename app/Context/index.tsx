@@ -2,8 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { jwtDecode } from "jwt-decode";
 
-import nodeDate from "../Constants/pageNode.json";
-import { fetchFolders } from "../Constants/requests";
+import { fetchFolders, getNodules } from "../Constants/requests";
 import folderData from "../Constants/treeNodeData.json";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
@@ -12,8 +11,6 @@ type NodesContextType = {
   setUserId: (userId: string | undefined) => void;
   savedFolders: UserFolder;
   setSavedFolders: (savedFolders: UserFolder) => void;
-  savedPageNodes: Nodule[];
-  setSavedPageNodes: (pageNodes: Nodule[]) => void;
   currentPageNodes: Nodule[];
   setCurrentPageNodes: (currentPageNodes: Nodule[]) => void;
   currentPageId: string;
@@ -36,15 +33,8 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     folderData as UserFolder
   ); // all folders and .node files that are saved to the db
 
-  // active saved page nodes selected from hierarchy tree
-  const [savedPageNodes, setSavedPageNodes] = useState<Nodule[]>(
-    nodeDate as Nodule[]
-  );
-
   // unsaved / currently edited page nodes on the canvas
-  const [currentPageNodes, setCurrentPageNodes] = useState<Nodule[]>(
-    nodeDate as Nodule[]
-  );
+  const [currentPageNodes, setCurrentPageNodes] = useState<Nodule[]>([]);
 
   const [currentPageId, setCurrentPageId] = useState<string>("7"); // used when creating new nodes
 
@@ -116,6 +106,19 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [userId]); // runs when userId changes (e.g. login/logout)
 
+  useEffect(() => {
+    if (nodeEdit.activeNode !== undefined) {
+      const loadNodules = async () => {
+        const nodules = await getNodules(nodeEdit.activeNode!);
+        if (nodules) {
+          setCurrentPageNodes(nodules);
+        }
+      };
+
+      loadNodules();
+    }
+  }, [nodeEdit]);
+
   return (
     <NodesContext.Provider
       value={{
@@ -123,8 +126,6 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setUserId,
         savedFolders,
         setSavedFolders,
-        savedPageNodes,
-        setSavedPageNodes,
         currentPageNodes,
         setCurrentPageNodes,
         currentPageId,

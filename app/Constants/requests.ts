@@ -299,3 +299,61 @@ export const saveNodulesPost = async (nodules: Nodule[]) => {
     throw err;
   }
 };
+
+export const getNodules = async (pageId: string): Promise<Nodule[]> => {
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    throw new Error("No auth token found – please log in");
+  }
+
+  if (!pageId) {
+    throw new Error("pageId is required to fetch nodules");
+  }
+
+  try {
+    const response = await fetch(
+      `http://localhost:8080/noted/nodule?parentId=${encodeURIComponent(
+        pageId
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
+      throw new Error(
+        `Failed to fetch nodules: ${response.status} ${errorText}`
+      );
+    }
+
+    // eslint-disable-next-line
+    const rawNodules: any[] = await response.json();
+
+    const formattedNodules: Nodule[] = rawNodules.map((nodule) => ({
+      id: nodule.id,
+      pageId: nodule.parentId,
+      type: "textNode" as const,
+      position: {
+        x: nodule.coordinates.x,
+        y: nodule.coordinates.y,
+      },
+      width: nodule.width,
+      height: nodule.height,
+      data: {
+        text: nodule.data?.text ?? "",
+      },
+    }));
+
+    return formattedNodules;
+
+    // eslint-disable-next-line
+  } catch (err: any) {
+    console.error("Error fetching nodules:", err);
+    throw err;
+  }
+};
