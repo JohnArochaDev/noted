@@ -208,11 +208,18 @@ export const HotBar = () => {
           onClick={() => createNewNodule()}
         />
       </div>
-
       <div className={styles.rightSection}>
         <SquareButton type="undo" onClick={() => {}} />
         <SquareButton type="redo" onClick={() => {}} />
         <SquareButton type="save" onClick={() => saveNodules()} />
+        <div className={styles.verticalDividerLast} />
+        <Button
+          label="Logout"
+          type="logout"
+          onClick={() => {}}
+          variant="danger"
+        />
+        <div style={{ width: "20px" }}></div>
       </div>
     </div>
   );

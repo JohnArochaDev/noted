@@ -13,9 +13,13 @@
   gap: 8px;
   font-size: 15px;
   user-select: none;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s ease;
+  position: relative;
 }
 
 .button:hover {
   background-color: #464342;
-  box-shadow: none;
+  box-shadow: 3px 3px #9e968ea8;
+  transform: translate(-1px, -1px);
 }
