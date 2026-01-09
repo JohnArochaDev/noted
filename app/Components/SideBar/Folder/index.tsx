@@ -8,6 +8,7 @@ import { updateFolderPut } from "@/app/Constants/requests";
 import { useNodes } from "@/app/Context";
 
 import { Folder, NodeFile, UserFolder } from "../../../Constants/types";
+import { useToast } from "../../Toast";
 import { TreeNode } from "../NodeFile";
 import { NodeRow } from "../NodeRow";
 import { Spacer } from "../Spacer";
@@ -28,6 +29,7 @@ export const TreeFolder = (props: TreeFolderType) => {
   const { folderData, indentation = 0 } = props;
 
   const { nodeEdit, setNodeEdit, savedFolders, setSavedFolders } = useNodes();
+  const { showError } = useToast();
 
   const [children, setChildren] = useState<NodeAndFolderChildren>({
     folders: folderData.subfolders.length,
@@ -67,6 +69,8 @@ export const TreeFolder = (props: TreeFolderType) => {
 
     if (updated) {
       setSavedFolders(updateFolderName(savedFolders));
+    } else {
+      showError("Failed to update folder, try again later.")
     }
 
     setNodeEdit({

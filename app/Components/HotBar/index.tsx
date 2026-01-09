@@ -15,6 +15,7 @@ import { generateUUID } from "@/app/utils/uuid";
 
 import { Button } from "../Button";
 import { SquareButton } from "../SquareButton";
+import { useToast } from "../Toast";
 import styles from "./styles.module.scss";
 
 export const HotBar = () => {
@@ -28,13 +29,18 @@ export const HotBar = () => {
     setUserId,
   } = useNodes();
 
-  // THIS is where we save the nodules to db
-  const saveNodules = async () => {
-    const nodes = await saveNodulesPost(currentPageNodes);
+  const { showError } = useToast();
 
-    if (!nodes.length) {
-      // add toast for failure
-    }
+  // THIS is where we save the nodules to db
+  const saveNodules = () => {
+    // put in setTImeout to give Nodules time to save state if the user pushes save RIGHT AFTER editing
+    setTimeout(async () => {
+      const nodes = await saveNodulesPost(currentPageNodes);
+
+      if (!nodes.length) {
+        showError("Failed to save, try again later.");
+      }
+    }, 500);
   };
 
   // no need to save this to DB, only save when user pushes the SAVE button
@@ -57,88 +63,88 @@ export const HotBar = () => {
     setCurrentPageNodes([...currentPageNodes, newNode]);
   };
 
-  const createNewFolder = () => {
+  const createNewFolder = async () => {
     // do in set timeout, so if a user clicks save RIGHT AFTER editing text, it has time to save state first
-    setTimeout(async () => {
-      const response: CreateFolderOrNodeResponse = await newFolderPost(
-        nodeEdit.activeFolder ?? null,
-        "Folder"
-      );
+    const response: CreateFolderOrNodeResponse = await newFolderPost(
+      nodeEdit.activeFolder ?? null,
+      "Folder"
+    );
 
-      // only save to UI if the POST request returns a valid id - signifying a successful save to the db
-      if (response.id) {
-        const newFolder: Folder = {
-          id: response.id,
-          parentId: response.parentId,
-          name: response.name,
-          type: "folder",
-          subfolders: [],
-          nodes: [],
-        };
+    // only save to UI if the POST request returns a valid id - signifying a successful save to the db
+    if (response.id) {
+      const newFolder: Folder = {
+        id: response.id,
+        parentId: response.parentId,
+        name: response.name,
+        type: "folder",
+        subfolders: [],
+        nodes: [],
+      };
 
-        // this creates a folder at root level
-        if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
-          setSavedFolders({
-            id: savedFolders.id,
-            folders: [...savedFolders.folders, newFolder],
-          });
-
-          // if db call works, then update the state, if not, toast message
-
-          setSavedFolders({
-            id: savedFolders.id,
-            folders: [...savedFolders.folders, newFolder],
-          });
-
-          return;
-          // this creates a folder at root level IF NONE CURRENTLY EXIST AT ROOT LEVEL in UI
-        } else if (!savedFolders.folders.length) {
-          setSavedFolders({
-            id: savedFolders.id,
-            folders: [newFolder],
-          });
-
-          // if db call works, then update the state, if not, toast message
-
-          setSavedFolders({
-            id: savedFolders.id,
-            folders: [newFolder],
-          });
-
-          return;
-        }
-
-        // this adds a folder to the hierarchy. it finds its placement before saving
-        const addNewFolder = (root: UserFolder): UserFolder => {
-          const addFolder = (folders: Folder[], parentId: string): Folder[] => {
-            return folders.map((folder) => {
-              if (folder.id === parentId) {
-                return {
-                  ...folder,
-                  subfolders: [...folder.subfolders, newFolder],
-                };
-              } else {
-                return {
-                  ...folder,
-                  subfolders: addFolder(folder.subfolders, parentId),
-                };
-              }
-            });
-          };
-
-          return {
-            id: root.id,
-            folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
-          };
-        };
-
-        setSavedFolders(addNewFolder(savedFolders));
+      // this creates a folder at root level
+      if (!nodeEdit.activeFolder && !nodeEdit.activeNode) {
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [...savedFolders.folders, newFolder],
+        });
 
         // if db call works, then update the state, if not, toast message
 
-        setSavedFolders(addNewFolder(savedFolders));
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [...savedFolders.folders, newFolder],
+        });
+
+        return;
+        // this creates a folder at root level IF NONE CURRENTLY EXIST AT ROOT LEVEL in UI
+      } else if (!savedFolders.folders.length) {
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [newFolder],
+        });
+
+        // if db call works, then update the state, if not, toast message
+
+        setSavedFolders({
+          id: savedFolders.id,
+          folders: [newFolder],
+        });
+
+        return;
       }
-    }, 500);
+
+      // this adds a folder to the hierarchy. it finds its placement before saving
+      const addNewFolder = (root: UserFolder): UserFolder => {
+        const addFolder = (folders: Folder[], parentId: string): Folder[] => {
+          return folders.map((folder) => {
+            if (folder.id === parentId) {
+              return {
+                ...folder,
+                subfolders: [...folder.subfolders, newFolder],
+              };
+            } else {
+              return {
+                ...folder,
+                subfolders: addFolder(folder.subfolders, parentId),
+              };
+            }
+          });
+        };
+
+        return {
+          id: root.id,
+          folders: addFolder(root.folders, nodeEdit.activeFolder ?? ""),
+        };
+      };
+
+      setSavedFolders(addNewFolder(savedFolders));
+
+      // if db call works, then update the state, if not, toast message
+
+      setSavedFolders(addNewFolder(savedFolders));
+    } else {
+      showError("Failed to create folder. Try again later");
+    }
   };
 
   const createNewFile = async () => {
@@ -179,13 +185,15 @@ export const HotBar = () => {
       };
 
       setSavedFolders(addNewFile(savedFolders, nodeEdit.activeFolder!));
+    } else {
+      showError("Failed to create file. Try again later");
     }
   };
 
   const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userId");
-    
+
     setUserId(undefined);
   };
 

@@ -57,7 +57,7 @@ export const LoginPage = () => {
     } catch (error: any) {
       console.error("Login failed:", error);
 
-      alert("Login failed. Please check your credentials.");
+      showError("Login failed. Please check your credentials.");
     }
   };
 

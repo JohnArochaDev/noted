@@ -7,6 +7,7 @@ import { updateFilePut } from "@/app/Constants/requests";
 import { Folder, NodeFile, UserFolder } from "@/app/Constants/types";
 import { useNodes } from "@/app/Context";
 
+import { useToast } from "../../Toast";
 import { ThreeDots } from "../ThreeDots";
 import styles from "./styles.module.scss";
 
@@ -25,6 +26,7 @@ export const TreeNode = (props: TreeNodeType) => {
     savedFolders,
     setSavedFolders,
   } = useNodes();
+  const { showError } = useToast();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -45,7 +47,6 @@ export const TreeNode = (props: TreeNodeType) => {
       activeNode: id,
     });
 
-    // ← ADD THIS: update URL with ?pageId=
     const url = new URL(window.location.href);
     url.searchParams.set("pageId", id);
     window.history.pushState({}, "", url);
@@ -85,6 +86,8 @@ export const TreeNode = (props: TreeNodeType) => {
 
     if (updated) {
       setSavedFolders(updateNodeName(savedFolders, id, parentId));
+    } else {
+      showError("Failed to update file, try again later.")
     }
     // if fail need to post a toast message
 

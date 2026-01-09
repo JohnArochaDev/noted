@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { fetchFolders, getNodules } from "../Constants/requests";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
+
 type NodesContextType = {
   userId: string | undefined;
   setUserId: (userId: string | undefined) => void;
@@ -16,7 +17,7 @@ type NodesContextType = {
   setCurrentPageId: (currentPageId: string) => void;
   nodeEdit: EditNoduleType;
   setNodeEdit: (nodeEdit: EditNoduleType) => void;
-  isLoadingFolders: boolean; // ← added to context
+  isLoadingFolders: boolean;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
