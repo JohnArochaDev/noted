@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import { jwtDecode } from "jwt-decode";
+
 import nodeDate from "../Constants/pageNode.json";
 import { fetchFolders } from "../Constants/requests";
 import folderData from "../Constants/treeNodeData.json";
@@ -74,6 +76,45 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
 
     loadFolders();
   }, []); // Runs once on mount
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    const storedUserId = localStorage.getItem("userId");
+
+    // If there's no userId in state AND no valid token/userId in storage → clear everything
+    if (!userId && !storedUserId) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+      return;
+    }
+
+    // If no token → clear storage
+    if (!authToken) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+      return;
+    }
+
+    try {
+      const decoded: { exp?: number } = jwtDecode(authToken);
+
+      // Check if token has expired
+      if (decoded.exp) {
+        const currentTime = Date.now() / 1000; // seconds
+        if (decoded.exp < currentTime) {
+          // Token expired → clear everything
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
+          return;
+        }
+      }
+    } catch (error) {
+      // Invalid token (malformed, corrupted, etc.) → clear it
+      console.warn("Invalid JWT token:", error);
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+    }
+  }, [userId]); // runs when userId changes (e.g. login/logout)
 
   return (
     <NodesContext.Provider

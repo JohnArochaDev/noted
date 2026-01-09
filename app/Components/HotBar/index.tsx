@@ -23,6 +23,7 @@ export const HotBar = () => {
     savedFolders,
     setSavedFolders,
     nodeEdit,
+    setUserId,
   } = useNodes();
 
   // THIS is where we save the nodules to db
@@ -185,6 +186,10 @@ export const HotBar = () => {
     }
   };
 
+  const logout = () => {
+    setUserId(undefined);
+  };
+
   return (
     <div className={styles.hotBar}>
       <div className={styles.leftSection}>
@@ -216,7 +221,7 @@ export const HotBar = () => {
         <Button
           label="Logout"
           type="logout"
-          onClick={() => {}}
+          onClick={() => logout()}
           variant="danger"
         />
         <div style={{ width: "20px" }}></div>
