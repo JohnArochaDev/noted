@@ -5,9 +5,11 @@ import {
   UserResponse,
 } from "./types";
 
+const URL_PATH = "${URL_PATH}";
+
 export const loginPost = async (username: string, password: string) => {
   try {
-    const response = await fetch("http://localhost:8080/noted/users/login", {
+    const response = await fetch(`${URL_PATH}/noted/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +36,7 @@ export const loginPost = async (username: string, password: string) => {
 
 export const registerPost = async (username: string, password: string) => {
   try {
-    const response = await fetch("http://localhost:8080/noted/users/register", {
+    const response = await fetch(`${URL_PATH}/noted/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +63,7 @@ export const fetchFolders = async () => {
   const token = localStorage.getItem("authToken");
 
   try {
-    const response = await fetch("http://localhost:8080/noted/folders", {
+    const response = await fetch(`${URL_PATH}/noted/folders`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +94,7 @@ export const newFolderPost = async (parentId: string | null, name: string) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/noted/folders", {
+    const response = await fetch(`${URL_PATH}/noted/folders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -125,7 +127,7 @@ export const newFilePost = async (parentId: string, name: string) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/noted/node-files", {
+    const response = await fetch(`${URL_PATH}/noted/node-files`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -158,7 +160,7 @@ export const updateFolderPut = async (id: string, name: string) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/noted/folders", {
+    const response = await fetch(`${URL_PATH}/noted/folders`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -189,7 +191,7 @@ export const updateFilePut = async (id: string, name: string) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/noted/node-files", {
+    const response = await fetch(`${URL_PATH}/noted/node-files`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -219,7 +221,7 @@ export const deleteFolderPost = async (id: string) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/noted/folders", {
+    const response = await fetch(`${URL_PATH}/noted/folders`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -249,7 +251,7 @@ export const deleteNodeFilePost = async (id: string) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/noted/node-files", {
+    const response = await fetch(`${URL_PATH}/noted/node-files`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -284,7 +286,7 @@ export const saveNodulesPost = async (nodules: Nodule[]) => {
   }));
 
   try {
-    const response = await fetch("http://localhost:8080/noted/nodules", {
+    const response = await fetch(`${URL_PATH}/noted/nodules`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -336,7 +338,7 @@ export const getNodules = async (pageId: string): Promise<Nodule[]> => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/noted/nodule?parentId=${encodeURIComponent(
+      `${URL_PATH}/noted/nodule?parentId=${encodeURIComponent(
         pageId
       )}`,
       {
