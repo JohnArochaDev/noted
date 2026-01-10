@@ -1,3 +1,5 @@
+"use client";
+
 import { useNodes } from "@/app/Context";
 
 import { TreeFolder } from "../Folder";

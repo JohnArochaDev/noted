@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -60,7 +62,7 @@ export const LoginPage = () => {
           localStorage.setItem("userId", user.userId);
           setUserId(user.userId);
         }
-        
+
         console.log("Login successful!");
       }
       // eslint-disable-next-line
