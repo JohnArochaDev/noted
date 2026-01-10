@@ -5,7 +5,6 @@ import { jwtDecode } from "jwt-decode";
 import { fetchFolders, getNodules } from "../Constants/requests";
 import { EditNoduleType, Nodule, UserFolder } from "../Constants/types";
 
-
 type NodesContextType = {
   userId: string | undefined;
   setUserId: (userId: string | undefined) => void;
@@ -23,8 +22,11 @@ type NodesContextType = {
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
 
 export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const userIdFromStorage = localStorage.getItem("userId");
+  let userIdFromStorage: string | null = "";
 
+  if (typeof window !== "undefined") {
+    userIdFromStorage = localStorage.getItem("userId");
+  }
   const [userId, setUserId] = useState<string | undefined>(
     userIdFromStorage ?? undefined
   );
@@ -81,12 +83,18 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
   }, [userId]);
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+    let authToken: string | null = "";
+
+    if (typeof window !== "undefined") {
+      authToken = localStorage.getItem("userId");
+    }
 
     if (!authToken) {
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("userId");
-      setUserId(undefined);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("userId");
+        setUserId(undefined);
+      }
       return;
     }
 
@@ -94,15 +102,19 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
       const decoded: { exp?: number } = jwtDecode(authToken);
 
       if (decoded.exp && decoded.exp < Date.now() / 1000) {
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
+          setUserId(undefined);
+        }
+      }
+    } catch (error) {
+      console.warn("Invalid JWT token:", error);
+      if (typeof window !== "undefined") {
         localStorage.removeItem("authToken");
         localStorage.removeItem("userId");
         setUserId(undefined);
       }
-    } catch (error) {
-      console.warn("Invalid JWT token:", error);
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("userId");
-      setUserId(undefined);
     }
   }, []);
 

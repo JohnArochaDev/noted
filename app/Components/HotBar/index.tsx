@@ -191,17 +191,18 @@ export const HotBar = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userId");
-
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userId");
+    }
     setUserId(undefined);
   };
 
   return (
     <div className={styles.hotBar}>
       <div className={styles.leftSection}>
-        <div className={styles.titleWrapper} >
-          <h2 className={styles.title} >noted.exe</h2>
+        <div className={styles.titleWrapper}>
+          <h2 className={styles.title}>noted.exe</h2>
         </div>
         <div className={styles.verticalDivider} />
         <Button

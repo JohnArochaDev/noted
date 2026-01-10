@@ -60,7 +60,11 @@ export const registerPost = async (username: string, password: string) => {
 };
 
 export const fetchFolders = async () => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   try {
     const response = await fetch(`${URL_PATH}/noted/folders`, {
@@ -86,7 +90,11 @@ export const fetchFolders = async () => {
 };
 
 export const newFolderPost = async (parentId: string | null, name: string) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const folder = {
     parent_id: parentId,
@@ -119,7 +127,11 @@ export const newFolderPost = async (parentId: string | null, name: string) => {
 };
 
 export const newFilePost = async (parentId: string, name: string) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const nodeFile = {
     parent_id: parentId,
@@ -152,7 +164,11 @@ export const newFilePost = async (parentId: string, name: string) => {
 };
 
 export const updateFolderPut = async (id: string, name: string) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const folder = {
     id: id,
@@ -183,7 +199,11 @@ export const updateFolderPut = async (id: string, name: string) => {
 };
 
 export const updateFilePut = async (id: string, name: string) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const nodeFile = {
     id: id,
@@ -214,7 +234,11 @@ export const updateFilePut = async (id: string, name: string) => {
 };
 
 export const deleteFolderPost = async (id: string) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const folder = {
     id: id,
@@ -244,7 +268,11 @@ export const deleteFolderPost = async (id: string) => {
 };
 
 export const deleteNodeFilePost = async (id: string) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const nodeFile = {
     id: id,
@@ -274,7 +302,11 @@ export const deleteNodeFilePost = async (id: string) => {
 };
 
 export const saveNodulesPost = async (nodules: Nodule[]) => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
 
   const nodulesToUpdate = nodules.map((nodule) => ({
     parentId: nodule.pageId,
@@ -327,7 +359,11 @@ export const saveNodulesPost = async (nodules: Nodule[]) => {
 };
 
 export const getNodules = async (pageId: string): Promise<Nodule[]> => {
-  const token = localStorage.getItem("authToken");
+  let token: string | null = "";
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("authToken");
+  }
   if (!token) {
     throw new Error("No auth token found – please log in");
   }
@@ -338,9 +374,7 @@ export const getNodules = async (pageId: string): Promise<Nodule[]> => {
 
   try {
     const response = await fetch(
-      `${URL_PATH}/noted/nodule?parentId=${encodeURIComponent(
-        pageId
-      )}`,
+      `${URL_PATH}/noted/nodule?parentId=${encodeURIComponent(pageId)}`,
       {
         method: "GET",
         headers: {

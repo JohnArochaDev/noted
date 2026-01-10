@@ -55,10 +55,12 @@ export const LoginPage = () => {
       const { token, user } = response;
 
       if (token && user?.userId) {
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("userId", user.userId);
-        setUserId(user.userId);
-
+        if (typeof window !== "undefined") {
+          localStorage.setItem("authToken", token);
+          localStorage.setItem("userId", user.userId);
+          setUserId(user.userId);
+        }
+        
         console.log("Login successful!");
       }
       // eslint-disable-next-line
