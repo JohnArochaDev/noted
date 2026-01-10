@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';  // Disables static prerendering for this page
+
 "use client";
 
 import { Suspense } from "react";
@@ -20,7 +22,6 @@ const Home = () => {
   return (
     <div className={styles.pageWrapper}>
       <Suspense fallback={<div>Loading...</div>}>
-        {" "}
         <SearchParamsHandler />
       </Suspense>
       <NodeProvider>
