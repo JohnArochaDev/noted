@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type Props = {
   searchParams: Record<string, string | string[] | undefined>;
@@ -11,13 +11,11 @@ type Props = {
 export default function ClientSearchParamsHandler({ searchParams }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const hasCleared = useRef(false); // ← Prevents re-running after first clear
+  const hasCleared = useRef(false);
 
   useEffect(() => {
-    // Only run once - prevent infinite loop
     if (hasCleared.current) return;
 
-    // Convert to URLSearchParams safely
     const params = new URLSearchParams(
       Object.entries(searchParams)
         .filter(([, value]) => value !== undefined)
@@ -25,11 +23,10 @@ export default function ClientSearchParamsHandler({ searchParams }: Props) {
     );
 
     if (params.size > 0) {
-      // Clear params by replacing with clean pathname
       router.replace(pathname, { scroll: false });
-      hasCleared.current = true; // Mark as done - never run again
+      hasCleared.current = true;
     }
-  }, [searchParams, pathname, router]); // Dependencies are fine now
+  }, [searchParams, pathname, router]);
 
-  return null; // Invisible component
+  return null;
 }
