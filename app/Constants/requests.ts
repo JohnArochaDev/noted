@@ -5,7 +5,7 @@ import {
   UserResponse,
 } from "./types";
 
-const URL_PATH = "http://localhost:8080";
+const URL_PATH = "https://noted-api-fdet.onrender.com";
 
 export const loginPost = async (username: string, password: string) => {
   try {
