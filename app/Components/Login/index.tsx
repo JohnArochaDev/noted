@@ -44,6 +44,10 @@ export const LoginPage = () => {
     confirmPassword: "",
   });
 
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [confirmError, setConfirmError] = useState<string | null>(null);
+
   const handleLogin = async () => {
     try {
       const response = await loginPost(loginData.username, loginData.password);
@@ -52,7 +56,6 @@ export const LoginPage = () => {
 
       if (token && user?.userId) {
         localStorage.setItem("authToken", token);
-
         localStorage.setItem("userId", user.userId);
         setUserId(user.userId);
 
@@ -61,7 +64,6 @@ export const LoginPage = () => {
       // eslint-disable-next-line
     } catch (error: any) {
       console.error("Login failed:", error);
-
       showError("Login failed. Please check your credentials.");
     }
   };
@@ -86,18 +88,24 @@ export const LoginPage = () => {
   };
 
   const passwordsMatch = registerData.password === registerData.confirmPassword;
-  const canRegister =
+  const fieldsFilled =
     registerData.username.trim() !== "" &&
     registerData.password.trim() !== "" &&
-    passwordsMatch;
+    registerData.confirmPassword.trim() !== "";
+
+  const noValidationErrors = !usernameError && !passwordError && !confirmError;
+
+  const canRegister = fieldsFilled && passwordsMatch && noValidationErrors;
 
   const currentYear = new Date().getFullYear();
 
-  // Clear fields when switching between login and register
   useEffect(() => {
     // eslint-disable-next-line
     setLoginData({ username: "", password: "" });
     setRegisterData({ username: "", password: "", confirmPassword: "" });
+    setUsernameError(null);
+    setPasswordError(null);
+    setConfirmError(null);
   }, [selected]);
 
   useEffect(() => {
@@ -147,7 +155,7 @@ export const LoginPage = () => {
               type="lock"
             />
             <Spacer size="lg" direction="vertical" />
-            <Button label="LOGIN" onClick={() => handleLogin()} centered />
+            <Button label="LOGIN" onClick={handleLogin} centered />
           </div>
         )}
 
@@ -161,6 +169,9 @@ export const LoginPage = () => {
                 setRegisterData((prev) => ({ ...prev, username: value }))
               }
               type="person"
+              validateAs="username"
+              minLength={3}
+              onError={(err) => setUsernameError(err)}
             />
             <Input
               label="PASSWORD"
@@ -170,6 +181,9 @@ export const LoginPage = () => {
                 setRegisterData((prev) => ({ ...prev, password: value }))
               }
               type="lock"
+              validateAs="password"
+              minLength={8}
+              onError={(err) => setPasswordError(err)}
             />
             <Input
               label="CONFIRM PASSWORD"
@@ -179,11 +193,14 @@ export const LoginPage = () => {
                 setRegisterData((prev) => ({ ...prev, confirmPassword: value }))
               }
               type="lock"
+              validateAs="password"
+              minLength={8}
+              onError={(err) => setConfirmError(err)}
             />
             <Spacer size="lg" direction="vertical" />
             <Button
               label="CREATE ACCOUNT"
-              onClick={() => handleRegister()}
+              onClick={handleRegister}
               centered
               disabled={!canRegister}
             />
