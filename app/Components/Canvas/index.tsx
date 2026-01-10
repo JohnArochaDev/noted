@@ -10,7 +10,7 @@ import {
   useNodesState,
   useReactFlow,
 } from "@xyflow/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import "@xyflow/react/dist/style.css";
 import { Nodule } from "@/app/Constants/types";
@@ -24,6 +24,7 @@ import styles from "./styles.module.scss";
 export const Canvas = () => {
   const { currentPageNodes, setCurrentPageNodes } = useNodes();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const [nodes, setNodes, onNodesChange] =
     useNodesState<Nodule>(currentPageNodes);
@@ -68,6 +69,7 @@ export const Canvas = () => {
 
   const { fitView } = useReactFlow();
 
+  // run fitview when the URL path changes to fit the new nodes
   useEffect(() => {
     if (nodes.length === 0) return;
 
@@ -77,10 +79,10 @@ export const Canvas = () => {
         duration: 800,
         maxZoom: 1.5,
       });
-    }, 100);
+    }, 120);
 
     return () => clearTimeout(timer);
-  }, [pathname, nodes, fitView]);
+  }, [pathname, searchParams, nodes.length, fitView]);
 
   return (
     <div className={styles.canvas} ref={canvasRef}>
