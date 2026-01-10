@@ -5,7 +5,7 @@ import {
   UserResponse,
 } from "./types";
 
-const URL_PATH = "${URL_PATH}";
+const URL_PATH = "http://localhost:8080";
 
 export const loginPost = async (username: string, password: string) => {
   try {
