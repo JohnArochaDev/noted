@@ -44,7 +44,12 @@ function NoduleComponent({ data, selected, id }: NodeProps<Nodule>) {
     setCurrentPageNodes(
       currentPageNodes.map((node) =>
         node.id === id
-          ? { ...node, width: params.width, height: params.height }
+          ? {
+              ...node,
+              width: params.width,
+              height: params.height,
+              position: { x: params.x, y: params.y },
+            }
           : node
       )
     );
