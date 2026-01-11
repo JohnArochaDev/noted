@@ -34,6 +34,7 @@ A modern, infinite canvas note-taking application with folder organization and m
 - **SCSS** - Styling with Sass
 - **@xyflow/react** - Canvas and node management
 - **react-markdown** - Markdown rendering with GitHub Flavored Markdown support
+- **Icons** - [icons8](https://icons8.com/)
 
 ### Backend
 - **Spring Boot** - Java backend framework
