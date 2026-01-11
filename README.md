@@ -108,9 +108,6 @@ Nodules support full markdown syntax (except images. coming soon!):
 - Bullet lists
 1. Numbered lists
 [Links](https://example.com)
-| Tables | Are | Supported |
-|--------|-----|-----------|
-| Cell   | Cell| Cell      |
 ```
 
 ### Keyboard Shortcuts
