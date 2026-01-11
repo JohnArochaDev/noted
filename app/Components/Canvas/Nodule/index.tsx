@@ -150,7 +150,6 @@ function NoduleComponent({ data, selected, id }: NodeProps<Nodule>) {
               width: "100%",
               height: "100%",
               overflow: "auto",
-              textAlign: "center",
               fontSize: "15px",
               paddingTop: "20px",
             }}
