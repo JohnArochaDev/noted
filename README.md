@@ -187,6 +187,7 @@ Contributions are welcome! Please follow these steps:
 
 ## Roadmap
 
+- [ ] Table support in MD
 - [ ] Image nodes / image MD
 - [ ] Collaborative editing
 - [ ] Export to PDF/PNG
