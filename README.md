@@ -45,7 +45,7 @@ A modern, infinite canvas note-taking application with folder organization and m
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 18+ and yarn
 - Git
 
 ### Installation
@@ -108,9 +108,6 @@ Nodules support full markdown syntax (except images. coming soon!):
 - Bullet lists
 1. Numbered lists
 [Links](https://example.com)
-| Tables | Are | Supported |
-|--------|-----|-----------|
-| Cell   | Cell| Cell      |
 ```
 
 ### Keyboard Shortcuts
@@ -190,6 +187,7 @@ Contributions are welcome! Please follow these steps:
 
 ## Roadmap
 
+- [ ] Table support in MD
 - [ ] Image nodes / image MD
 - [ ] Collaborative editing
 - [ ] Export to PDF/PNG
