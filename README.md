@@ -7,7 +7,7 @@ A modern, infinite canvas note-taking application with folder organization and m
 
 ## Overview
 
-**noted.exe** is a web-based note-taking application that combines hierarchical folder organization with an infinite canvas workspace. Create, organize, and visualize your notes as draggable, resizable "nodules" on an endless canvas. Perfect for visual thinkers, project planners, and anyone who wants to break free from linear note-taking.
+**noted.exe** is a web-based note-taking application that combines hierarchical folder organization with an infinite canvas workspace. Create, organize, and visualize your notes as draggable, resizable "nodules" on an endless canvas. Perfect for visual thinkers, project planners, and anyone who wants to break free from linear note-taking. Go to [notedexe.com](https://notedexe.com/) to try it out!
 
 ### Key Features
 
