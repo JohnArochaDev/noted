@@ -45,7 +45,7 @@ A modern, infinite canvas note-taking application with folder organization and m
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 18+ and yarn
 - Git
 
 ### Installation
