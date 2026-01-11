@@ -176,7 +176,7 @@ export const TreeFolder = (props: TreeFolderType) => {
               ref={textRef}
               className={styles.folderTextInput}
               value={text.toUpperCase()}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => setText(e.target.value.trim())}
               onPointerDown={(e) => e.stopPropagation()}
               onBlur={updateFolder}
               style={{
