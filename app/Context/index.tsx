@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -19,6 +19,8 @@ type NodesContextType = {
   nodeEdit: EditNoduleType;
   setNodeEdit: (nodeEdit: EditNoduleType) => void;
   isLoadingFolders: boolean;
+  isAuthChecking: boolean;
+  setIsAuthChecking: (isAuthChecking: boolean) => void;
 };
 
 const NodesContext = createContext<NodesContextType | undefined>(undefined);
@@ -53,6 +55,8 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     editMode: false,
   });
 
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
+
   useEffect(() => {
     if (savedFolders && !savedFolders?.folders.length) {
       setNodeEdit({
@@ -78,7 +82,6 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    // only try to fetch when we have a userId (i.e. after login)
     if (userId) {
       loadFolders();
     }
@@ -88,7 +91,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
     let authToken: string | null = "";
 
     if (typeof window !== "undefined") {
-      authToken = localStorage.getItem("userId");
+      authToken = localStorage.getItem("authToken");
     }
 
     if (!authToken) {
@@ -97,6 +100,7 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         localStorage.removeItem("userId");
         setUserId(undefined);
       }
+      setIsAuthChecking(false);
       return;
     }
 
@@ -109,6 +113,11 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
           localStorage.removeItem("userId");
           setUserId(undefined);
         }
+      } else {
+        const userIdFromStorage = localStorage.getItem("userId");
+        if (userIdFromStorage) {
+          setUserId(userIdFromStorage);
+        }
       }
     } catch (error) {
       console.warn("Invalid JWT token:", error);
@@ -118,6 +127,8 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         setUserId(undefined);
       }
     }
+
+    setIsAuthChecking(false);
   }, []);
 
   useEffect(() => {
@@ -152,6 +163,8 @@ export const NodeProvider = ({ children }: { children: React.ReactNode }) => {
         nodeEdit,
         setNodeEdit,
         isLoadingFolders,
+        isAuthChecking,
+        setIsAuthChecking,
       }}
     >
       {children}
