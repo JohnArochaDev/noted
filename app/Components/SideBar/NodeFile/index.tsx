@@ -30,7 +30,7 @@ export const TreeNode = (props: TreeNodeType) => {
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState<string>(name);
 
   const textRef = useRef<HTMLInputElement>(null);
 
@@ -87,7 +87,7 @@ export const TreeNode = (props: TreeNodeType) => {
     if (updated) {
       setSavedFolders(updateNodeName(savedFolders, id, parentId));
     } else {
-      showError("Failed to update file, try again later.")
+      showError("Failed to update file, try again later.");
     }
     // if fail need to post a toast message
 
@@ -102,29 +102,6 @@ export const TreeNode = (props: TreeNodeType) => {
       updateNodeFile();
     }
   };
-
-  useEffect(() => {
-    let formattedLabel = name.toLowerCase().trim();
-
-    // this makes it camelCase, make another for snake case
-    if (formattedLabel.includes(" ")) {
-      for (let i = 0; i < formattedLabel.length; i++) {
-        if (formattedLabel.includes(" ")) {
-          const parts = formattedLabel.split(" ");
-          formattedLabel =
-            parts[0].toLowerCase() +
-            parts
-              .slice(1)
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join("");
-        }
-      }
-    }
-
-    // eslint-disable-next-line
-    setText(formattedLabel);
-    // eslint-disable-next-line
-  }, []);
 
   // if edit mode is turned on for a node, select it automatically so the user can type
   useEffect(() => {
@@ -159,7 +136,7 @@ export const TreeNode = (props: TreeNodeType) => {
           ref={textRef}
           className={styles.folderTextInput}
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => setText(e.target.value.trim())}
           onPointerDown={(e) => e.stopPropagation()}
           onBlur={updateNodeFile}
           style={{

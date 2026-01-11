@@ -301,7 +301,7 @@ export const deleteNodeFilePost = async (id: string) => {
   }
 };
 
-export const saveNodulesPost = async (nodules: Nodule[]) => {
+export const saveNodulesPost = async (nodules: Nodule[], pageId: string) => {
   let token: string | null = "";
 
   if (typeof window !== "undefined") {
@@ -318,43 +318,28 @@ export const saveNodulesPost = async (nodules: Nodule[]) => {
   }));
 
   try {
-    const response = await fetch(`${URL_PATH}/noted/nodules`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(nodulesToUpdate),
-    });
+    const response = await fetch(
+      `${URL_PATH}/noted/nodules?parentId=${pageId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(nodulesToUpdate),
+      }
+    );
 
     if (!response.ok) {
-      throw new Error(`Failed to save folder: ${response.status}`);
+      throw new Error(`Failed to save nodules: ${response.status}`);
     }
 
-    // eslint-disable-next-line
-    const createdNodules: any[] = await response.json();
-
-    const formattedNodules: Nodule[] = createdNodules.map((nodule) => ({
-      id: nodule.id,
-      pageId: nodule.parentId,
-      type: "textNode" as const,
-      position: {
-        x: nodule.coordinates.x,
-        y: nodule.coordinates.y,
-      },
-      width: nodule.width,
-      height: nodule.height,
-      data: {
-        text: nodule.data?.text ?? "",
-      },
-    }));
-
-    return formattedNodules;
+    return true;
     // eslint-disable-next-line
   } catch (err: any) {
     console.error("Nodules save error:", err);
 
-    throw err;
+    return false;
   }
 };
 
