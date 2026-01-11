@@ -35,11 +35,11 @@ export const HotBar = () => {
 
   // THIS is where we save the nodules to db
   const saveNodules = () => {
-    // put in setTImeout to give Nodules time to save state if the user pushes save RIGHT AFTER editing
+    // put in setTimeout to give Nodules time to save state if the user pushes save RIGHT AFTER editing
     setTimeout(async () => {
-      const nodes = await saveNodulesPost(currentPageNodes);
+      const nodes = await saveNodulesPost(currentPageNodes, currentPageId);
 
-      if (!nodes.length) {
+      if (!nodes) {
         showError("Failed to save, try again later.");
       }
     }, 500);
